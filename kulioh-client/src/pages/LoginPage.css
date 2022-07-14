@@ -1,5 +1,4 @@
 .login-container {
-  /* background-color: red; */
   background-color: #fdf2e9;
   height: 100vh;
   padding: 2rem;
@@ -52,7 +51,7 @@
 
 .form-component input:focus {
   outline: none;
-  border: 1px solid #cf711f;
+  border: 1px solid #2bcbef;
 }
 
 .hidden {
