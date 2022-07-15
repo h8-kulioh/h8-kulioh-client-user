@@ -1,0 +1,48 @@
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #aacee9;
+  height: 9.6rem;
+  padding: 0 4.8rem;
+  position: relative;
+}
+.header .main-nav-list {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 4.8rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.header .main-nav-list .main-nav-link {
+  font-size: 1.8rem;
+  color: rgb(82, 77, 77);
+  cursor: pointer;
+}
+.header .main-nav-list .main-nav-link:link, .header .main-nav-list .main-nav-link:visited {
+  display: inline-block;
+  text-decoration: none;
+  color: rgb(82, 77, 77);
+  font-weight: 500;
+  font-size: 1.8rem;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.header .main-nav-list .main-nav-link:hover, .header .main-nav-list .main-nav-link:active {
+  color: #167b92;
+}
+.header .main-nav-list .main-nav-link.active {
+  padding: 1.2rem 2.4rem;
+  border-radius: 9px;
+  color: #fff;
+  background-color: #2bcbef;
+}/*# sourceMappingURL=Navbar.css.map */

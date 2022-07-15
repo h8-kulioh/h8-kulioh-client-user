@@ -1,11 +1,15 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import "./HomePage.css";
+import QuestionContainer from "../components/QuestionContainer";
+import "../css/HomePage.css";
 
 const HomePage = () => {
   return (
     <>
       <Navbar />
+      <div className="main-container">
+        <QuestionContainer />
+      </div>
     </>
   );
 };

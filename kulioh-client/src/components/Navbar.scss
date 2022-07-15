@@ -1,0 +1,47 @@
+@use "../variabels.scss" as v;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: v.$navbar-blue;
+
+  height: 9.6rem;
+  padding: 0 4.8rem;
+  position: relative;
+
+  .main-nav-list {
+    list-style: none;
+    display: flex;
+    gap: 4.8rem;
+    align-items: center;
+
+    .main-nav-link {
+      font-size: 1.8rem;
+      color: v.$primary-brown;
+      cursor: pointer;
+
+      &:link,
+      &:visited {
+        display: inline-block;
+        text-decoration: none;
+        color: v.$primary-brown;
+        font-weight: 500;
+        font-size: 1.8rem;
+        transition: all 0.3s;
+      }
+
+      &:hover,
+      &:active {
+        color: v.$navbar-blue-hover;
+      }
+
+      &.active {
+        padding: 1.2rem 2.4rem;
+        border-radius: 9px;
+        color: v.$white;
+        background-color: v.$primary-blue;
+      }
+    }
+  }
+}

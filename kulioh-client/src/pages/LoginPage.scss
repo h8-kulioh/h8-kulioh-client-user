@@ -1,0 +1,73 @@
+@use "../variabels.scss" as v;
+
+.login-container {
+  height: 100vh;
+  padding: 2rem;
+
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(9, 42, 48, 0.803),
+      rgba(5, 7, 38, 0.78)
+    ),
+    url("../assets/landing1.jpg");
+  background-position: bottom;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  h1 {
+    font-size: 5rem;
+    color: v.$primary-blue;
+  }
+
+  .form-container {
+    padding: 3rem;
+    width: 30%;
+    border-radius: 1.2rem;
+    background-color: v.$transparant-blue;
+
+    .form-component {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+
+      input {
+        font-size: 1.6rem;
+        padding: 1.6rem;
+        border-radius: 1.2rem;
+        border: none;
+        border: 1px solid transparent;
+
+        &:focus {
+          outline: none;
+          border: 1px solid v.$primary-blue;
+        }
+      }
+    }
+
+    .text-after-submit {
+      color: #fff;
+      font-size: 1.7rem;
+      margin-top: 1.5rem;
+      display: inline-block;
+
+      .link-clear {
+        text-decoration: none;
+        color: aqua;
+        display: inline;
+        margin-left: 1rem;
+        cursor: pointer;
+
+        &:active,
+        &:visited {
+          text-decoration: none;
+          color: aqua;
+        }
+      }
+    }
+  }
+}
