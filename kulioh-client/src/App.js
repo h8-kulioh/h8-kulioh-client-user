@@ -1,7 +1,9 @@
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import AllStatistics from "./pages/AllStatistics"
+import UserTask from "./pages/UserTask";
+import LandingTask from "./pages/LandingTask";
+import AllStatistics from "./pages/AllStatistics";
 import { Routes, Route } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -34,6 +36,14 @@ function App() {
           element={
             <ProtectedRoute>
               <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tasks"
+          element={
+            <ProtectedRoute>
+              <LandingTask />
             </ProtectedRoute>
           }
         />
