@@ -1,0 +1,92 @@
+{
+  "Soal": [
+    {
+      "Subject": "PU",
+      "Question": "Kaktus sulit tumbuh di iklim yang lembap. Sementara itu, pohon jeruk sulit tumbuh di iklim yang dingin. Di sebagian besar wilayah negara X, salah satu dari kaktus atau pohon jeruk mudah untuk tumbuh. ~ Jika pernyataan di atas benar, pernyataan manakah yang PASTI SALAH?  ",
+      "KapanKeluar": "1",
+      "answers": [
+        {
+          "option": "Jawaban soal 1a"
+        },
+        {
+          "option": "Jawaban soal 1b"
+        },
+        {
+          "option": "Jawaban soal 1c"
+        },
+        {
+          "option": "Jawaban soal 1d"
+        },
+        {
+          "option": "Jawaban soal 1e"
+        }
+      ]
+    },
+    {
+      "Subject": "PU",
+      "Question": " 2, 3, 7, 10, 18, 23, â€¦",
+      "KapanKeluar": "1",
+      "answers": [
+        {
+          "option": "Jawaban soal 2a"
+        },
+        {
+          "option": "Jawaban soal 2b"
+        },
+        {
+          "option": "Jawaban soal 2c"
+        },
+        {
+          "option": "Jawaban soal 2d"
+        },
+        {
+          "option": "Jawaban soal 2e"
+        }
+      ]
+    },
+    {
+      "Subject": "PU",
+      "Question": "Kinemon adalah detektif yang tidak kompeten. Persentase kasus yang bisa dia pecahkan lebih kecil dibandingkan semua detektif lainnya di Kota X. Dalam 3 tahun terakhir, dia hanya mampu menyelesaikan 1 kasus dari total 25 kasus yang ia tangani. ~ Fakta manakah yang PALING MELEMAHKAN argumen yang ada pada bacaan di atas?",
+      "KapanKeluar": "1",
+      "answers": [
+        {
+          "option": "Jawaban soal 3a"
+        },
+        {
+          "option": "Jawaban soal 3b"
+        },
+        {
+          "option": "Jawaban soal 3c"
+        },
+        {
+          "option": "Jawaban soal 3d"
+        },
+        {
+          "option": "Jawaban soal 3e"
+        }
+      ]
+    },
+    {
+      "Subject": "PU",
+      "Question": "Mayoritas siswa yang rajin adalah siswa yang bahagia. Mayoritas siswa yang rajin adalah siswa yang tidak gampang gelisah. Selain itu, semua siswa yang tidak gampang gelisah adalah siswa yang pekerja keras. ~ Berdasarkan bacaan di atas, kesimpulan manakah yang PASTI BENAR?",
+      "KapanKeluar": "1",
+      "answers": [
+        {
+          "option": "Jawaban soal 4a"
+        },
+        {
+          "option": "Jawaban soal 4b"
+        },
+        {
+          "option": "Jawaban soal 4c"
+        },
+        {
+          "option": "Jawaban soal 4d"
+        },
+        {
+          "option": "Jawaban soal 4e"
+        }
+      ]
+    }
+  ]
+}
