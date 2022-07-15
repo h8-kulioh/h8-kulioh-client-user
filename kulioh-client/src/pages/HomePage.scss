@@ -1,0 +1,11 @@
+@use "../variabels.scss" as v;
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  margin: 6rem 16rem;
+  padding: 4rem;
+  box-shadow: 0 3px 4px rgb(0 0 0 / 0.2);
+  border: 1px solid v.$navbar-blue;
+  border-radius: 1.2rem;
+}

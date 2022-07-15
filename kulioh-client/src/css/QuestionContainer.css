@@ -1,0 +1,77 @@
+.question-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2rem;
+  font-size: 1.8rem;
+  color: rgb(37, 36, 36);
+}
+.question-container .header-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.question-container .header-container .subtes {
+  padding: 1.2rem 2.4rem;
+  border-radius: 9px;
+  color: #fff;
+  background-color: #2bcbef;
+}
+.question-container .question-answers {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2rem;
+}
+.question-container .question-answers .form-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1rem;
+}
+.question-container .question-answers .form-container label {
+  padding: 2rem;
+  border: 1px solid #aacee9;
+  border-radius: 1.5rem;
+  display: block;
+  padding-left: 6rem;
+  text-indent: -3.5rem;
+}
+.question-container .question-answers .form-container label:hover, .question-container .question-answers .form-container label.checked {
+  background-color: #2bcbef;
+  cursor: pointer;
+}
+.question-container .question-answers .form-container label input {
+  margin-right: 2rem;
+}
+.question-container .pagination-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
+}
+.question-container .pagination-container .btn-pagination {
+  padding: 1rem;
+  background-color: #e9f4fd;
+  border: 1px solid #2bcbef;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}/*# sourceMappingURL=QuestionContainer.css.map */

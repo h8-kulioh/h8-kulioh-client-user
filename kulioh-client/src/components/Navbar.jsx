@@ -1,5 +1,5 @@
 import React from "react";
-import "./Navbar.css";
+import "../css/Navbar.css";
 
 const Navbar = () => {
   return (
@@ -9,15 +9,6 @@ const Navbar = () => {
 
         <nav className="main-nav">
           <ul className="main-nav-list">
-            {/* <li>
-              <span className="main-nav-link">Home</span>
-            </li>
-            <li>
-              <span className="main-nav-link">Register</span>
-            </li>
-            <li>
-              <span className="main-nav-link nav-cta">Login</span>
-            </li> */}
             <li>
               <span className="main-nav-link active">Soal Harian</span>
             </li>

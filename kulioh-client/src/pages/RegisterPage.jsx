@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import * as actionCreator from "../store/actions/actionCreator";
 import { showError, showSuccess } from "../helpers/swal";
 import { useNavigate } from "react-router-dom";
-import "./LoginPage.css";
+import "../css/LoginPage.css";
 
 const RegisterPage = () => {
   let navigate = useNavigate();
