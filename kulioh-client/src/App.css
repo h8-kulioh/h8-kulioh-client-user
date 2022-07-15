@@ -1,0 +1,41 @@
+.video-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
+}
+
+.video-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.clock {
+    position: relative;
+    margin: a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(270deg, #051817, #0e3839);
+    color: white;
+    text-shadow: 1px 1px 7px;
+    border-radius: 15px;
+    border: 2px solid silver;
+    box-shadow: 0 0 5px 25px;
+
+}
+
+.clock section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.text-landing-text {
+    margin-top: 11vh;
+}
