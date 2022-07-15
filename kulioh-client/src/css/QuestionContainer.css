@@ -55,7 +55,10 @@
   padding-left: 6rem;
   text-indent: -3.5rem;
 }
-.question-container .question-answers .form-container label:hover, .question-container .question-answers .form-container label.checked {
+.question-container .question-answers .form-container label.active {
+  background-color: #2bcbef;
+}
+.question-container .question-answers .form-container label:hover {
   background-color: #2bcbef;
   cursor: pointer;
 }
@@ -74,4 +77,14 @@
   border: 1px solid #2bcbef;
   border-radius: 0.5rem;
   cursor: pointer;
+  font-size: 1.6rem;
+}
+.question-container .pagination-container .btn-pagination:hover {
+  background-color: #2bcbef;
+}
+.question-container .pagination-container .btn-pagination.active {
+  border: 2px solid black;
+}
+.question-container .pagination-container .btn-pagination.answered {
+  background-color: #2bcbef;
 }/*# sourceMappingURL=QuestionContainer.css.map */
