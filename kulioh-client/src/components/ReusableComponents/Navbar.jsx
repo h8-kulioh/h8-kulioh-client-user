@@ -26,10 +26,7 @@ const Navbar = () => {
                 Soal Harian
               </span>
             </li>
-            <li
-              onClick={() => handleNavigation("/tryout")}
-              className={`${pathName === "/tryout" ? "active" : null}`}
-            >
+            <li onClick={() => handleNavigation("/tryout")}>
               <span
                 className={`main-nav-link ${
                   pathName === "/tryout" ? "active" : null
@@ -48,13 +45,17 @@ const Navbar = () => {
                 Progress Belajar
               </span>
             </li>
-            <li>
-              <span className="main-nav-link">Diskusi</span>
+            <li onClick={() => handleNavigation("/chat")}>
+              <span
+                className={`main-nav-link ${
+                  pathName === "/chat" ? "active" : null
+                }`}
+              >
+                Diskusi
+              </span>
             </li>
             <li>
-              <span className="main-nav-link " href="#">
-                Profil
-              </span>
+              <span className="main-nav-link">Profil</span>
             </li>
           </ul>
         </nav>

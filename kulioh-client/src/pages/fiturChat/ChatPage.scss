@@ -1,0 +1,80 @@
+@use "../../variabels.scss" as v;
+
+.chat-container {
+  background-color: #debc9f;
+  min-height: 100px;
+  max-width: 1000px;
+
+  padding: 4rem;
+  margin: 6rem auto;
+  border-radius: 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  color: rgb(19, 19, 19);
+
+  .chat-window {
+    background: #fafafa;
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+
+    .messages {
+      max-height: 40rem;
+      overflow: auto;
+      display: flex;
+      flex-direction: column-reverse;
+
+      .single {
+        margin: 1.5rem 0;
+
+        .name {
+          font-weight: bold;
+          margin-right: 0.9rem;
+          background-color: #f1cca8;
+          padding: 0.8rem;
+          border-radius: 0.7rem;
+        }
+
+        .created-at {
+          display: block;
+          color: #999;
+          margin-bottom: 0.8rem;
+          font-size: 1.6rem;
+        }
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    gap: 3rem;
+
+    input {
+      width: 80%;
+      font-size: 1.6rem;
+      padding: 1.6rem;
+      border-radius: 1.2rem;
+      border: none;
+      border: 1px solid transparent;
+
+      &:focus {
+        outline: none;
+        border: 1px solid #cf711f;
+      }
+    }
+
+    button {
+      width: 20%;
+      padding: 2rem;
+      background-color: #fafafa;
+      font-size: 1.6rem;
+      border-radius: 1.6rem;
+
+      &:hover {
+        background-color: #cf711f;
+      }
+    }
+  }
+}
