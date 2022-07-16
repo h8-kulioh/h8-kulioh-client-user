@@ -28,6 +28,10 @@ const QuestionContainer = () => {
     setIsLoadingFinish(true);
   };
 
+  const handleSubmit = () => {
+    console.log(answers);
+  };
+
   useEffect(() => {
     getSoal();
   }, []);
@@ -75,6 +79,8 @@ const QuestionContainer = () => {
               );
             })}
           </div>
+
+          <button onClick={handleSubmit}>Submit</button>
         </div>
       ) : null}
     </>

@@ -1,7 +1,15 @@
 import React from "react";
 import "../css/Navbar.css";
+import { useNavigate } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 const Navbar = () => {
+  let navigate = useNavigate();
+
+  const handleNavigation = (url) => {
+    navigate(url);
+  };
+
   return (
     <div>
       <header className="header">
@@ -15,7 +23,7 @@ const Navbar = () => {
             <li>
               <span className="main-nav-link"> Tryout Mingguan</span>
             </li>
-            <li>
+            <li onClick={() => handleNavigation("/tasks")}>
               <span className="main-nav-link">Progress Belajar</span>
             </li>
             <li>
