@@ -57,27 +57,46 @@
 
   .pagination-container {
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
 
-    .btn-pagination {
+    .num-container {
+      display: flex;
+      gap: 1rem;
+
+      .btn-pagination {
+        padding: 1rem;
+        background-color: v.$soft-blue;
+        border: 1px solid v.$primary-blue;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-size: 1.6rem;
+
+        &:hover {
+          background-color: v.$primary-blue;
+        }
+
+        &.active {
+          // border-color: red;
+          border: 2px solid black;
+          // border-color: black;
+        }
+
+        &.answered {
+          background-color: v.$primary-blue;
+        }
+      }
+    }
+
+    .btn-submit {
       padding: 1rem;
-      background-color: v.$soft-blue;
-      border: 1px solid v.$primary-blue;
+      background-color: v.$navbar-blue;
+      border: 1px solid v.$navbar-blue;
       border-radius: 0.5rem;
       cursor: pointer;
       font-size: 1.6rem;
 
       &:hover {
-        background-color: v.$primary-blue;
-      }
-
-      &.active {
-        // border-color: red;
-        border: 2px solid black;
-        // border-color: black;
-      }
-
-      &.answered {
         background-color: v.$primary-blue;
       }
     }

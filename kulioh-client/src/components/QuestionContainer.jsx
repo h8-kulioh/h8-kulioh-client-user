@@ -2,8 +2,11 @@ import React from "react";
 import "../css/QuestionContainer.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import * as actionType from "../store/actions/actionType";
 
 const QuestionContainer = () => {
+  let dispatch = useDispatch();
   const [questions, setQuestions] = useState([]);
   const [pageNum, setPageNum] = useState(0);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
@@ -30,6 +33,7 @@ const QuestionContainer = () => {
 
   const handleSubmit = () => {
     console.log(answers);
+    dispatch({ type: actionType.DAILY_Q_ISANSWERED });
   };
 
   useEffect(() => {
@@ -65,22 +69,29 @@ const QuestionContainer = () => {
             </form>
           </div>
           <div className="pagination-container">
-            {questions.map((q, idx) => {
-              return (
-                <button
-                  key={idx}
-                  onClick={(e) => movePage(e, idx)}
-                  className={`btn-pagination ${
-                    pageNum === idx ? "active" : ""
-                  } ${answers[idx] !== "" ? "answered" : ""} `}
-                >
-                  {idx + 1}
+            <div className="num-container">
+              {questions.map((q, idx) => {
+                return (
+                  <button
+                    key={idx}
+                    onClick={(e) => movePage(e, idx)}
+                    className={`btn-pagination ${
+                      pageNum === idx ? "active" : ""
+                    } ${answers[idx] !== "" ? "answered" : ""} `}
+                  >
+                    {idx + 1}
+                  </button>
+                );
+              })}
+            </div>
+            <div>
+              {pageNum + 1 === questions.length ? (
+                <button className="btn-submit" onClick={handleSubmit}>
+                  Submit
                 </button>
-              );
-            })}
+              ) : null}
+            </div>
           </div>
-
-          <button onClick={handleSubmit}>Submit</button>
         </div>
       ) : null}
     </>

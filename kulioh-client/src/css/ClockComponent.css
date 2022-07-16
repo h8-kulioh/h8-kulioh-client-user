@@ -1,0 +1,51 @@
+.timer-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 2rem;
+  font-size: 3rem;
+}
+.timer-container .timer-container-header {
+  font-size: 3rem;
+  font-weight: 600;
+}
+.timer-container .countdown-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
+  background-color: #aacee9;
+  margin: 0 auto;
+  border-radius: 1.5rem;
+  padding: 0 2rem;
+}
+.timer-container .countdown-container .hour-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 2rem;
+}
+.timer-container .countdown-container .hour-container .big {
+  font-size: 6rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.675);
+  margin-bottom: -0.6rem;
+}
+.timer-container .countdown-container .hour-container .small {
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.411);
+}/*# sourceMappingURL=ClockComponent.css.map */
