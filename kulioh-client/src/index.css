@@ -15,25 +15,10 @@ body {
   font-weight: 400;
   line-height: 1.7;
   color: #777;
-  /* background-color: #fdf2e9; */
   background-color: #e9f4fd;
   box-sizing: border-box;
 }
 
-.btn {
-  /* background-color: #e67e22; */
-  /* background-color: #d913ec; */
-  /* background-color: #2556d1; */
-  background-color: #2bcbef;
-  padding: 1.2rem;
-  border: 2px solid transparent;
-  border-radius: 1.2rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-  text-align: center;
-}
-
-.btn:hover {
-  border: 2px solid aqua;
-  background-color: aqua;
+.ini-bootstrap {
+  font-size: 4rem !important;
 }

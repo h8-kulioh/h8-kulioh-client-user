@@ -11,6 +11,11 @@ function dailyQReducer(state = initialState, action) {
         ...state,
         questions: action.payload,
       };
+    case actionType.DAILY_Q_READ_ONE:
+      return {
+        ...state,
+        question: action.payload,
+      };
     case actionType.DAILY_Q_ISANSWERED:
       return {
         ...state,

@@ -1,13 +1,37 @@
 import React from "react";
-import "../css/QuestionContainer.css";
+import "../../css/QuestionContainer.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import * as actionType from "../../store/actions/actionType";
 
-const QuestionContainer = () => {
+const QuestionTOContainer = () => {
+  let dispatch = useDispatch();
   const [questions, setQuestions] = useState([]);
   const [pageNum, setPageNum] = useState(0);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
-  const [answers, setAnswers] = useState(["", "", "", ""]);
+  const [answers, setAnswers] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
 
   const saveAnswer = (_, answer) => {
     const newAnswers = answers.map((el, index) => {
@@ -23,9 +47,14 @@ const QuestionContainer = () => {
   };
 
   const getSoal = async () => {
-    const response = await axios.get("http://localhost:3000/Soal");
+    const response = await axios.get("http://localhost:3000/Tryout");
     setQuestions(response.data);
     setIsLoadingFinish(true);
+  };
+
+  const handleSubmit = () => {
+    console.log(answers);
+    dispatch({ type: actionType.DAILY_Q_ISANSWERED });
   };
 
   useEffect(() => {
@@ -61,19 +90,28 @@ const QuestionContainer = () => {
             </form>
           </div>
           <div className="pagination-container">
-            {questions.map((q, idx) => {
-              return (
-                <button
-                  key={idx}
-                  onClick={(e) => movePage(e, idx)}
-                  className={`btn-pagination ${
-                    pageNum === idx ? "active" : ""
-                  } ${answers[idx] !== "" ? "answered" : ""} `}
-                >
-                  {idx + 1}
+            <div className="num-container">
+              {questions.map((q, idx) => {
+                return (
+                  <button
+                    key={idx}
+                    onClick={(e) => movePage(e, idx)}
+                    className={`btn-pagination ${
+                      pageNum === idx ? "active" : ""
+                    } ${answers[idx] !== "" ? "answered" : ""} `}
+                  >
+                    {idx + 1}
+                  </button>
+                );
+              })}
+            </div>
+            <div>
+              {pageNum + 1 === questions.length ? (
+                <button className="btn-submit" onClick={handleSubmit}>
+                  Submit
                 </button>
-              );
-            })}
+              ) : null}
+            </div>
           </div>
         </div>
       ) : null}
@@ -81,4 +119,4 @@ const QuestionContainer = () => {
   );
 };
 
-export default QuestionContainer;
+export default QuestionTOContainer;
