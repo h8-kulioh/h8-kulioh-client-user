@@ -9,6 +9,7 @@ let initialState = {
     option4: "",
     option5: "",
   },
+  isAnswered: false,
 };
 
 function dailyQReducer(state = initialState, action) {
@@ -22,6 +23,11 @@ function dailyQReducer(state = initialState, action) {
       return {
         ...state,
         question: action.payload,
+      };
+    case actionType.DAILY_Q_ISANSWERED:
+      return {
+        ...state,
+        isAnswered: true,
       };
     default:
       return state;

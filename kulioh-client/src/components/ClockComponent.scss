@@ -1,0 +1,42 @@
+@use "../variabels.scss" as v;
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  font-size: 3rem;
+
+  .timer-container-header {
+    font-size: 3rem;
+    font-weight: 600;
+  }
+
+  .countdown-container {
+    display: flex;
+    gap: 1rem;
+    background-color: v.$navbar-blue;
+    margin: 0 auto;
+    border-radius: 1.5rem;
+    padding: 0 2rem;
+
+    .hour-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+
+      .big {
+        font-size: 6rem;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.675);
+        margin-bottom: -0.6rem;
+      }
+
+      .small {
+        font-size: 2rem;
+        color: rgba(0, 0, 0, 0.411);
+      }
+    }
+  }
+}
