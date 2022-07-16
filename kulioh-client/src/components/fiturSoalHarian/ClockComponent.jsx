@@ -1,14 +1,14 @@
 import React from "react";
-import "../css/ClockComponent.css";
+import "../../css/ClockComponent.css";
 
 export default function ClockComponent({
   timerHours,
   timerMinutes,
   timerSeconds,
 }) {
-  console.log(timerHours);
-  console.log(timerMinutes);
-  console.log(timerSeconds);
+  // console.log(timerHours);
+  // console.log(timerMinutes);
+  // console.log(timerSeconds);
 
   return (
     <div className="timer-container">

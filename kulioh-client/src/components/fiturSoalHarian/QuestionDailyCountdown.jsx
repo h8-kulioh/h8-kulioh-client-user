@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/QuestionDailyCountdown.css";
+import "../../css/QuestionDailyCountdown.css";
 import { useState, useEffect } from "react";
 import ClockComponent from "./ClockComponent";
 
@@ -56,7 +56,7 @@ const QuestionDailyCountdown = () => {
       clearInterval(interval);
       //nampilin soal
     };
-  }, [after]);
+  }, [after, interval]);
 
   return (
     <ClockComponent

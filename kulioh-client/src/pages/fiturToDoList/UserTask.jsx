@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 import axios from "axios";
-import CardComponent from "../components/CardComponent";
+import CardComponent from "../../components/CardComponent";
 import "./UserTask.css";
 
 export default function UserTask() {

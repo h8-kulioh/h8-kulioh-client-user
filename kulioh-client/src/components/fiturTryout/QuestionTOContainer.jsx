@@ -1,16 +1,37 @@
 import React from "react";
-import "../css/QuestionContainer.css";
+import "../../css/QuestionContainer.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import * as actionType from "../store/actions/actionType";
+import * as actionType from "../../store/actions/actionType";
 
-const QuestionContainer = () => {
+const QuestionTOContainer = () => {
   let dispatch = useDispatch();
   const [questions, setQuestions] = useState([]);
   const [pageNum, setPageNum] = useState(0);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
-  const [answers, setAnswers] = useState(["", "", "", ""]);
+  const [answers, setAnswers] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
 
   const saveAnswer = (_, answer) => {
     const newAnswers = answers.map((el, index) => {
@@ -26,7 +47,7 @@ const QuestionContainer = () => {
   };
 
   const getSoal = async () => {
-    const response = await axios.get("http://localhost:3000/Soal");
+    const response = await axios.get("http://localhost:3000/Tryout");
     setQuestions(response.data);
     setIsLoadingFinish(true);
   };
@@ -98,4 +119,4 @@ const QuestionContainer = () => {
   );
 };
 
-export default QuestionContainer;
+export default QuestionTOContainer;

@@ -1,9 +1,9 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import QuestionContainer from "../components/QuestionContainer";
-import QuestionDailyCountdown from "../components/QuestionDailyCountdown";
-import "../css/HomePage.css";
-import "../App.css";
+import Navbar from "../../components/ReusableComponents/Navbar";
+import QuestionContainer from "../../components/fiturSoalHarian/QuestionContainer";
+import QuestionDailyCountdown from "../../components/fiturSoalHarian/QuestionDailyCountdown";
+import "../../css/HomePage.css";
+import "../../App.css";
 import { useSelector } from "react-redux";
 
 const HomePage = () => {

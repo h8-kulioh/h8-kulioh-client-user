@@ -1,13 +1,12 @@
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import UserTask from "./pages/UserTask";
-import LandingTask from "./pages/LandingTask";
-import AllStatistics from "./pages/AllStatistics";
+import HomePage from "./pages/fiturSoalHarian/HomePage";
+import LoginPage from "./pages/fiturLoginRegister/LoginPage";
+import RegisterPage from "./pages/fiturLoginRegister/RegisterPage";
+import TryOutPage from "./pages/fiturTryout/TryOutPage";
+import LandingTask from "./pages/fiturToDoList/LandingTask";
 import { Routes, Route } from "react-router-dom";
 
-import ProtectedRoute from "./components/ProtectedRoute";
-import ProtectedRoute2 from "./components/ProtectedRoute2";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import ProtectedRoute2 from "./components/ProtectedRoute/ProtectedRoute2";
 
 function App() {
   return (
@@ -36,6 +35,14 @@ function App() {
           element={
             <ProtectedRoute>
               <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tryout"
+          element={
+            <ProtectedRoute>
+              <TryOutPage />
             </ProtectedRoute>
           }
         />
