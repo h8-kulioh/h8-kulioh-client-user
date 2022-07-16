@@ -15,7 +15,7 @@ const QuestionDailyCountdown = () => {
     const today = new Date();
     tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
-    tomorrow.setHours(4, 0, 0);
+    tomorrow.setHours(0, 0, 0);
     setAfter(tomorrow);
   }, []);
 

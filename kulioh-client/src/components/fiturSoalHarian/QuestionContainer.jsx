@@ -2,15 +2,21 @@ import React from "react";
 import "../../css/QuestionContainer.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actionType from "../../store/actions/actionType";
+import * as actionCreator from "../../store/actions/actionCreator";
+const url = "http://localhost:3000";
 
 const QuestionContainer = () => {
   let dispatch = useDispatch();
-  const [questions, setQuestions] = useState([]);
+  // const [questions, setQuestions] = useState([]);
+  const questions = useSelector((store) => store.dailyQReducer.questions);
+  const isAnswered = useSelector((store) => store.dailyQReducer.isAnswered);
   const [pageNum, setPageNum] = useState(0);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
   const [answers, setAnswers] = useState(["", "", "", ""]);
+
+  console.log(questions);
 
   const saveAnswer = (_, answer) => {
     const newAnswers = answers.map((el, index) => {
@@ -25,19 +31,41 @@ const QuestionContainer = () => {
     setPageNum(page);
   };
 
-  const getSoal = async () => {
-    const response = await axios.get("http://localhost:3000/Soal");
-    setQuestions(response.data);
-    setIsLoadingFinish(true);
-  };
+  const handleSubmit = async () => {
+    const arrayQuestionId = questions.map((q) => {
+      return q.id;
+    });
 
-  const handleSubmit = () => {
-    console.log(answers);
+    console.log(arrayQuestionId);
+
+    await axios.post(`${url}/Answers`, {
+      answers,
+      questionId: arrayQuestionId,
+      date: new Date(),
+    });
+
     dispatch({ type: actionType.DAILY_Q_ISANSWERED });
   };
 
+  const getAnswersFromDB = async () => {
+    try {
+      const response = await axios.get(`${url}/Answers`);
+
+      if (!response || response.data.length === 0) {
+        dispatch(actionCreator.fetchDailyQ()).then(() =>
+          setIsLoadingFinish(true)
+        );
+      } else {
+        dispatch({ type: actionType.DAILY_Q_ISANSWERED });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    getSoal();
+    console.log("here get soal");
+    getAnswersFromDB();
   }, []);
 
   return (
@@ -49,21 +77,21 @@ const QuestionContainer = () => {
             <h3>15 Juli 2022</h3>
           </div>
           <div className="question-answers">
-            <p>{questions[pageNum].Question.split("~")[0]}</p>
-            <p>{questions[pageNum].Question.split("~")[1]}</p>
+            <p>{questions[pageNum].question.split("~")[0]}</p>
+            <p>{questions[pageNum].question.split("~")[1]}</p>
             <form className="form-container">
-              {questions[pageNum].answers.map((el) => (
+              {questions[pageNum].QuestionKeys.map((el) => (
                 <label
-                  key={el.option}
-                  className={answers.includes(el.option) ? "active" : null}
+                  key={el.id}
+                  className={answers.includes(el.id) ? "active" : null}
                 >
                   <input
                     type="radio"
                     name="radio"
-                    checked={answers.includes(el.option)}
-                    onChange={(e) => saveAnswer(e, el.option)}
+                    checked={answers.includes(el.id)}
+                    onChange={(e) => saveAnswer(e, el.id)}
                   />
-                  {el.option}
+                  {el.answer}
                 </label>
               ))}
             </form>
