@@ -1,18 +1,21 @@
 import React from "react";
 import "../../css/ClockComponent.css";
+import { useState } from "react";
 
 export default function ClockComponent({
   timerHours,
   timerMinutes,
   timerSeconds,
 }) {
-  // console.log(timerHours);
-  // console.log(timerMinutes);
-  // console.log(timerSeconds);
-
+  const [monthNames, setMonthNames] = useState(["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"])
+  let getYear = new Date().getFullYear() //2022
+  let getMonth = new Date().getMonth()
+  let getDay = new Date().getDate() + 1
   return (
     <div className="timer-container">
-      <div className="timer-container-header">Soal Harian 17 Juli 2022</div>
+      <div className="timer-container-header">Soal Harian {getDay} {monthNames[getMonth]} {getYear}</div>
+      <p>akan keluar pada</p>
       <div className="countdown-container">
         <div className="hour-container">
           <p className="big">{timerHours}</p>
