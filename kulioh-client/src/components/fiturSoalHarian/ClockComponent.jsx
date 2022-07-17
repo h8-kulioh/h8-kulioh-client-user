@@ -7,18 +7,21 @@ export default function ClockComponent({
   timerMinutes,
   timerSeconds,
 }) {
-  const [monthNames, setMonthNames] = useState(["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"])
-  let getYear = new Date().getFullYear() //2022
-  let getMonth = new Date().getMonth()
-  let getDay = new Date().getDate() + 1
+  let getYear = new Date().getFullYear();
+  let getMonth = new Intl.DateTimeFormat("id-ID", { month: "long" }).format(
+    new Date()
+  );
+  let getDay = new Date().getDate() + 1;
   return (
     <div className="timer-container">
-      <div className="timer-container-header">Soal Harian {getDay} {monthNames[getMonth]} {getYear}</div>
-      <p>akan keluar pada</p>
+      <div className="timer-container-header">
+        Soal Harian {getDay} {getMonth} {getYear}
+      </div>
       <div className="countdown-container">
         <div className="hour-container">
-          <p className="big">{timerHours}</p>
+          <p className="big">
+            {timerHours < 10 ? "0" + String(timerHours) : timerHours}
+          </p>
           <p className="small">Jam</p>
         </div>
         <div className="hour-container">
