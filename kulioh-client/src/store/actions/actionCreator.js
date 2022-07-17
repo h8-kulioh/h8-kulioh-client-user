@@ -10,7 +10,7 @@ export const fetchDailyQ = () => {
         const response = await axios.get(`${url}/questions/daily`, {
           headers: {
             access_token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ1c2VyMkBlbWFpbC5jb20iLCJyb2xlIjoiUmVndWxhciIsImlhdCI6MTY1Nzk4MDY1M30.3g2HLtM6L86jzhb0Elhjc5j82pZKiJg7edUWofg6o4A",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYXZpQGdtYWlsLmNvbSIsInJvbGUiOiJSZWd1bGFyIiwiaWF0IjoxNjU4MDMzNzMzfQ.GqIICVgFNvX3gYXFBLP5fAnZo81gg9Zz-SJjGl41OZY",
           },
         });
 
@@ -32,6 +32,7 @@ export const login = (adminObj) => {
     return new Promise(async (resolve, reject) => {
       try {
         // const response = await axios.post(`${url}/login`, adminObj);
+
         localStorage.setItem("accessToken", "iniAccessTokenDummy");
         resolve();
       } catch (err) {
