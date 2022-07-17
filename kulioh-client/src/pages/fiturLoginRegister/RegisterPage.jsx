@@ -12,7 +12,9 @@ const RegisterPage = () => {
   const initialStateObj = useMemo(() => {
     return {
       email: "",
+      name: "",
       password: "",
+      major: []
     };
   }, []);
 
@@ -46,6 +48,14 @@ const RegisterPage = () => {
             value={adminObj.email}
             onChange={(e) =>
               setAdminObj({ ...adminObj, email: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="NAME"
+            value={adminObj.name}
+            onChange={(e) =>
+              setAdminObj({ ...adminObj, name: e.target.value })
             }
           />
 

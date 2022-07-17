@@ -1,4 +1,4 @@
-@use "../variabels.scss" as v;
+@use "../../variabels.scss" as v;
 
 .question-container {
   display: flex;
@@ -14,7 +14,7 @@
 
     .subtes {
       padding: 1.2rem 2.4rem;
-      border-radius: 9px;
+      border-radius: 1rem;
       color: v.$white;
       background-color: v.$primary-blue;
     }

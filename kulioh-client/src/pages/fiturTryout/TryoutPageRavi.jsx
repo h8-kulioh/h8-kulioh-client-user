@@ -18,7 +18,9 @@ export default function TryoutPage() {
     finish = new Date();
     const today = new Date();
     finish.setDate(today.getDate());
-    finish.setHours(today.getHours() + 2);
+    // finish.setHours(today.getHours() + 2);
+    // finish.setMinutes(today.getMinutes() + 30);
+    finish.setSeconds(today.getSeconds() + 10);
     console.log(finish, `ini expektasi finish`);
 
     setAfter(finish);

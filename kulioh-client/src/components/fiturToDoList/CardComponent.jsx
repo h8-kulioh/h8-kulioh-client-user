@@ -1,7 +1,8 @@
 import ListCard from "./ListCard";
 
 export default function CardComponent({ number, babName, listSub }) {
-  const subList = listSub.filter((x) => x.bab === babName);
+  const subList = listSub.filter((x) => x.Task.Chapter.name == babName);
+
   const idComp = `accordionExample${number}`;
   const idHead = `heading${number}`;
   const idColl = `collapse${number}`;
@@ -30,7 +31,7 @@ export default function CardComponent({ number, babName, listSub }) {
           >
             <div class="accordion-body">
               {subList.map((x) => {
-                return <ListCard listOf={x.description} key={x.id} />;
+                return <ListCard listOf={x} key={x.id} />;
               })}
             </div>
           </div>

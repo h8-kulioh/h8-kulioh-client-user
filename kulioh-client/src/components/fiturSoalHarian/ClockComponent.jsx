@@ -1,21 +1,27 @@
 import React from "react";
 import "../../css/ClockComponent.css";
+import { useState } from "react";
 
 export default function ClockComponent({
   timerHours,
   timerMinutes,
   timerSeconds,
 }) {
-  // console.log(timerHours);
-  // console.log(timerMinutes);
-  // console.log(timerSeconds);
-
+  let getYear = new Date().getFullYear();
+  let getMonth = new Intl.DateTimeFormat("id-ID", { month: "long" }).format(
+    new Date()
+  );
+  let getDay = new Date().getDate() + 1;
   return (
     <div className="timer-container">
-      <div className="timer-container-header">Soal Harian 17 Juli 2022</div>
+      <div className="timer-container-header">
+        Soal Harian {getDay} {getMonth} {getYear}
+      </div>
       <div className="countdown-container">
         <div className="hour-container">
-          <p className="big">{timerHours}</p>
+          <p className="big">
+            {timerHours < 10 ? "0" + String(timerHours) : timerHours}
+          </p>
           <p className="small">Jam</p>
         </div>
         <div className="hour-container">

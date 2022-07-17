@@ -1,9 +1,11 @@
 import React from "react";
+import Latex from "react-latex";
 import "../../css/QuestionContainer.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import * as actionType from "../../store/actions/actionType";
+import QuestionTOCountdown from "./QuestionTOCountdown";
 
 const QuestionTOContainer = () => {
   let dispatch = useDispatch();
@@ -54,7 +56,7 @@ const QuestionTOContainer = () => {
 
   const handleSubmit = () => {
     console.log(answers);
-    dispatch({ type: actionType.DAILY_Q_ISANSWERED });
+    // dispatch({ type: actionType.DAILY_Q_ISANSWERED });
   };
 
   useEffect(() => {
@@ -67,11 +69,12 @@ const QuestionTOContainer = () => {
         <div className="question-container">
           <div className="header-container">
             <h3 className="subtes">Soal Penalaran Umum</h3>
-            <h3>15 Juli 2022</h3>
+            <QuestionTOCountdown handleSubmit={handleSubmit} />
           </div>
           <div className="question-answers">
-            <p>{questions[pageNum].Question.split("~")[0]}</p>
-            <p>{questions[pageNum].Question.split("~")[1]}</p>
+            {questions[pageNum].Question.split("~").map((so, idx) => {
+              return <Latex key={idx}>{so}</Latex>;
+            })}
             <form className="form-container">
               {questions[pageNum].answers.map((el) => (
                 <label

@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Container, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
-import CardComponent from "../../components/CardComponent";
-import "./UserTask.css";
+import CardComponent from "../../components/fiturToDoList/CardComponent";
+// import "./UserTask.css";
 
 export default function UserTask() {
   const [bab, setBab] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  let { subject } = useParams()
+  subject = subject.toUpperCase()
   const getBab = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/bab`);
-      const matematika = response.data.filter(
-        (el) => el.subject === `Matematika`
-      );
-      setBab(matematika);
+      const response = await axios.get(`http://localhost:3001/chaptersroute/chapters`, {
+        headers: {
+          access_token: localStorage.getItem("accessToken")
+        }
+      });
+      // console.log(response.data, `---------`);
+      const subjectTask = response.data.filter((el) => el.subject === subject);
+      // console.log(subjectTask);
+      setBab(subjectTask);
+      // setLoading(false)
     } catch (err) {
       console.log(err);
     }
@@ -24,12 +31,17 @@ export default function UserTask() {
 
   const getTasks = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/tasks`);
+      const response = await axios.get(`http://localhost:3001/todoroute/todos`, {
+        headers: {
+          access_token: localStorage.getItem("accessToken")
+        }
+      });
       // console.log(response.data);
-      const matematika = response.data.filter(
-        (el) => el.subject === "Matematika"
+      const dataFilter = response.data.filter(
+        (el) => el.Task.Chapter.subject === subject
       );
-      setTasks(matematika);
+      setTasks(dataFilter);
+      // console.log(dataFilter);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -65,8 +77,7 @@ export default function UserTask() {
   return (
     <>
       <Container className="mt-5 ini-bootstrap">
-        <p>ini userTask Page</p>
-        <p>Mata Pelajaran: Matematika</p>
+        <p>Mata Pelajaran: {subject}</p>
         <Button onClick={(e) => openSwal(e)} variant="outline-primary">
           Statistik
         </Button>

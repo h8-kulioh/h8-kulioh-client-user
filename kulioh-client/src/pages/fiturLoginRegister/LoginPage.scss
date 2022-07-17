@@ -1,4 +1,4 @@
-@use "../variabels.scss" as v;
+@use "../../variabels.scss" as v;
 
 .login-container {
   height: 100vh;
@@ -68,6 +68,21 @@
           color: aqua;
         }
       }
+    }
+
+    .btn {
+      background-color: v.$primary-blue;
+      padding: 1.2rem;
+      border: 2px solid transparent;
+      border-radius: 1.2rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn:hover {
+      border: 2px solid aqua;
+      background-color: aqua;
     }
   }
 }
