@@ -59,7 +59,7 @@ const QuestionContainer = () => {
         },
         {
           headers: {
-            access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBlbWFpbC5jb20iLCJyb2xlIjoiUmVndWxhciIsImlhdCI6MTY1ODAzODUyNn0.QatiHgXbzrVaO7blhoFzgym6VeKtxpjdIVmEtwDNx7w`,
+            access_token: localStorage.getItem("accessToken")
           },
         }
       );
@@ -93,7 +93,7 @@ const QuestionContainer = () => {
         `${url}/questions/answers/daily/${todayFormat}`,
         {
           headers: {
-            access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBlbWFpbC5jb20iLCJyb2xlIjoiUmVndWxhciIsImlhdCI6MTY1ODAzODUyNn0.QatiHgXbzrVaO7blhoFzgym6VeKtxpjdIVmEtwDNx7w`,
+            access_token: localStorage.getItem("accessToken")
           },
         }
       ); // YYYYMMDD
@@ -168,9 +168,8 @@ const QuestionContainer = () => {
                   <button
                     key={idx}
                     onClick={(e) => movePage(e, idx)}
-                    className={`btn-pagination ${
-                      pageNum === idx ? "active" : ""
-                    } ${answers[idx] !== "" ? "answered" : ""} `}
+                    className={`btn-pagination ${pageNum === idx ? "active" : ""
+                      } ${answers[idx] !== "" ? "answered" : ""} `}
                   >
                     {idx + 1}
                   </button>

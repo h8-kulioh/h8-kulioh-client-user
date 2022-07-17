@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useMemo } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useMemo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as actionCreator from "../../store/actions/actionCreator";
 import { showError, showSuccess } from "../../helpers/swal";
 import { useNavigate } from "react-router-dom";
@@ -12,18 +12,32 @@ const RegisterPage = () => {
   const initialStateObj = useMemo(() => {
     return {
       email: "",
+      name: "",
       password: "",
+      major: [],
     };
   }, []);
+  const [adminObj, setAdminObj] = useState(initialStateObj);
+  const [isLoadingFinish, setIsLoadingFinish] = useState(false);
+  const [isAlreadyChooseUniv1, setIsAlreadyChooseUniv1] = useState(false);
+  const [isAlreadyChooseUniv2, setIsAlreadyChooseUniv2] = useState(false);
+  const [majorId1, setMajorId1] = useState(0);
+  const { universities, majors } = useSelector((store) => store.univReducer);
+  console.log(universities);
+  // console.log(majors);
+
+  useEffect(() => {
+    dispatch(actionCreator.fetchUniv()).then(() => {
+      setIsLoadingFinish(true);
+    });
+  }, [dispatch, majors]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(actionCreator.login(adminObj))
-      .then((data) => {
-        // const { username, accessToken } = data;
-        // localStorage.setItem("accessToken", accessToken);
-        navigate("/");
-        showSuccess(`Login Success!`);
+    dispatch(actionCreator.register(adminObj))
+      .then(() => {
+        navigate("/login");
+        showSuccess(`Register Success! You Can Login Now`);
         setAdminObj(initialStateObj);
       })
       .catch((err) => {
@@ -34,43 +48,209 @@ const RegisterPage = () => {
   const moveToLogin = async (e) => {
     navigate("/login");
   };
-  const [adminObj, setAdminObj] = useState(initialStateObj);
+
+  const chooseUniv1 = (e) => {
+    const univName = document.getElementById("universities").value;
+    // console.log(univName);
+    const univNameArray = universities.map((el) => el.name);
+    if (univNameArray.includes(univName)) {
+      const univId = document.querySelector(
+        "#ChooseUniversities option[value='" + univName + "']"
+      ).dataset.value;
+      dispatch(actionCreator.fetchMajors(univId)).then(() => {
+        setIsAlreadyChooseUniv1(true);
+      });
+    }
+  };
+
+  const chooseUniv2 = (e) => {
+    const univName = document.getElementById("universities2").value;
+    // console.log(univName);
+    const univNameArray = universities.map((el) => el.name);
+    if (univNameArray.includes(univName)) {
+      const univId = document.querySelector(
+        "#ChooseUniversities2 option[value='" + univName + "']"
+      ).dataset.value;
+      dispatch(actionCreator.fetchMajors(univId)).then(() => {
+        setIsAlreadyChooseUniv2(true);
+      });
+    }
+  };
+
+  const chooseMajor1 = (e) => {
+    const majorName = document.getElementById("majors").value;
+    // console.log(majorName);
+    const majorNameArray = majors.map((el) => el.name);
+    if (majorNameArray.includes(majorName)) {
+      const majorId = document.querySelector(
+        "#ChooseMajors option[value='" + majorName + "']"
+      ).dataset.value;
+      setMajorId1(majorId);
+    }
+  };
+
+  const chooseMajor2 = (e) => {
+    const majorName = document.getElementById("majors2").value;
+    // console.log(majorName);
+    const majorNameArray = majors.map((el) => el.name);
+    let majorId2;
+    if (majorNameArray.includes(majorName)) {
+      majorId2 = document.querySelector(
+        "#ChooseMajors2 option[value='" + majorName + "']"
+      ).dataset.value;
+    }
+    setAdminObj({ ...adminObj, major: [majorId1, majorId2] });
+  };
+
+  const clear = (e) => {
+    e.target.value = "";
+    setIsAlreadyChooseUniv1(false);
+  };
+
+  const clear2 = (e) => {
+    e.target.value = "";
+    setIsAlreadyChooseUniv2(false);
+  };
+  const clearMajor = (e) => {
+    e.target.value = "";
+  };
+
   return (
-    <div className="login-container">
-      <h1>Kulioh</h1>
-      <div className="form-container">
-        <form onSubmit={submitHandler} className="form-component">
-          <input
-            type="email"
-            placeholder="EMAIL"
-            value={adminObj.email}
-            onChange={(e) =>
-              setAdminObj({ ...adminObj, email: e.target.value })
-            }
-          />
+    <>
+      {isLoadingFinish ? (
+        <div className="login-container">
+          <h1>Kulioh</h1>
+          <div className="form-container">
+            <form onSubmit={submitHandler} className="form-component">
+              <input
+                type="email"
+                placeholder="EMAIL"
+                value={adminObj.email}
+                onChange={(e) =>
+                  setAdminObj({ ...adminObj, email: e.target.value })
+                }
+              />
+              <input
+                type="text"
+                placeholder="NAME"
+                value={adminObj.name}
+                onChange={(e) =>
+                  setAdminObj({ ...adminObj, name: e.target.value })
+                }
+              />
 
-          <input
-            type="password"
-            placeholder="PASSWORD"
-            value={adminObj.password}
-            onChange={(e) =>
-              setAdminObj({ ...adminObj, password: e.target.value })
-            }
-          />
+              <input
+                type="password"
+                placeholder="PASSWORD"
+                value={adminObj.password}
+                onChange={(e) =>
+                  setAdminObj({ ...adminObj, password: e.target.value })
+                }
+              />
 
-          <button className="btn" type="submit">
-            REGISTER
-          </button>
-        </form>
+              <input
+                type="text"
+                id="universities"
+                list="ChooseUniversities"
+                placeholder="UNIVERSITAS PILIHAN 1"
+                autoComplete="off"
+                onChange={(e) => chooseUniv1(e)}
+                onClick={clear}
+                onFocus={clear}
+              />
+              <datalist id="ChooseUniversities">
+                {universities.map((el) => {
+                  return (
+                    <option data-value={el.id} key={el.id} value={el.name} />
+                  );
+                })}
+              </datalist>
 
-        <p className="text-after-submit">
-          Sudah punya akun?
-          <span className="link-clear" onClick={moveToLogin}>
-            Login
-          </span>
-        </p>
-      </div>
-    </div>
+              {isAlreadyChooseUniv1 ? (
+                <>
+                  <input
+                    type="text"
+                    id="majors"
+                    list="ChooseMajors"
+                    placeholder="JURUSAN PILIHAN 1"
+                    autoComplete="off"
+                    onChange={(e) => chooseMajor1(e)}
+                    onClick={clearMajor}
+                    onFocus={clearMajor}
+                  />
+                  <datalist id="ChooseMajors">
+                    {majors.map((el) => {
+                      return (
+                        <option
+                          data-value={el.id}
+                          key={el.id}
+                          value={el.name}
+                        />
+                      );
+                    })}
+                  </datalist>
+                </>
+              ) : null}
+
+              <input
+                type="text"
+                id="universities2"
+                list="ChooseUniversities2"
+                placeholder="UNIVERSITAS PILIHAN 2"
+                autoComplete="off"
+                onChange={(e) => chooseUniv2(e)}
+                onClick={clear2}
+                onFocus={clear2}
+              />
+              <datalist id="ChooseUniversities2">
+                {universities.map((el) => {
+                  return (
+                    <option data-value={el.id} key={el.id} value={el.name} />
+                  );
+                })}
+              </datalist>
+
+              {isAlreadyChooseUniv2 ? (
+                <>
+                  <input
+                    type="text"
+                    id="majors2"
+                    list="ChooseMajors2"
+                    placeholder="JURUSAN PILIHAN 2"
+                    autoComplete="off"
+                    onChange={(e) => chooseMajor2(e)}
+                    onClick={clearMajor}
+                    onFocus={clearMajor}
+                  />
+                  <datalist id="ChooseMajors2">
+                    {majors.map((el) => {
+                      return (
+                        <option
+                          data-value={el.id}
+                          key={el.id}
+                          value={el.name}
+                        />
+                      );
+                    })}
+                  </datalist>
+                </>
+              ) : null}
+
+              <button className="btn" type="submit">
+                REGISTER
+              </button>
+            </form>
+
+            <p className="text-after-submit">
+              Sudah punya akun?
+              <span className="link-clear" onClick={moveToLogin}>
+                Login
+              </span>
+            </p>
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 };
 
