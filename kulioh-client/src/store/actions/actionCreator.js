@@ -62,25 +62,8 @@ export const register = (adminObj) => {
     return new Promise(async (resolve, reject) => {
       try {
         console.log(adminObj);
-        // const loginUser = await axios.post(
-        //   `http://localhost:3001/users/login`,
-        //   {
-        //     email: adminObj.email,
-        //     password: adminObj.password,
-        //   }
-        // );
-        // let majors1 =
-        //   loginUser.data.majors[0].University.name +
-        //   `-` +
-        //   loginUser.data.majors[0].name;
-        // let majors2 =
-        //   loginUser.data.majors[1].University.name +
-        //   `-` +
-        //   loginUser.data.majors[1].name;
-        // localStorage.setItem("accessToken", loginUser.data.access_token);
-        // localStorage.setItem("major1", majors1);
-        // localStorage.setItem("major2", majors2);
-        // localStorage.setItem("name", loginUser.data.name);
+        await axios.post(`http://localhost:3001/users/register`, adminObj);
+
         resolve();
       } catch (err) {
         reject(err);
@@ -116,7 +99,7 @@ export const fetchMajors = (univId) => {
           `${url}/majorsroute/major/?UniversityId=${univId}`
         );
 
-        console.log(response.data);
+        // console.log(response.data);
 
         dispatch({
           type: actionType.UNIV_MAJOR_READS,

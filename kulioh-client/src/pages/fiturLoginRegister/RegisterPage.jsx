@@ -19,9 +19,11 @@ const RegisterPage = () => {
   }, []);
   const [adminObj, setAdminObj] = useState(initialStateObj);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
-  const [isAlreadyChooseUniv, setIsAlreadyChooseUniv] = useState(false);
+  const [isAlreadyChooseUniv1, setIsAlreadyChooseUniv1] = useState(false);
+  const [isAlreadyChooseUniv2, setIsAlreadyChooseUniv2] = useState(false);
+  const [majorId1, setMajorId1] = useState(0);
   const { universities, majors } = useSelector((store) => store.univReducer);
-  // console.log(universities);
+  console.log(universities);
   // console.log(majors);
 
   useEffect(() => {
@@ -34,8 +36,8 @@ const RegisterPage = () => {
     e.preventDefault();
     dispatch(actionCreator.register(adminObj))
       .then(() => {
-        navigate("/");
-        showSuccess(`Register Success!`);
+        navigate("/login");
+        showSuccess(`Register Success! You Can Login Now`);
         setAdminObj(initialStateObj);
       })
       .catch((err) => {
@@ -47,23 +49,67 @@ const RegisterPage = () => {
     navigate("/login");
   };
 
-  const chooseUniv = (e) => {
+  const chooseUniv1 = (e) => {
     const univName = document.getElementById("universities").value;
-    console.log(univName);
+    // console.log(univName);
     const univNameArray = universities.map((el) => el.name);
     if (univNameArray.includes(univName)) {
       const univId = document.querySelector(
         "#ChooseUniversities option[value='" + univName + "']"
       ).dataset.value;
       dispatch(actionCreator.fetchMajors(univId)).then(() => {
-        setIsAlreadyChooseUniv(true);
+        setIsAlreadyChooseUniv1(true);
       });
     }
   };
 
+  const chooseUniv2 = (e) => {
+    const univName = document.getElementById("universities2").value;
+    // console.log(univName);
+    const univNameArray = universities.map((el) => el.name);
+    if (univNameArray.includes(univName)) {
+      const univId = document.querySelector(
+        "#ChooseUniversities2 option[value='" + univName + "']"
+      ).dataset.value;
+      dispatch(actionCreator.fetchMajors(univId)).then(() => {
+        setIsAlreadyChooseUniv2(true);
+      });
+    }
+  };
+
+  const chooseMajor1 = (e) => {
+    const majorName = document.getElementById("majors").value;
+    // console.log(majorName);
+    const majorNameArray = majors.map((el) => el.name);
+    if (majorNameArray.includes(majorName)) {
+      const majorId = document.querySelector(
+        "#ChooseMajors option[value='" + majorName + "']"
+      ).dataset.value;
+      setMajorId1(majorId);
+    }
+  };
+
+  const chooseMajor2 = (e) => {
+    const majorName = document.getElementById("majors2").value;
+    // console.log(majorName);
+    const majorNameArray = majors.map((el) => el.name);
+    let majorId2;
+    if (majorNameArray.includes(majorName)) {
+      majorId2 = document.querySelector(
+        "#ChooseMajors2 option[value='" + majorName + "']"
+      ).dataset.value;
+    }
+    setAdminObj({ ...adminObj, major: [majorId1, majorId2] });
+  };
+
   const clear = (e) => {
     e.target.value = "";
-    setIsAlreadyChooseUniv(false);
+    setIsAlreadyChooseUniv1(false);
+  };
+
+  const clear2 = (e) => {
+    e.target.value = "";
+    setIsAlreadyChooseUniv2(false);
   };
   const clearMajor = (e) => {
     e.target.value = "";
@@ -106,8 +152,9 @@ const RegisterPage = () => {
                 type="text"
                 id="universities"
                 list="ChooseUniversities"
-                placeholder="PILIH UNIVERSITAS"
-                onChange={(e) => chooseUniv(e)}
+                placeholder="UNIVERSITAS PILIHAN 1"
+                autoComplete="off"
+                onChange={(e) => chooseUniv1(e)}
                 onClick={clear}
                 onFocus={clear}
               />
@@ -119,18 +166,63 @@ const RegisterPage = () => {
                 })}
               </datalist>
 
-              {isAlreadyChooseUniv ? (
+              {isAlreadyChooseUniv1 ? (
                 <>
                   <input
                     type="text"
                     id="majors"
                     list="ChooseMajors"
-                    placeholder="PILIH JURUSAN"
-                    // onChange={(e) => chooseMajor(e)}
+                    placeholder="JURUSAN PILIHAN 1"
+                    autoComplete="off"
+                    onChange={(e) => chooseMajor1(e)}
                     onClick={clearMajor}
                     onFocus={clearMajor}
                   />
                   <datalist id="ChooseMajors">
+                    {majors.map((el) => {
+                      return (
+                        <option
+                          data-value={el.id}
+                          key={el.id}
+                          value={el.name}
+                        />
+                      );
+                    })}
+                  </datalist>
+                </>
+              ) : null}
+
+              <input
+                type="text"
+                id="universities2"
+                list="ChooseUniversities2"
+                placeholder="UNIVERSITAS PILIHAN 2"
+                autoComplete="off"
+                onChange={(e) => chooseUniv2(e)}
+                onClick={clear2}
+                onFocus={clear2}
+              />
+              <datalist id="ChooseUniversities2">
+                {universities.map((el) => {
+                  return (
+                    <option data-value={el.id} key={el.id} value={el.name} />
+                  );
+                })}
+              </datalist>
+
+              {isAlreadyChooseUniv2 ? (
+                <>
+                  <input
+                    type="text"
+                    id="majors2"
+                    list="ChooseMajors2"
+                    placeholder="JURUSAN PILIHAN 2"
+                    autoComplete="off"
+                    onChange={(e) => chooseMajor2(e)}
+                    onClick={clearMajor}
+                    onFocus={clearMajor}
+                  />
+                  <datalist id="ChooseMajors2">
                     {majors.map((el) => {
                       return (
                         <option
