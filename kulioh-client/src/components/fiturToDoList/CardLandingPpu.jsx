@@ -1,7 +1,15 @@
 import book from "../../assets/buku.png";
+import { useNavigate } from "react-router-dom";
 export default function CardLandingPpu() {
+  const navigate = useNavigate()
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    navigate("/tasks/ppu")
+  }
   return (
     <div
+      onClick={(e) => handleClick(e)}
       className="card-ppu"
       style={{ border: "0.1px solid black", marginRight: "5vw" }}
     >

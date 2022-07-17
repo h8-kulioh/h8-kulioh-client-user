@@ -59,7 +59,7 @@ const QuestionContainer = () => {
         },
         {
           headers: {
-            access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYXZpQGdtYWlsLmNvbSIsInJvbGUiOiJSZWd1bGFyIiwiaWF0IjoxNjU4MDUxMTUyfQ.q4ptrodlghZv78i4__LmRwg3twgBw4BQk1qtDERpKQ4`,
+            access_token: localStorage.getItem("accessToken")
           },
         }
       );
@@ -93,7 +93,7 @@ const QuestionContainer = () => {
         `${url}/questions/answers/daily/${todayFormat}`,
         {
           headers: {
-            access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYXZpQGdtYWlsLmNvbSIsInJvbGUiOiJSZWd1bGFyIiwiaWF0IjoxNjU4MDUxMTUyfQ.q4ptrodlghZv78i4__LmRwg3twgBw4BQk1qtDERpKQ4`,
+            access_token: localStorage.getItem("accessToken")
           },
         }
       ); // YYYYMMDD

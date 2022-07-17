@@ -36,7 +36,12 @@ export const login = (adminObj) => {
           password: adminObj.password
         })
         // console.log(loginUser, `data login`);
+        let majors1 = loginUser.data.majors[0].University.name + `-` + loginUser.data.majors[0].name
+        let majors2 = loginUser.data.majors[1].University.name + `-` + loginUser.data.majors[1].name
         localStorage.setItem("accessToken", loginUser.data.access_token);
+        localStorage.setItem("major1", majors1);
+        localStorage.setItem("major2", majors2);
+        localStorage.setItem("name", loginUser.data.name)
         resolve();
       } catch (err) {
         reject(err);

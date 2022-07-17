@@ -6,10 +6,12 @@ import "../../css/chatPage.css";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 const ChatPage = () => {
-  let username = "pojan";
+  let username = localStorage.getItem("name");
+  let major1 = localStorage.getItem("major1")
+  let major2 = localStorage.getItem("major2")
   const [theMessage, setTheMessage] = useState("");
   const [arrayOfMessages, setArrayOfMessages] = useState([]);
-  let [collectionName, setCollectionName] = useState("fisika");
+  let [collectionName, setCollectionName] = useState(major1);
 
   const toggleChatRoom = (collection) => {
     setCollectionName(collection);
@@ -66,16 +68,16 @@ const ChatPage = () => {
       <div className="chat-container">
         <div className="button-toggle">
           <button
-            onClick={() => toggleChatRoom("fisika")}
-            className={collectionName === "fisika" ? "active" : null}
+            onClick={() => toggleChatRoom(major1)}
+            className={collectionName === major1 ? "active" : null}
           >
-            Chat Room Teknik Fisika UI
+            Chat Room {major1}
           </button>
           <button
-            onClick={() => toggleChatRoom("kimia")}
-            className={collectionName === "kimia" ? "active" : null}
+            onClick={() => toggleChatRoom(major2)}
+            className={collectionName === major2 ? "active" : null}
           >
-            Chat Room Teknik Kimia UGM
+            Chat Room {major2}
           </button>
         </div>
         <div id="chat-windows" className="chat-window">
@@ -84,7 +86,7 @@ const ChatPage = () => {
               {arrayOfMessages.map((doc, idx) => {
                 return (
                   <div
-                    className={doc.user === "pojan" ? "single-right" : "single"}
+                    className={doc.user === username ? "single-right" : "single"}
                     key={idx}
                   >
                     <span className="name">{doc.user}</span>
