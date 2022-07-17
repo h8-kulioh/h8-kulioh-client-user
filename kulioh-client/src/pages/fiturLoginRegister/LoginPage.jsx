@@ -15,6 +15,7 @@ const LoginPage = () => {
       password: "",
     };
   }, []);
+  const [adminObj, setAdminObj] = useState(initialStateObj);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -34,7 +35,6 @@ const LoginPage = () => {
   const moveToRegister = async (e) => {
     navigate("/register");
   };
-  const [adminObj, setAdminObj] = useState(initialStateObj);
   return (
     <div className="login-container">
       <h1>Kulioh</h1>

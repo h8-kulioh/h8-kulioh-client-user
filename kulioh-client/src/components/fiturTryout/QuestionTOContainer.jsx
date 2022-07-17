@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import * as actionType from "../../store/actions/actionType";
+import QuestionTOCountdown from "./QuestionTOCountdown";
 
 const QuestionTOContainer = () => {
   let dispatch = useDispatch();
@@ -54,7 +55,7 @@ const QuestionTOContainer = () => {
 
   const handleSubmit = () => {
     console.log(answers);
-    dispatch({ type: actionType.DAILY_Q_ISANSWERED });
+    // dispatch({ type: actionType.DAILY_Q_ISANSWERED });
   };
 
   useEffect(() => {
@@ -65,6 +66,7 @@ const QuestionTOContainer = () => {
     <>
       {isLoadingFinish ? (
         <div className="question-container">
+          <QuestionTOCountdown handleSubmit={handleSubmit} />
           <div className="header-container">
             <h3 className="subtes">Soal Penalaran Umum</h3>
             <h3>15 Juli 2022</h3>
