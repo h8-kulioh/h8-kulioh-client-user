@@ -67,4 +67,17 @@
 .login-container .form-container .text-after-submit .link-clear:active, .login-container .form-container .text-after-submit .link-clear:visited {
   text-decoration: none;
   color: aqua;
+}
+.login-container .form-container .btn {
+  background-color: #2bcbef;
+  padding: 1.2rem;
+  border: 2px solid transparent;
+  border-radius: 1.2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  text-align: center;
+}
+.login-container .form-container .btn:hover {
+  border: 2px solid aqua;
+  background-color: aqua;
 }/*# sourceMappingURL=LoginPage.css.map */
