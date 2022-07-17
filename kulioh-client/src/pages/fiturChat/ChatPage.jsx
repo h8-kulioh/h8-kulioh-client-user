@@ -1,14 +1,19 @@
 import { db } from "../../firebase/config";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import Navbar from "../../components/ReusableComponents/Navbar";
 import "../../css/chatPage.css";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 const ChatPage = () => {
-  const collectionName = "kimia";
+  let username = "pojan";
   const [theMessage, setTheMessage] = useState("");
   const [arrayOfMessages, setArrayOfMessages] = useState([]);
+  let [collectionName, setCollectionName] = useState("fisika");
+
+  const toggleChatRoom = (collection) => {
+    setCollectionName(collection);
+  };
 
   const createMessage = async (e) => {
     try {
@@ -17,8 +22,7 @@ const ChatPage = () => {
       setTheMessage("");
       await addDoc(collection(db, collectionName), {
         message,
-        // user: localStorage.getItem("Username"),
-        user: "pojan",
+        user: username,
         createdAt: new Date(),
       });
       subscription();
@@ -28,18 +32,19 @@ const ChatPage = () => {
     }
   };
 
-  const subscription = () => {
+  const subscription = useCallback(() => {
     onSnapshot(collection(db, collectionName), (snap) => {
       let result = [];
       snap.forEach((doc) => {
+        // console.log(doc);
         result.push(doc.data());
         result.sort((a, b) => {
           return b.createdAt - a.createdAt;
         });
-        setArrayOfMessages(result);
       });
+      setArrayOfMessages(result);
     });
-  };
+  }, [collectionName]);
 
   const handleChange = (e) => {
     setTheMessage(e.target.value);
@@ -52,22 +57,43 @@ const ChatPage = () => {
 
   useEffect(() => {
     subscription();
-  }, []);
+  }, [collectionName, subscription]);
+
   return (
     <>
       <Navbar />
+
       <div className="chat-container">
+        <div className="button-toggle">
+          <button
+            onClick={() => toggleChatRoom("fisika")}
+            className={collectionName === "fisika" ? "active" : null}
+          >
+            Chat Room Teknik Fisika UI
+          </button>
+          <button
+            onClick={() => toggleChatRoom("kimia")}
+            className={collectionName === "kimia" ? "active" : null}
+          >
+            Chat Room Teknik Kimia UGM
+          </button>
+        </div>
         <div id="chat-windows" className="chat-window">
           {arrayOfMessages ? (
             <div id="messages" className="messages">
               {arrayOfMessages.map((doc, idx) => {
                 return (
-                  <div className="single" key={idx}>
-                    <span className="created-at">
-                      {formatDistanceToNow(doc.createdAt.toDate())} ago
-                    </span>
+                  <div
+                    className={doc.user === "pojan" ? "single-right" : "single"}
+                    key={idx}
+                  >
                     <span className="name">{doc.user}</span>
-                    <span className="message">{doc.message}</span>
+                    <div className="bubble-chat">
+                      <span className="message">{doc.message}</span>
+                      <p className="createdAt">
+                        {formatDistanceToNow(doc.createdAt.toDate())} ago
+                      </p>
+                    </div>
                   </div>
                 );
               })}
