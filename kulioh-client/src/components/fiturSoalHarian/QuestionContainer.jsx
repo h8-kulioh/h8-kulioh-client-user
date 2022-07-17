@@ -1,4 +1,5 @@
 import React from "react";
+import Latex from "react-latex";
 import "../../css/QuestionContainer.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -11,26 +12,10 @@ const QuestionContainer = () => {
   let dispatch = useDispatch();
   // const [questions, setQuestions] = useState([]);
   const questions = useSelector((store) => store.dailyQReducer.questions);
-  const isAnswered = useSelector((store) => store.dailyQReducer.isAnswered);
   const [pageNum, setPageNum] = useState(0);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
   const [answers, setAnswers] = useState(["", "", "", ""]);
-  const [monthNames, setMonthNames] = useState([
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ]);
 
-  // console.log(questions);
   let getYear;
   let getMonth;
   let getDay;
@@ -98,7 +83,6 @@ const QuestionContainer = () => {
       } else {
         todayFormat += getMonth;
       }
-      // console.log(getDay.toLocaleString.length);
       if (getDay.length < 2) {
         todayFormat += `0${getDay}`;
       } else {
@@ -125,7 +109,7 @@ const QuestionContainer = () => {
         dispatch({ type: actionType.DAILY_Q_ISANSWERED });
       }
     } catch (err) {
-      if (err.response.data.statusCode == 404) {
+      if (err.response.data.statusCode === 404) {
         console.log(`data gaada--------`);
         dispatch(actionCreator.fetchDailyQ()).then(() =>
           setIsLoadingFinish(true)
@@ -136,11 +120,13 @@ const QuestionContainer = () => {
   };
 
   useEffect(() => {
-    console.log("here get soal");
     getAnswersFromDB();
   }, []);
+
   getYear = new Date().getFullYear(); //2022
-  getMonth = new Date().getMonth();
+  getMonth = new Intl.DateTimeFormat("id-ID", { month: "long" }).format(
+    new Date()
+  );
   getDay = new Date().getDate();
 
   return (
@@ -150,12 +136,12 @@ const QuestionContainer = () => {
           <div className="header-container">
             <h3 className="subtes">{longName(questions[pageNum].subject)}</h3>
             <h3>
-              {getDay} {monthNames[getMonth]} {getYear}
+              {getDay} {getMonth} {getYear}
             </h3>
           </div>
           <div className="question-answers">
-            {questions[pageNum].question.split("~").map((so) => {
-              return <p>{so}</p>;
+            {questions[pageNum].question.split("~").map((so, idx) => {
+              return <Latex key={idx}>{so}</Latex>;
             })}
 
             <form className="form-container">
@@ -170,7 +156,7 @@ const QuestionContainer = () => {
                     checked={answers.includes(el.id)}
                     onChange={(e) => saveAnswer(e, el.id)}
                   />
-                  {el.answer}
+                  <Latex>{el.answer}</Latex>
                 </label>
               ))}
             </form>

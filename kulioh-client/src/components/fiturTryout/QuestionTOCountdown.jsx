@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Button } from "react-bootstrap";
-import ClockComponent from "../../components/fiturSoalHarian/ClockComponent";
+import "../../css/QuestionTOCountdown.css";
 
 export default function QuestionTOCountdown({ handleSubmit }) {
   const [timerHours, setTimerHours] = useState();
@@ -13,23 +12,20 @@ export default function QuestionTOCountdown({ handleSubmit }) {
   console.log(isLoadingFinish);
 
   let interval;
-  //   useEffect(() => {
-  //     startTimer();
-  //   }, [interval]);
+  useEffect(() => {
+    startTimer();
+  }, [interval]);
 
   const startTimer = () => {
     let finish;
     finish = new Date();
     const today = new Date();
     finish.setDate(today.getDate());
-    // finish.setHours(today.getHours() + 2);
-    // finish.setMinutes(today.getMinutes() + 30);
-    finish.setSeconds(today.getSeconds() + 10);
+    finish.setMinutes(today.getMinutes() + 30);
+    // finish.setSeconds(today.getSeconds() + 10);
     console.log(finish, `ini expektasi finish`);
 
     setAfter(finish);
-    // console.log(after, ` dimasukkan ke state`);
-    // console.log(after);
 
     const countDownDate = new Date(finish).getTime();
     interval = setInterval(() => {
@@ -40,7 +36,6 @@ export default function QuestionTOCountdown({ handleSubmit }) {
       );
       const minutes = Math.floor((distance % (60 * 60 * 1000)) / (1000 * 60));
       const seconds = Math.floor((distance % (60 * 1000)) / 1000);
-      //   console.log(minutes);
 
       if (distance < 0) {
         clearInterval(interval);
@@ -49,28 +44,21 @@ export default function QuestionTOCountdown({ handleSubmit }) {
         setTimerHours(hours);
         setTimerMinutes(minutes);
         setTimerSeconds(seconds);
+        setIsLoadingFinish(true);
       }
     });
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    // setClicked(true);
-    startTimer();
-    setIsLoadingFinish(true);
-  };
-
   return (
     <>
-      <button onClick={(e) => handleClick(e)}>Mulai</button>
       {isLoadingFinish ? (
-        <Container>
-          <ClockComponent
-            timerHours={timerHours}
-            timerMinutes={timerMinutes}
-            timerSeconds={timerSeconds}
-          />
-        </Container>
+        <p className="timer">
+          {"Waktu tersisa: "}{" "}
+          {/* {timerHours < 10 ? "0" + String(timerHours) : timerHours} :{" "} */}
+          {timerMinutes < 10 ? "0" + String(timerMinutes) : timerMinutes}{" "}
+          {" : "}
+          {timerSeconds < 10 ? "0" + String(timerSeconds) : timerSeconds}{" "}
+        </p>
       ) : null}
     </>
   );
