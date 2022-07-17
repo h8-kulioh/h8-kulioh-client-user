@@ -16,7 +16,7 @@ export default function UserTask() {
     try {
       const response = await axios.get(`http://localhost:3001/chaptersroute/chapters`, {
         headers: {
-          access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYXZpQGdtYWlsLmNvbSIsInJvbGUiOiJSZWd1bGFyIiwiaWF0IjoxNjU4MDUxMTUyfQ.q4ptrodlghZv78i4__LmRwg3twgBw4BQk1qtDERpKQ4`
+          access_token: localStorage.getItem("accessToken")
         }
       });
       // console.log(response.data, `---------`);
@@ -33,7 +33,7 @@ export default function UserTask() {
     try {
       const response = await axios.get(`http://localhost:3001/todoroute/todos`, {
         headers: {
-          access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYXZpQGdtYWlsLmNvbSIsInJvbGUiOiJSZWd1bGFyIiwiaWF0IjoxNjU4MDUxMTUyfQ.q4ptrodlghZv78i4__LmRwg3twgBw4BQk1qtDERpKQ4`
+          access_token: localStorage.getItem("accessToken")
         }
       });
       // console.log(response.data);

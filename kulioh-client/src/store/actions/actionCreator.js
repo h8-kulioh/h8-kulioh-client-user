@@ -9,8 +9,7 @@ export const fetchDailyQ = () => {
         // console.log("here action creator");
         const response = await axios.get(`${url}/questions/daily`, {
           headers: {
-            access_token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYXZpQGdtYWlsLmNvbSIsInJvbGUiOiJSZWd1bGFyIiwiaWF0IjoxNjU4MDUxMTUyfQ.q4ptrodlghZv78i4__LmRwg3twgBw4BQk1qtDERpKQ4",
+            access_token: localStorage.getItem("accessToken")
           },
         });
 
@@ -32,8 +31,12 @@ export const login = (adminObj) => {
     return new Promise(async (resolve, reject) => {
       try {
         // const response = await axios.post(`${url}/login`, adminObj);
-
-        localStorage.setItem("accessToken", "iniAccessTokenDummy");
+        const loginUser = await axios.post(`http://localhost:3001/users/login`, {
+          email: adminObj.email,
+          password: adminObj.password
+        })
+        // console.log(loginUser, `data login`);
+        localStorage.setItem("accessToken", loginUser.data.access_token);
         resolve();
       } catch (err) {
         reject(err);
