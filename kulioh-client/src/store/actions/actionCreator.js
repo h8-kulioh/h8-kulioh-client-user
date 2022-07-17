@@ -10,7 +10,7 @@ export const fetchDailyQ = () => {
         const response = await axios.get(`${url}/questions/daily`, {
           headers: {
             access_token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBlbWFpbC5jb20iLCJyb2xlIjoiUmVndWxhciIsImlhdCI6MTY1ODAzODUyNn0.QatiHgXbzrVaO7blhoFzgym6VeKtxpjdIVmEtwDNx7w",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYXZpQGdtYWlsLmNvbSIsInJvbGUiOiJSZWd1bGFyIiwiaWF0IjoxNjU4MDUxMTUyfQ.q4ptrodlghZv78i4__LmRwg3twgBw4BQk1qtDERpKQ4",
           },
         });
 

@@ -5,6 +5,7 @@ import TryOutPage from "./pages/fiturTryout/TryOutPage";
 import LandingTask from "./pages/fiturToDoList/LandingTask";
 import ChatPage from "./pages/fiturChat/ChatPage";
 import { Routes, Route } from "react-router-dom";
+import UserTask from "./pages/fiturToDoList/UserTask"
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ProtectedRoute2 from "./components/ProtectedRoute/ProtectedRoute2";
@@ -52,6 +53,14 @@ function App() {
           element={
             <ProtectedRoute>
               <LandingTask />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tasks/:subject"
+          element={
+            <ProtectedRoute>
+              <UserTask />
             </ProtectedRoute>
           }
         />
