@@ -7,8 +7,8 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 const ChatPage = () => {
   let username = localStorage.getItem("name");
-  let major1 = localStorage.getItem("major1")
-  let major2 = localStorage.getItem("major2")
+  let major1 = localStorage.getItem("major1");
+  let major2 = localStorage.getItem("major2");
   const [theMessage, setTheMessage] = useState("");
   const [arrayOfMessages, setArrayOfMessages] = useState([]);
   let [collectionName, setCollectionName] = useState(major1);
@@ -61,6 +61,33 @@ const ChatPage = () => {
     subscription();
   }, [collectionName, subscription]);
 
+  const nameChatRoom = (major) => {
+    let theMajor = major.split("-");
+    let array1 = theMajor[0].split(" ").map((el, idx) => {
+      let newString = el[0] + el.slice(1).toLowerCase();
+      // console.log(newString);
+      if (el[0] !== "(") return newString;
+      else return el;
+    });
+    // console.log(array1);
+
+    let array2 = theMajor[1].split(" ").map((el) => {
+      let newString = el[0] + el.slice(1).toLowerCase();
+      return newString;
+    });
+    array1.push("-");
+    array1.push(...array2);
+    let newStr = array1.join(" ");
+    // console.log(array2);
+    return newStr;
+  };
+
+  console.log(
+    nameChatRoom(
+      "UNIVERSITAS GADJAH MADA (UGM)-KARTOGRAFI DAN PENGINDERAAN JAUH"
+    )
+  );
+
   return (
     <>
       <Navbar />
@@ -71,13 +98,13 @@ const ChatPage = () => {
             onClick={() => toggleChatRoom(major1)}
             className={collectionName === major1 ? "active" : null}
           >
-            Chat Room {major1}
+            Chat Room {nameChatRoom(major1)}
           </button>
           <button
             onClick={() => toggleChatRoom(major2)}
             className={collectionName === major2 ? "active" : null}
           >
-            Chat Room {major2}
+            Chat Room {nameChatRoom(major2)}
           </button>
         </div>
         <div id="chat-windows" className="chat-window">
@@ -86,7 +113,9 @@ const ChatPage = () => {
               {arrayOfMessages.map((doc, idx) => {
                 return (
                   <div
-                    className={doc.user === username ? "single-right" : "single"}
+                    className={
+                      doc.user === username ? "single-right" : "single"
+                    }
                     key={idx}
                   >
                     <span className="name">{doc.user}</span>

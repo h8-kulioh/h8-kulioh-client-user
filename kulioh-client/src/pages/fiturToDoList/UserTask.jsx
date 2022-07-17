@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Container, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -10,15 +11,21 @@ export default function UserTask() {
   const [bab, setBab] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-  let { subject } = useParams()
-  subject = subject.toUpperCase()
+  const isChange = useSelector((store) => store.toDoReducer.isChange);
+
+  console.log(isChange);
+  let { subject } = useParams();
+  subject = subject.toUpperCase();
   const getBab = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/chaptersroute/chapters`, {
-        headers: {
-          access_token: localStorage.getItem("accessToken")
+      const response = await axios.get(
+        `http://localhost:3001/chaptersroute/chapters`,
+        {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
         }
-      });
+      );
       // console.log(response.data, `---------`);
       const subjectTask = response.data.filter((el) => el.subject === subject);
       // console.log(subjectTask);
@@ -31,11 +38,14 @@ export default function UserTask() {
 
   const getTasks = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/todoroute/todos`, {
-        headers: {
-          access_token: localStorage.getItem("accessToken")
+      const response = await axios.get(
+        `http://localhost:3001/todoroute/todos`,
+        {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
         }
-      });
+      );
       // console.log(response.data);
       const dataFilter = response.data.filter(
         (el) => el.Task.Chapter.subject === subject
@@ -68,7 +78,8 @@ export default function UserTask() {
   useEffect(() => {
     getBab();
     getTasks();
-  }, []);
+    console.log("here");
+  }, [isChange]);
 
   if (loading) {
     return <h1>Please wait</h1>;
