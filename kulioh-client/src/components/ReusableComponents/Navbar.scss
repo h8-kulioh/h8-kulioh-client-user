@@ -9,39 +9,75 @@
   padding: 0 4.8rem;
   position: relative;
 
-  .main-nav-list {
-    list-style: none;
-    display: flex;
-    gap: 4.8rem;
-    align-items: center;
-    margin-top: 1rem;
+  .main-nav {
+    .main-nav-list {
+      list-style: none;
+      display: flex;
+      gap: 4.8rem;
+      align-items: center;
+      margin-top: 1rem;
 
-    .main-nav-link {
-      font-size: 1.8rem;
-      color: v.$primary-brown;
-      cursor: pointer;
-
-      &:link,
-      &:visited {
-        display: inline-block;
-        text-decoration: none;
-        color: v.$primary-brown;
-        font-weight: 500;
+      .main-nav-link {
         font-size: 1.8rem;
-        transition: all 0.3s;
-      }
+        color: v.$primary-brown;
+        cursor: pointer;
 
-      &:hover,
-      &:active {
-        color: v.$navbar-blue-hover;
-      }
+        &:link,
+        &:visited {
+          display: inline-block;
+          text-decoration: none;
+          color: v.$primary-brown;
+          font-weight: 500;
+          font-size: 1.8rem;
+          transition: all 0.3s;
+        }
 
-      &.active {
-        padding: 1.2rem 2.4rem;
-        border-radius: 9px;
-        color: v.$white;
-        background-color: v.$primary-blue;
+        &:hover,
+        &:active {
+          color: v.$navbar-blue-hover;
+        }
+
+        &.active {
+          padding: 1.2rem 2.4rem;
+          border-radius: 9px;
+          color: v.$white;
+          background-color: v.$primary-blue;
+        }
       }
+    }
+
+    li.dropdown {
+      display: inline-block;
+    }
+
+    .dropdown:hover .isi-dropdown {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 2rem;
+    }
+
+    .isi-dropdown {
+      position: absolute;
+      display: none;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      background-color: v.$soft-blue;
+      min-width: 12rem;
+      transform: translateX(-50%);
+      border-radius: 0.7rem;
+      font-size: 1.6rem;
+    }
+
+    .isi-dropdown li {
+      list-style-type: none;
+    }
+
+    .isi-dropdown li:hover {
+      cursor: pointer;
+      color: v.$primary-blue;
     }
   }
 }
