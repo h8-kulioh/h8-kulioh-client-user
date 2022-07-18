@@ -7,6 +7,7 @@ import "../../App.css";
 import { useSelector } from "react-redux";
 
 const HomePage = () => {
+  console.log(new Date());
   const isAnswered = useSelector((store) => store.dailyQReducer.isAnswered);
 
   return (
