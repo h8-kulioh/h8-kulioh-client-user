@@ -18,59 +18,16 @@ const RaporSoalHarian = () => {
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
   const [answers, setAnswers] = useState(["", "", "", ""]);
 
+  console.log(isLoadingFinish);
+
   let getYear;
   let getMonth;
   let getDay;
-  //   const saveAnswer = (_, answer) => {
-  //     const newAnswers = answers.map((el, index) => {
-  //       if (index === pageNum) return answer;
-  //       return el;
-  //     });
-  //     setAnswers(newAnswers);
-  //   };
 
   const movePage = (e, page) => {
     e.preventDefault();
     setPageNum(page);
   };
-
-  //   const longName = (name) => {
-  //     if (name === `PK`) {
-  //       return `Pengetahuan Kuantitatif`;
-  //     } else if (name === `PBM`) {
-  //       return `Pemahaman Bacaan dan Menulis`;
-  //     } else if (name === `PPU`) {
-  //       return `Pengetahuan dan Pemahaman Umum`;
-  //     } else if (name === `PU`) {
-  //       return `Penalaran Umum`;
-  //     }
-  //   };
-
-  //   const handleSubmit = async () => {
-  //     const arrayQuestionId = questions.map((q) => {
-  //       return q.id;
-  //     });
-
-  //     console.log(arrayQuestionId);
-  //     try {
-  //       await axios.post(
-  //         `${url}/questions/answers/daily`,
-  //         {
-  //           userAnswer: answers,
-  //           QuestionId: arrayQuestionId,
-  //         },
-  //         {
-  //           headers: {
-  //             access_token: localStorage.getItem("accessToken"),
-  //           },
-  //         }
-  //       );
-
-  //       dispatch({ type: actionType.DAILY_Q_ISANSWERED });
-  //     } catch (err) {
-  //       console.log(err, `err saat submit`);
-  //     }
-  //   };
 
   const getAnswersFromDB = async () => {
     try {
@@ -98,17 +55,16 @@ const RaporSoalHarian = () => {
             access_token: localStorage.getItem("accessToken"),
           },
         }
-      ); // YYYYMMDD
-      // console.log(response.data.statusCode, `--------`);
+      );
       if (!response || response.data.length === 0) {
-        //if disini ga kepake, karena dia lgsg throw error
-        // console.log(`data gaada--------`);
         dispatch(actionCreator.fetchDailyQ()).then(() =>
           setIsLoadingFinish(true)
         );
       } else {
         console.log(`data ada--------`);
-        dispatch({ type: actionType.DAILY_Q_ISANSWERED });
+        dispatch(actionCreator.fetchDailyQ()).then(() =>
+          setIsLoadingFinish(true)
+        );
       }
     } catch (err) {
       if (err.response.data.statusCode === 404) {
@@ -117,7 +73,6 @@ const RaporSoalHarian = () => {
           setIsLoadingFinish(true)
         );
       }
-      // console.log(err);
     }
   };
 
@@ -193,7 +148,6 @@ const RaporSoalHarian = () => {
             ) : null}
           </>
         </div>
-        ;
       </div>
     </>
   );
