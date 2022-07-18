@@ -1,0 +1,56 @@
+@use "../../variabels.scss" as v;
+
+.rapor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  .title {
+    text-decoration: underline 0.5rem;
+    text-underline-offset: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .nilai-container {
+    display: flex;
+    justify-content: space-around;
+
+    .one-container,
+    .one-container-lain {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.6rem;
+
+      h1 {
+        padding: 2rem;
+        font-size: 4rem;
+        border-radius: 1.2rem;
+        border: none;
+        background-color: v.$soft-blue;
+        text-align: center;
+      }
+
+      h1.main {
+        padding: 2.5rem;
+        font-size: 5.5rem;
+        border-radius: 1.2rem;
+        border: none;
+        background-color: v.$navbar-blue;
+        text-align: center;
+      }
+    }
+
+    .lihat-pembahasan {
+      padding: 1rem;
+      background-color: v.$soft-blue;
+      border-radius: 1.2rem;
+      cursor: pointer;
+    }
+    .subtes {
+      padding: 1rem;
+      background-color: v.$navbar-blue;
+      border-radius: 0.6rem;
+    }
+  }
+}

@@ -5,11 +5,14 @@ import TryOutPage from "./pages/fiturTryout/TryOutPage";
 import LandingTask from "./pages/fiturToDoList/LandingTask";
 import ChatPage from "./pages/fiturChat/ChatPage";
 import { Routes, Route } from "react-router-dom";
-import UserTask from "./pages/fiturToDoList/UserTask"
-import ProfilePage from "./pages/fiturProfile/ProfilePage"
+import UserTask from "./pages/fiturToDoList/UserTask";
+import ProfilePage from "./pages/fiturProfile/ProfilePage";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ProtectedRoute2 from "./components/ProtectedRoute/ProtectedRoute2";
+import LandingRapor from "./pages/fiturRapor/LandingRapor";
+import RaporSoalHarian from "./pages/fiturRapor/RaporSoalHarian";
+import RaporTryout from "./pages/fiturRapor/RaporTryout";
 
 function App() {
   return (
@@ -70,6 +73,30 @@ function App() {
           element={
             <ProtectedRoute>
               <ChatPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/rapor"
+          element={
+            <ProtectedRoute>
+              <LandingRapor />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/rapor/soalharian"
+          element={
+            <ProtectedRoute>
+              <RaporSoalHarian />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/rapor/tryout"
+          element={
+            <ProtectedRoute>
+              <RaporTryout />
             </ProtectedRoute>
           }
         />
