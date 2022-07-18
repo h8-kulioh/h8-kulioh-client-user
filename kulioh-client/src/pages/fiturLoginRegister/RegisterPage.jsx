@@ -111,8 +111,14 @@ const RegisterPage = () => {
     e.target.value = "";
     setIsAlreadyChooseUniv2(false);
   };
-  const clearMajor = (e) => {
+  const clearMajor1 = (e) => {
     e.target.value = "";
+    chooseUniv1();
+  };
+
+  const clearMajor2 = (e) => {
+    e.target.value = "";
+    chooseUniv2();
   };
 
   return (
@@ -175,8 +181,8 @@ const RegisterPage = () => {
                     placeholder="JURUSAN PILIHAN 1"
                     autoComplete="off"
                     onChange={(e) => chooseMajor1(e)}
-                    onClick={clearMajor}
-                    onFocus={clearMajor}
+                    onClick={clearMajor1}
+                    onFocus={clearMajor1}
                   />
                   <datalist id="ChooseMajors">
                     {majors.map((el) => {
@@ -219,8 +225,8 @@ const RegisterPage = () => {
                     placeholder="JURUSAN PILIHAN 2"
                     autoComplete="off"
                     onChange={(e) => chooseMajor2(e)}
-                    onClick={clearMajor}
-                    onFocus={clearMajor}
+                    onClick={clearMajor2}
+                    onFocus={clearMajor2}
                   />
                   <datalist id="ChooseMajors2">
                     {majors.map((el) => {
