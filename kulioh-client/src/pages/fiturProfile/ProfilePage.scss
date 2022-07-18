@@ -1,0 +1,77 @@
+@use "../../variabels.scss" as v;
+
+.profile-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  .form-container {
+    padding: 3rem;
+    width: 30%;
+    border-radius: 1.2rem;
+    background-color: v.$navbar-blue;
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .form-component {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+
+      input {
+        font-size: 1.6rem;
+        padding: 1.6rem;
+        border-radius: 1.2rem;
+        border: none;
+        border: 1px solid transparent;
+
+        &:focus {
+          outline: none;
+          border: 1px solid v.$primary-blue;
+        }
+      }
+    }
+
+    .text-after-submit {
+      color: #fff;
+      font-size: 1.7rem;
+      margin-top: 1.5rem;
+      display: inline-block;
+
+      .link-clear {
+        text-decoration: none;
+        color: aqua;
+        display: inline;
+        margin-left: 1rem;
+        cursor: pointer;
+
+        &:active,
+        &:visited {
+          text-decoration: none;
+          color: aqua;
+        }
+      }
+    }
+
+    .btn {
+      background-color: v.$primary-blue;
+      padding: 1.2rem;
+      border: 2px solid transparent;
+      border-radius: 1.2rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn:hover {
+      border: 2px solid aqua;
+      background-color: aqua;
+    }
+  }
+}

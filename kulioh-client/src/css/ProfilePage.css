@@ -1,0 +1,78 @@
+.profile-container {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 2rem;
+}
+.profile-container .form-container {
+  padding: 3rem;
+  width: 30%;
+  border-radius: 1.2rem;
+  background-color: #aacee9;
+}
+.profile-container .form-container h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.profile-container .form-container .form-component {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1.2rem;
+}
+.profile-container .form-container .form-component input {
+  font-size: 1.6rem;
+  padding: 1.6rem;
+  border-radius: 1.2rem;
+  border: none;
+  border: 1px solid transparent;
+}
+.profile-container .form-container .form-component input:focus {
+  outline: none;
+  border: 1px solid #2bcbef;
+}
+.profile-container .form-container .text-after-submit {
+  color: #fff;
+  font-size: 1.7rem;
+  margin-top: 1.5rem;
+  display: inline-block;
+}
+.profile-container .form-container .text-after-submit .link-clear {
+  text-decoration: none;
+  color: aqua;
+  display: inline;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+.profile-container .form-container .text-after-submit .link-clear:active, .profile-container .form-container .text-after-submit .link-clear:visited {
+  text-decoration: none;
+  color: aqua;
+}
+.profile-container .form-container .btn {
+  background-color: #2bcbef;
+  padding: 1.2rem;
+  border: 2px solid transparent;
+  border-radius: 1.2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  text-align: center;
+}
+.profile-container .form-container .btn:hover {
+  border: 2px solid aqua;
+  background-color: aqua;
+}/*# sourceMappingURL=ProfilePage.css.map */
