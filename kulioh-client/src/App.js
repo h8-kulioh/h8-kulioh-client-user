@@ -6,6 +6,7 @@ import LandingTask from "./pages/fiturToDoList/LandingTask";
 import ChatPage from "./pages/fiturChat/ChatPage";
 import { Routes, Route } from "react-router-dom";
 import UserTask from "./pages/fiturToDoList/UserTask"
+import ProfilePage from "./pages/fiturProfile/ProfilePage"
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ProtectedRoute2 from "./components/ProtectedRoute/ProtectedRoute2";
@@ -69,6 +70,14 @@ function App() {
           element={
             <ProtectedRoute>
               <ChatPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
             </ProtectedRoute>
           }
         />
