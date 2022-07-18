@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import * as actionType from "../../store/actions/actionType";
 
 export default function ListCard({ listOf }) {
-  //   console.log(listOf, `--------`);
+  // console.log(listOf, `--------`);
 
   let dispatch = useDispatch();
   const handleChange = (e) => {
@@ -17,7 +17,9 @@ export default function ListCard({ listOf }) {
   const handleClick = async (e, id, status) => {
     e.preventDefault();
     try {
+      console.log("here");
       if (status === false) {
+        console.log("here false", id);
         const response = await axios.patch(
           `http://localhost:3001/todoroute/todos/${id}`,
           {
@@ -29,8 +31,10 @@ export default function ListCard({ listOf }) {
             },
           }
         );
+        console.log("here in bottom");
         console.log(response);
       } else if (status === true) {
+        // console.log("here t");
         const response = await axios.patch(
           `http://localhost:3001/todoroute/todos/${id}`,
           {

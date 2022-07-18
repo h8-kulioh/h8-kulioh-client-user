@@ -97,10 +97,10 @@ const QuestionContainer = () => {
           },
         }
       ); // YYYYMMDD
-      console.log(response.data.statusCode, `--------`);
+      // console.log(response.data.statusCode, `--------`);
       if (!response || response.data.length === 0) {
         //if disini ga kepake, karena dia lgsg throw error
-        console.log(`data gaada--------`);
+        // console.log(`data gaada--------`);
         dispatch(actionCreator.fetchDailyQ()).then(() =>
           setIsLoadingFinish(true)
         );
@@ -115,7 +115,7 @@ const QuestionContainer = () => {
           setIsLoadingFinish(true)
         );
       }
-      console.log(err);
+      // console.log(err);
     }
   };
 

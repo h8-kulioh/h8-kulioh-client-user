@@ -13,7 +13,7 @@ export default function UserTask() {
   const [loading, setLoading] = useState(true);
   const isChange = useSelector((store) => store.toDoReducer.isChange);
 
-  console.log(isChange);
+  // console.log(isChange);
   let { subject } = useParams();
   subject = subject.toUpperCase();
   const getBab = async () => {
@@ -78,7 +78,7 @@ export default function UserTask() {
   useEffect(() => {
     getBab();
     getTasks();
-    console.log("here");
+    // console.log("here");
   }, [isChange]);
 
   if (loading) {
