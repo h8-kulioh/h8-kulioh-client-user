@@ -1,0 +1,67 @@
+.rapor-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2.5rem;
+}
+.rapor-container .title {
+  -webkit-text-decoration: underline 0.5rem;
+          text-decoration: underline 0.5rem;
+  text-underline-offset: 1rem;
+  margin-bottom: 2rem;
+}
+.rapor-container .nilai-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+.rapor-container .nilai-container .one-container,
+.rapor-container .nilai-container .one-container-lain {
+  padding: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1.6rem;
+}
+.rapor-container .nilai-container .one-container h1,
+.rapor-container .nilai-container .one-container-lain h1 {
+  padding: 2rem;
+  font-size: 4rem;
+  border-radius: 1.2rem;
+  border: none;
+  background-color: #e9f4fd;
+  text-align: center;
+}
+.rapor-container .nilai-container .one-container h1.main,
+.rapor-container .nilai-container .one-container-lain h1.main {
+  padding: 2.5rem;
+  font-size: 5.5rem;
+  border-radius: 1.2rem;
+  border: none;
+  background-color: #aacee9;
+  text-align: center;
+}
+.rapor-container .nilai-container .lihat-pembahasan {
+  padding: 1rem;
+  background-color: #e9f4fd;
+  border-radius: 1.2rem;
+  cursor: pointer;
+}
+.rapor-container .nilai-container .subtes {
+  padding: 1rem;
+  background-color: #aacee9;
+  border-radius: 0.6rem;
+}/*# sourceMappingURL=LandingRapor.css.map */
