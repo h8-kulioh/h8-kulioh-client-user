@@ -113,3 +113,22 @@ export const fetchMajors = (univId) => {
     });
   };
 };
+
+export const getUserData = () => {
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { data } = await axios.get(`${url}/users/profile`, {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
+        });
+
+        // console.log(data);
+        resolve(data);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  };
+};

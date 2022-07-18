@@ -36,6 +36,18 @@ const Navbar = () => {
                 Tryout Mingguan
               </span>
             </li>
+            <li onClick={() => handleNavigation("/rapor")}>
+              <span
+                className={`main-nav-link ${
+                  pathName === `/rapor` ? "active" : null
+                } ${pathName === `/rapor/soalharian` ? "active" : null} ${
+                  pathName === `/rapor/soaltryout` ? "active" : null
+                }`}
+              >
+                {" "}
+                Rapor Siswa
+              </span>
+            </li>
             <li onClick={() => handleNavigation("/tasks")}>
               <span
                 className={`main-nav-link ${
