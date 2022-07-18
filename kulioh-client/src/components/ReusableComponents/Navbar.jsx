@@ -10,6 +10,11 @@ const Navbar = () => {
     navigate(url);
   };
 
+  const logoutHandler = () => {
+    localStorage.clear();
+    handleNavigation("/login");
+  };
+
   return (
     <div>
       <header className="header">
@@ -66,8 +71,22 @@ const Navbar = () => {
                 Diskusi
               </span>
             </li>
-            <li>
-              <span className="main-nav-link">Profil</span>
+            <li className="dropdown">
+              <span
+                className={`main-nav-link ${
+                  pathName === "/profile" ? "active" : null
+                }`}
+              >
+                Profile
+              </span>
+              <ul className="isi-dropdown">
+                <li onClick={() => handleNavigation("/profile")}>
+                  <span>Edit Profile</span>
+                </li>
+                <li onClick={() => logoutHandler()}>
+                  <span>Logout</span>
+                </li>
+              </ul>
             </li>
           </ul>
         </nav>
