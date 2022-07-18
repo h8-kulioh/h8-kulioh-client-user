@@ -9,6 +9,7 @@ import "../../css/ProfilePage.css";
 import axios from "axios";
 
 const ProfilePage = () => {
+
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const initialStateObj = useMemo(() => {
@@ -282,6 +283,7 @@ const ProfilePage = () => {
                 })}
               </datalist>
 
+
               {isAlreadyChooseUniv2 ? (
                 <>
                   {" "}
@@ -308,6 +310,7 @@ const ProfilePage = () => {
                   </datalist>
                 </>
               ) : null}
+
 
               <button className="btn" type="submit">
                 Edit
