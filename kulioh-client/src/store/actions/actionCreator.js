@@ -82,7 +82,7 @@ export const fetchUniv = () => {
           type: actionType.UNIV_READS,
           payload: response.data,
         });
-
+        // console.log(response.data, `action creator`);
         resolve();
       } catch (err) {
         reject(err);

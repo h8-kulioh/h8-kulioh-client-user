@@ -47,7 +47,8 @@ export default function ListCard({ listOf }) {
             },
           }
         );
-        handleChange();
+        handleChange()
+
         console.log(response);
       }
     } catch (err) {
