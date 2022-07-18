@@ -53,7 +53,7 @@ export default function ListCard({ listOf }) {
     <div className="card-body">
       <div className="form-check">
         <input
-          onClick={(e) => handleClick(e, listOf.id, listOf.status)}
+          onClick={(e) => handleClick(e, listOf.Task.id, listOf.status)}
           className="form-check-input"
           type="checkbox"
           id="flexCheckDefault"
