@@ -1,6 +1,6 @@
 import book from "../../assets/buku.png";
 import { useNavigate } from "react-router-dom";
-export default function CardLandingPpu() {
+export default function CardLandingPu({ percentage }) {
     const navigate = useNavigate()
 
     const handleClick = (e) => {
@@ -21,6 +21,7 @@ export default function CardLandingPpu() {
                     <div className="text-landing-text">
                         <p style={{ fontSize: 24, fontWeight: 600 }}>PU</p>
                         <p>Penalaran Umum</p>
+                        <p>{percentage} %</p>
                     </div>
                 </div>
             </div>
