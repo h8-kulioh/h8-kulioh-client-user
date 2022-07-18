@@ -41,8 +41,8 @@ const ProfilePage = () => {
                     univ2: data.UserMajors[1].Major.University.id,
                     major1: data.UserMajors[0].Major.id,
                     major2: data.UserMajors[1].Major.id,
-                    userMajorId1: data.UserMajors.id,
-                    userMajorId2: data.UserMajors.id
+                    userMajorId1: data.UserMajors[0].id,
+                    userMajorId2: data.UserMajors[1].id
                 })
                 resolve({ univ1: data.UserMajors[0].Major.University.id, univ2: data.UserMajors[1].Major.University.id })
             } catch (err) {
@@ -118,7 +118,7 @@ const ProfilePage = () => {
             })
         })
 
-    }, [dispatch, adminObj.userMajorId1, adminObj.userMajorId2])
+    }, [dispatch,])
 
     return (
         isLoadingFinish ? (
