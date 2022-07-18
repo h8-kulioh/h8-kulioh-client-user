@@ -31,6 +31,7 @@ export default function ListCard({ listOf }) {
             },
           }
         );
+        handleChange();
         console.log("here in bottom");
         console.log(response);
       } else if (status === true) {
@@ -46,6 +47,7 @@ export default function ListCard({ listOf }) {
             },
           }
         );
+        handleChange();
         console.log(response);
       }
     } catch (err) {
