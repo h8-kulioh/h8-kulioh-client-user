@@ -1,42 +1,31 @@
+import React, { useEffect, useState } from "react";
 import ListCard from "./ListCard";
+import "../../css/CardComponent.css";
 
 export default function CardComponent({ number, babName, listSub }) {
-  const subList = listSub.filter((x) => x.Task.Chapter.name == babName);
+  const [isActive, setIsActive] = useState(false);
+  const subList = listSub.filter((x) => x.Task.Chapter.name === babName);
 
-  const idComp = `accordionExample${number}`;
-  const idHead = `heading${number}`;
-  const idColl = `collapse${number}`;
-  const hashColl = `#collapse${number}`;
   return (
-    <>
-      <div className="accordion" id={idComp}>
+    <div className="accordion-container">
+      <div className="accordion">
         <div className="accordion-item">
-          <h2 className="accordion-header" id={idHead}>
-            <button
-              className="accordion-button"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target={hashColl}
-              aria-expanded="true"
-              aria-controls={idColl}
-            >
-              <p className="ini-bootstrap">{babName}</p>
-            </button>
-          </h2>
           <div
-            id={idColl}
-            className="accordion-collapse collapse"
-            aria-labelledby={idHead}
-            data-bs-parent={idComp}
+            onClick={() => setIsActive(!isActive)}
+            className={`accordion-title ${isActive ? "active" : null}`}
           >
-            <div className="accordion-body">
+            <div>{babName}</div>
+            <div className="icon-accordion">{isActive ? "▲" : "▼"}</div>
+          </div>
+          {isActive && (
+            <div className="accordion-content">
               {subList.map((x) => {
                 return <ListCard listOf={x} key={x.id} />;
               })}
             </div>
-          </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

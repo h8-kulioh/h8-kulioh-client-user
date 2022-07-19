@@ -16,6 +16,8 @@ const QuestionContainer = () => {
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
   const [answers, setAnswers] = useState(["", "", "", ""]);
 
+  console.log(questions);
+
   let getYear;
   let getMonth;
   let getDay;
@@ -59,7 +61,7 @@ const QuestionContainer = () => {
         },
         {
           headers: {
-            access_token: localStorage.getItem("accessToken")
+            access_token: localStorage.getItem("accessToken"),
           },
         }
       );
@@ -93,7 +95,7 @@ const QuestionContainer = () => {
         `${url}/questions/answers/daily/${todayFormat}`,
         {
           headers: {
-            access_token: localStorage.getItem("accessToken")
+            access_token: localStorage.getItem("accessToken"),
           },
         }
       ); // YYYYMMDD
@@ -168,8 +170,9 @@ const QuestionContainer = () => {
                   <button
                     key={idx}
                     onClick={(e) => movePage(e, idx)}
-                    className={`btn-pagination ${pageNum === idx ? "active" : ""
-                      } ${answers[idx] !== "" ? "answered" : ""} `}
+                    className={`btn-pagination ${
+                      pageNum === idx ? "active" : ""
+                    } ${answers[idx] !== "" ? "answered" : ""} `}
                   >
                     {idx + 1}
                   </button>

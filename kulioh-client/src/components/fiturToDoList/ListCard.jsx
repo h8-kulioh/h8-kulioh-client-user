@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as actionType from "../../store/actions/actionType";
+import "../../css/ListCard.css";
 
 export default function ListCard({ listOf }) {
   // console.log(listOf, `--------`);
@@ -47,7 +48,7 @@ export default function ListCard({ listOf }) {
             },
           }
         );
-        handleChange()
+        handleChange();
 
         console.log(response);
       }
@@ -57,20 +58,17 @@ export default function ListCard({ listOf }) {
     // console.log(id, `id`);
   };
   return (
-    <div className="card-body">
-      <div className="form-check">
+    <div className="list-card-component">
+      <form className="form-container-todo">
         <input
+          className="input-todo"
           onClick={(e) => handleClick(e, listOf.Task.id, listOf.status)}
-          className="form-check-input"
-          type="checkbox"
-          id="flexCheckDefault"
           checked={listOf.status === true}
-          onChange={(e) => handleChange(e)}
+          type="checkbox"
+          id={listOf.Task.id}
         />
-        <label className="form-check-label" htmlFor="flexCheckDefault">
-          {listOf.Task.description}
-        </label>
-      </div>
+        <label htmlFor={listOf.Task.id}>{listOf.Task.description}</label>
+      </form>
     </div>
   );
 }

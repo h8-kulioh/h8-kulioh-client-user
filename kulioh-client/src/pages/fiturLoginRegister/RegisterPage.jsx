@@ -125,7 +125,7 @@ const RegisterPage = () => {
     <>
       {isLoadingFinish ? (
         <div className="login-container">
-          <h1>Kulioh</h1>
+          <h1>Vinter</h1>
           <div className="form-container">
             <form onSubmit={submitHandler} className="form-component">
               <input

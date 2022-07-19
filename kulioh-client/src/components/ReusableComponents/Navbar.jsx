@@ -57,6 +57,10 @@ const Navbar = () => {
               <span
                 className={`main-nav-link ${
                   pathName === "/tasks" ? "active" : null
+                } ${pathName === "/tasks/ppu" ? "active" : null} ${
+                  pathName === "/tasks/pu" ? "active" : null
+                } ${pathName === "/tasks/pbm" ? "active" : null} ${
+                  pathName === "/tasks/pk" ? "active" : null
                 }`}
               >
                 Progress Belajar
