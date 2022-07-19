@@ -49,7 +49,7 @@ const QuestionContainer = () => {
       return q.id;
     });
 
-    console.log(arrayQuestionId);
+    // console.log(arrayQuestionId);
     try {
       await axios.post(
         `${url}/questions/answers/daily`,

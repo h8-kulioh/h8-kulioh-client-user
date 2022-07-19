@@ -17,6 +17,10 @@ const RaporSoalHarian = () => {
   const [pageNum, setPageNum] = useState(0);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
   const [answers, setAnswers] = useState(["", "", "", ""]);
+  const [subject, setSubject] = useState("PK")
+  const [userAnswers, setUserAnswer] = useState([])
+  const [keyAnswer, setKeyAnswer] = useState()
+
 
   console.log(isLoadingFinish);
 
@@ -29,63 +33,89 @@ const RaporSoalHarian = () => {
     setPageNum(page);
   };
 
+  // const getAnswersFromDB = async () => {
+  //   try {
+  //     getYear = new Date().getFullYear(); //2022
+  //     getMonth = new Date().getMonth() + 1;
+  //     getDay = new Date().getDate();
+
+  //     let todayFormat = "";
+  //     todayFormat = todayFormat + getYear;
+  //     if (getMonth.toLocaleString.length < 2) {
+  //       todayFormat += `0${getMonth}`;
+  //     } else {
+  //       todayFormat += getMonth;
+  //     }
+  //     if (getDay.length < 2) {
+  //       todayFormat += `0${getDay}`;
+  //     } else {
+  //       todayFormat += getDay;
+  //     }
+
+  //     const response = await axios.get(
+  //       `${url}/questions/answers/daily/${todayFormat}`,
+  //       {
+  //         headers: {
+  //           access_token: localStorage.getItem("accessToken"),
+  //         },
+  //       }
+  //     );
+  //     if (!response || response.data.length === 0) {
+  //       dispatch(actionCreator.fetchDailyQ()).then(() =>
+  //         setIsLoadingFinish(true)
+  //       );
+  //     } else {
+  //       console.log(`data ada--------`);
+  //       dispatch(actionCreator.fetchDailyQ()).then(() =>
+  //         setIsLoadingFinish(true)
+  //       );
+  //     }
+  //   } catch (err) {
+  //     if (err.response.data.statusCode === 404) {
+  //       console.log(`data gaada--------`);
+  //       dispatch(actionCreator.fetchDailyQ()).then(() =>
+  //         setIsLoadingFinish(true)
+  //       );
+  //     }
+  //   }
+  // };
+
   const getAnswersFromDB = async () => {
     try {
-      getYear = new Date().getFullYear(); //2022
-      getMonth = new Date().getMonth() + 1;
-      getDay = new Date().getDate();
-
-      let todayFormat = "";
-      todayFormat = todayFormat + getYear;
-      if (getMonth.toLocaleString.length < 2) {
-        todayFormat += `0${getMonth}`;
-      } else {
-        todayFormat += getMonth;
-      }
-      if (getDay.length < 2) {
-        todayFormat += `0${getDay}`;
-      } else {
-        todayFormat += getDay;
-      }
-
-      const response = await axios.get(
-        `${url}/questions/answers/daily/${todayFormat}`,
-        {
-          headers: {
-            access_token: localStorage.getItem("accessToken"),
-          },
+      const { data } = await axios.get(`http://localhost:3001/users/allAnswer`, {
+        headers: {
+          access_token: localStorage.getItem("accessToken")
         }
-      );
-      if (!response || response.data.length === 0) {
-        dispatch(actionCreator.fetchDailyQ()).then(() =>
-          setIsLoadingFinish(true)
-        );
-      } else {
-        console.log(`data ada--------`);
-        dispatch(actionCreator.fetchDailyQ()).then(() =>
-          setIsLoadingFinish(true)
-        );
-      }
-    } catch (err) {
-      if (err.response.data.statusCode === 404) {
-        console.log(`data gaada--------`);
-        dispatch(actionCreator.fetchDailyQ()).then(() =>
-          setIsLoadingFinish(true)
-        );
-      }
+      })
+      // console.log(data);
+      const fiteredData = data.filter(el => el.Question.subject === subject)
+      console.log(fiteredData);
+      setUserAnswer(fiteredData)
+      const kunjab = fiteredData[pageNum].Question.QuestionKeys.filter(el => el.correct === true)
+      setKeyAnswer(kunjab)
+      console.log(kunjab, `kunjab`);
+      setIsLoadingFinish(true)
     }
-  };
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+  const changeSubject = (e) => {
+    e.preventDefault()
+    // console.log(e.target.value);
+    setSubject(e.target.value)
+  }
 
   useEffect(() => {
     getAnswersFromDB();
-  }, []);
+  }, [subject]);
 
-  getYear = new Date().getFullYear(); //2022
-  getMonth = new Intl.DateTimeFormat("id-ID", { month: "long" }).format(
-    new Date()
-  );
-  getDay = new Date().getDate();
-
+  // getYear = new Date().getFullYear(); //2022
+  // getMonth = new Intl.DateTimeFormat("id-ID", { month: "long" }).format(
+  //   new Date()
+  // );
+  // getDay = new Date().getDate();
   return (
     <>
       <Navbar />
@@ -95,39 +125,39 @@ const RaporSoalHarian = () => {
             {isLoadingFinish ? (
               <div className="question-container">
                 <div className="filter-container">
-                  <select name="" id="">
-                    <option value="">PK</option>
-                    <option value="">PBM</option>
-                    <option value="">PU</option>
-                    <option value="">PPU</option>
+                  <select onChange={(e) => changeSubject(e)} name="" id="">
+                    <option value="PK">PK</option>
+                    <option value="PBM">PBM</option>
+                    <option value="PU">PU</option>
+                    <option value="PPU">PPU</option>
                   </select>
                 </div>
                 <div className="pagination-container">
                   <div className="num-container">
-                    {questions.map((q, idx) => {
+                    {userAnswers.map((q, idx) => {
                       return (
                         <button
                           key={idx}
                           onClick={(e) => movePage(e, idx)}
-                          className={`btn-pagination ${
-                            pageNum === idx ? "active" : ""
-                          } ${answers[idx] !== "" ? "answered" : ""} `}
+                          className={`btn-pagination ${pageNum === idx ? "active" : ""
+                            } ${answers[idx] !== "" ? "answered" : ""} `}
                         >
                           {idx + 1}
                         </button>
                       );
                     })}
                   </div>
-                  <h3>INI TANGGAL SOAL</h3>
+                  <h3>{userAnswers[pageNum].createdAt.split("T")[0]}</h3>
                 </div>
 
                 <div className="question-answers">
-                  {questions[pageNum].question.split("~").map((so, idx) => {
+                  {userAnswers[pageNum].Question.question.split("~").map((so, idx) => {
                     return <Latex key={idx}>{so}</Latex>;
                   })}
+                  {/* <Latex>{userAnswers[pageNum].Question.question}</Latex> */}
 
                   <form className="form-container">
-                    {questions[pageNum].QuestionKeys.map((el) => (
+                    {userAnswers[pageNum].Question.QuestionKeys.map((el) => (
                       <label
                         key={el.id}
                         className={answers.includes(el.id) ? "active" : null}
@@ -136,7 +166,7 @@ const RaporSoalHarian = () => {
                           type="radio"
                           name="radio"
                           checked={answers.includes(el.id)}
-                          //   onChange={(e) => saveAnswer(e, el.id)}
+                        // onChange={(e) => saveAnswer(e, el.id)}
                         />
                         <Latex>{el.answer}</Latex>
                       </label>
@@ -144,6 +174,10 @@ const RaporSoalHarian = () => {
                   </form>
                 </div>
                 <div>INI PEMBAHASAN</div>
+                <h3>Jabawan User: </h3>
+                <Latex>{userAnswers[pageNum].QuestionKey.answer}</Latex>
+                <h3>Jabawan Benar: </h3>
+                <Latex>{keyAnswer[0].answer}</Latex>
               </div>
             ) : null}
           </>

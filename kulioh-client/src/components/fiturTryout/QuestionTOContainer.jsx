@@ -49,14 +49,51 @@ const QuestionTOContainer = () => {
   };
 
   const getSoal = async () => {
-    const response = await axios.get("http://localhost:3000/Tryout");
+    const response = await axios.get("http://localhost:3001/questions-weekly/weekly/20220719", {
+      headers: {
+        access_token: localStorage.getItem("accessToken")
+      }
+    });
+    // console.log(response.data);
     setQuestions(response.data);
     setIsLoadingFinish(true);
   };
 
-  const handleSubmit = () => {
-    console.log(answers);
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    // questions-weekly/user-answer
+    //format nya sama kaya question  
+    const arrayQuestionId = questions.map((q) => {
+      return q.id
+    })
+    // console.log(answers);
+    // console.log(arrayQuestionId);
+    try {
+      const response = await axios.post(`http://localhost:3001/questions-weekly/user-answer`, {
+        userAnswer: answers,
+        QuestionWeeklyTestId: arrayQuestionId
+      }, {
+        headers: {
+          access_token: localStorage.getItem("accessToken")
+        }
+      })
+      console.log(response);
+    }
+    catch (err) {
+      console.log(err);
+    }
     // dispatch({ type: actionType.DAILY_Q_ISANSWERED });
+  };
+  const longName = (name) => {
+    if (name === `PK`) {
+      return `Pengetahuan Kuantitatif`;
+    } else if (name === `PBM`) {
+      return `Pemahaman Bacaan dan Menulis`;
+    } else if (name === `PPU`) {
+      return `Pengetahuan dan Pemahaman Umum`;
+    } else if (name === `PU`) {
+      return `Penalaran Umum`;
+    }
   };
 
   useEffect(() => {
@@ -68,26 +105,26 @@ const QuestionTOContainer = () => {
       {isLoadingFinish ? (
         <div className="question-container">
           <div className="header-container">
-            <h3 className="subtes">Soal Penalaran Umum</h3>
-            <QuestionTOCountdown handleSubmit={handleSubmit} />
+            <h3 className="subtes">{longName(questions[pageNum].subject)}</h3>
+            {/* <QuestionTOCountdown handleSubmit={handleSubmit} /> */}
           </div>
           <div className="question-answers">
-            {questions[pageNum].Question.split("~").map((so, idx) => {
+            {questions[pageNum].question.split("~").map((so, idx) => {
               return <Latex key={idx}>{so}</Latex>;
             })}
             <form className="form-container">
-              {questions[pageNum].answers.map((el) => (
+              {questions[pageNum].QuestionKeyWeeklyTests.map((el) => (
                 <label
-                  key={el.option}
-                  className={answers.includes(el.option) ? "active" : null}
+                  key={el.id}
+                  className={answers.includes(el.id) ? "active" : null}
                 >
                   <input
                     type="radio"
                     name="radio"
-                    checked={answers.includes(el.option)}
-                    onChange={(e) => saveAnswer(e, el.option)}
+                    checked={answers.includes(el.id)}
+                    onChange={(e) => saveAnswer(e, el.id)}
                   />
-                  {el.option}
+                  <Latex>{el.answer}</Latex>
                 </label>
               ))}
             </form>
@@ -99,9 +136,8 @@ const QuestionTOContainer = () => {
                   <button
                     key={idx}
                     onClick={(e) => movePage(e, idx)}
-                    className={`btn-pagination ${
-                      pageNum === idx ? "active" : ""
-                    } ${answers[idx] !== "" ? "answered" : ""} `}
+                    className={`btn-pagination ${pageNum === idx ? "active" : ""
+                      } ${answers[idx] !== "" ? "answered" : ""} `}
                   >
                     {idx + 1}
                   </button>
@@ -110,7 +146,7 @@ const QuestionTOContainer = () => {
             </div>
             <div>
               {pageNum + 1 === questions.length ? (
-                <button className="btn-submit" onClick={handleSubmit}>
+                <button className="btn-submit" onClick={(e) => handleSubmit(e)}>
                   Submit
                 </button>
               ) : null}
