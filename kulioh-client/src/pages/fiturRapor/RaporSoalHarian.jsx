@@ -109,7 +109,7 @@ const RaporSoalHarian = () => {
 
   useEffect(() => {
     getAnswersFromDB();
-  }, [subject]);
+  }, [subject, pageNum]);
 
   // getYear = new Date().getFullYear(); //2022
   // getMonth = new Intl.DateTimeFormat("id-ID", { month: "long" }).format(
