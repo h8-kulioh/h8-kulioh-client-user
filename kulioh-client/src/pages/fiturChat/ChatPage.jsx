@@ -118,8 +118,8 @@ const ChatPage = () => {
                     }
                     key={idx}
                   >
-                    <span className="name">{doc.user}</span>
                     <div className="bubble-chat">
+                      <span className="name">{doc.user}</span>
                       <span className="message">{doc.message}</span>
                       <p className="createdAt">
                         {formatDistanceToNow(doc.createdAt.toDate())} ago
