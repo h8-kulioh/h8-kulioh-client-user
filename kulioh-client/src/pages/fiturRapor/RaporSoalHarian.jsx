@@ -20,7 +20,7 @@ const RaporSoalHarian = () => {
   const [subject, setSubject] = useState("PK")
   const [userAnswers, setUserAnswer] = useState([])
   const [keyAnswer, setKeyAnswer] = useState()
-
+  const [video, setVideo] = useState("")
 
   console.log(isLoadingFinish);
 
@@ -88,12 +88,22 @@ const RaporSoalHarian = () => {
         }
       })
       // console.log(data);
+      const response = await axios.get(`http://localhost:3001/videos/all-videos`, {
+        headers: {
+          access_token: localStorage.getItem("accessToken")
+        }
+      })
+
       const fiteredData = data.filter(el => el.Question.subject === subject)
-      console.log(fiteredData);
+      // console.log(fiteredData);
       setUserAnswer(fiteredData)
+      console.log(fiteredData);
       const kunjab = fiteredData[pageNum].Question.QuestionKeys.filter(el => el.correct === true)
+      const videoId = response.data.filter(el => el.id === fiteredData[0].Question.id)
+      console.log(videoId[0].videoLink);
+      setVideo(videoId[0].videoLink)
       setKeyAnswer(kunjab)
-      console.log(kunjab, `kunjab`);
+      // console.log(kunjab, `kunjab`);
       setIsLoadingFinish(true)
     }
     catch (err) {
@@ -109,7 +119,7 @@ const RaporSoalHarian = () => {
 
   useEffect(() => {
     getAnswersFromDB();
-  }, [subject]);
+  }, [subject, pageNum]);
 
   // getYear = new Date().getFullYear(); //2022
   // getMonth = new Intl.DateTimeFormat("id-ID", { month: "long" }).format(
@@ -178,6 +188,7 @@ const RaporSoalHarian = () => {
                 <Latex>{userAnswers[pageNum].QuestionKey.answer}</Latex>
                 <h3>Jabawan Benar: </h3>
                 <Latex>{keyAnswer[0].answer}</Latex>
+                <iframe width="560" height="315" src={video} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               </div>
             ) : null}
           </>

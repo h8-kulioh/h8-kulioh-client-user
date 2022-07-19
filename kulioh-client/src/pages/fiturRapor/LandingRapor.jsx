@@ -22,11 +22,31 @@ const LandingRapor = () => {
       perAll: 0
     }
   }, [])
+
+  const initialStateWeekObj = useMemo(() => {
+    return {
+      jumlahBenar: 0,
+      jumlahSoal: 0,
+      perPU: 0,
+      perPPU: 0,
+      perPK: 0,
+      perPBM: 0,
+      perAll: 0
+    }
+  }, [])
+
   const [dataObj, setDataObj] = useState(initialStateObj)
+  const [dataWeekObj, setDataWeekObj] = useState(initialStateWeekObj)
   const [isLoadingFinish, setIsLoadingFinish] = useState(false)
   const getRaporDaily = async () => {
     try {
       const { data } = await axios.get(`http://localhost:3001/users/stat`, {
+        headers: {
+          access_token: localStorage.getItem("accessToken")
+        }
+      })
+
+      const response = await axios.get(`http://localhost:3001/users/tryOutStat`, {
         headers: {
           access_token: localStorage.getItem("accessToken")
         }
@@ -41,6 +61,17 @@ const LandingRapor = () => {
         perPBM: data.perPBM,
         perAll: data.perAll
       })
+
+      setDataWeekObj({
+        jumlahBenar: response.data.jumlahBenar,
+        jumlahSoal: response.data.jumlahSoal,
+        perPU: response.data.perPU,
+        perPPU: response.data.perPPU,
+        perPK: response.data.perPK,
+        perPBM: response.data.perPBM,
+        perAll: response.data.perAll
+      })
+
       setIsLoadingFinish(true)
     }
     catch (err) {
@@ -94,7 +125,7 @@ const LandingRapor = () => {
             <h1 className="title">Rapor Tryout Mingguan</h1>
             <div className="nilai-container">
               <div className="one-container">
-                <h1 className="main">50%</h1>
+                <h1 className="main">{dataWeekObj.perAll}%</h1>
                 <h2
                   className="lihat-pembahasan"
                   onClick={() => handleNavigation("/rapor/tryout")}
@@ -103,19 +134,19 @@ const LandingRapor = () => {
                 </h2>
               </div>
               <div className="one-container-lain">
-                <h1>40%</h1>
+                <h1>{dataWeekObj.perPPU}%</h1>
                 <h2 className="subtes">PPU</h2>
               </div>
               <div className="one-container-lain">
-                <h1>40%</h1>
+                <h1>{dataWeekObj.perPU}%</h1>
                 <h2 className="subtes">PU</h2>
               </div>
               <div className="one-container-lain">
-                <h1>40%</h1>
+                <h1>{dataWeekObj.perPBM}%</h1>
                 <h2 className="subtes">PBM</h2>
               </div>
               <div className="one-container-lain">
-                <h1>40%</h1>
+                <h1>{dataWeekObj.perPK}%</h1>
                 <h2 className="subtes">PK</h2>
               </div>
             </div>
