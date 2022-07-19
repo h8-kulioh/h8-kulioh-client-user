@@ -3,9 +3,11 @@ import Latex from "react-latex";
 import "../../css/QuestionContainer.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actionType from "../../store/actions/actionType";
-import QuestionTOCountdown from "./QuestionTOCountdown";
+import * as actionCreator from "../../store/actions/actionCreator";
+import QuestionTOTimer from "./QuestionTOTimer";
+const url = "http://localhost:3001";
 
 const QuestionTOContainer = () => {
   let dispatch = useDispatch();
@@ -49,37 +51,43 @@ const QuestionTOContainer = () => {
   };
 
   const getSoal = async () => {
-    const response = await axios.get("http://localhost:3001/questions-weekly/weekly/20220719", {
-      headers: {
-        access_token: localStorage.getItem("accessToken")
+    const response = await axios.get(
+      "http://localhost:3001/questions-weekly/weekly/20220719",
+      {
+        headers: {
+          access_token: localStorage.getItem("accessToken"),
+        },
       }
-    });
+    );
     // console.log(response.data);
     setQuestions(response.data);
     setIsLoadingFinish(true);
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // questions-weekly/user-answer
-    //format nya sama kaya question  
+    //format nya sama kaya question
     const arrayQuestionId = questions.map((q) => {
-      return q.id
-    })
+      return q.id;
+    });
     // console.log(answers);
     // console.log(arrayQuestionId);
     try {
-      const response = await axios.post(`http://localhost:3001/questions-weekly/user-answer`, {
-        userAnswer: answers,
-        QuestionWeeklyTestId: arrayQuestionId
-      }, {
-        headers: {
-          access_token: localStorage.getItem("accessToken")
+      const response = await axios.post(
+        `http://localhost:3001/questions-weekly/user-answer`,
+        {
+          userAnswer: answers,
+          QuestionWeeklyTestId: arrayQuestionId,
+        },
+        {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
         }
-      })
+      );
       console.log(response);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
     // dispatch({ type: actionType.DAILY_Q_ISANSWERED });
@@ -97,6 +105,7 @@ const QuestionTOContainer = () => {
   };
 
   useEffect(() => {
+    // getAnswersFromDB();
     getSoal();
   }, []);
 
@@ -106,7 +115,7 @@ const QuestionTOContainer = () => {
         <div className="question-container">
           <div className="header-container">
             <h3 className="subtes">{longName(questions[pageNum].subject)}</h3>
-            {/* <QuestionTOCountdown handleSubmit={handleSubmit} /> */}
+            <QuestionTOTimer handleSubmit={handleSubmit} />
           </div>
           <div className="question-answers">
             {questions[pageNum].question.split("~").map((so, idx) => {
@@ -136,8 +145,9 @@ const QuestionTOContainer = () => {
                   <button
                     key={idx}
                     onClick={(e) => movePage(e, idx)}
-                    className={`btn-pagination ${pageNum === idx ? "active" : ""
-                      } ${answers[idx] !== "" ? "answered" : ""} `}
+                    className={`btn-pagination ${
+                      pageNum === idx ? "active" : ""
+                    } ${answers[idx] !== "" ? "answered" : ""} `}
                   >
                     {idx + 1}
                   </button>
