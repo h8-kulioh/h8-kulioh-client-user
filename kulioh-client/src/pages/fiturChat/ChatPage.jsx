@@ -82,11 +82,11 @@ const ChatPage = () => {
     return newStr;
   };
 
-  console.log(
-    nameChatRoom(
-      "UNIVERSITAS GADJAH MADA (UGM)-KARTOGRAFI DAN PENGINDERAAN JAUH"
-    )
-  );
+  // console.log(
+  //   nameChatRoom(
+  //     "UNIVERSITAS GADJAH MADA (UGM)-KARTOGRAFI DAN PENGINDERAAN JAUH"
+  //   )
+  // );
 
   return (
     <>
