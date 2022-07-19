@@ -10,7 +10,6 @@ export default function ClockComponentTO({
   toDay,
 }) {
   const theDay = new Date(toDay);
-
   let getYear = theDay.getFullYear();
   const getMonth = theDay.toLocaleString("id-ID", { month: "long" });
   let getDay = theDay.getDate();

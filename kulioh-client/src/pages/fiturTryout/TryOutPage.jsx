@@ -20,7 +20,7 @@ const TryoutPage = () => {
   const [isTodayTO, setIsTodayTO] = useState(false);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
 
-  let ToIsOnDay = 2;
+  let ToIsOnDay = 6;
   const isTodayTOFunc = () => {
     const now = new Date();
     const nowDay = now.getDay();

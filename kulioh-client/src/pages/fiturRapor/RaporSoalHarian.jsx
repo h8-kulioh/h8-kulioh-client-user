@@ -17,115 +17,84 @@ const RaporSoalHarian = () => {
   const [pageNum, setPageNum] = useState(0);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
   const [answers, setAnswers] = useState(["", "", "", ""]);
-  const [subject, setSubject] = useState("PK")
-  const [userAnswers, setUserAnswer] = useState([])
-  const [keyAnswer, setKeyAnswer] = useState()
-  const [video, setVideo] = useState("")
-
-  console.log(isLoadingFinish);
-
-  let getYear;
-  let getMonth;
-  let getDay;
+  const [subject, setSubject] = useState("PK");
+  const [userAnswers, setUserAnswer] = useState([]);
+  const [keyAnswer, setKeyAnswer] = useState();
+  const [video, setVideo] = useState("");
+  const [date, setDate] = useState([]);
 
   const movePage = (e, page) => {
     e.preventDefault();
     setPageNum(page);
   };
 
-  // const getAnswersFromDB = async () => {
-  //   try {
-  //     getYear = new Date().getFullYear(); //2022
-  //     getMonth = new Date().getMonth() + 1;
-  //     getDay = new Date().getDate();
-
-  //     let todayFormat = "";
-  //     todayFormat = todayFormat + getYear;
-  //     if (getMonth.toLocaleString.length < 2) {
-  //       todayFormat += `0${getMonth}`;
-  //     } else {
-  //       todayFormat += getMonth;
-  //     }
-  //     if (getDay.length < 2) {
-  //       todayFormat += `0${getDay}`;
-  //     } else {
-  //       todayFormat += getDay;
-  //     }
-
-  //     const response = await axios.get(
-  //       `${url}/questions/answers/daily/${todayFormat}`,
-  //       {
-  //         headers: {
-  //           access_token: localStorage.getItem("accessToken"),
-  //         },
-  //       }
-  //     );
-  //     if (!response || response.data.length === 0) {
-  //       dispatch(actionCreator.fetchDailyQ()).then(() =>
-  //         setIsLoadingFinish(true)
-  //       );
-  //     } else {
-  //       console.log(`data ada--------`);
-  //       dispatch(actionCreator.fetchDailyQ()).then(() =>
-  //         setIsLoadingFinish(true)
-  //       );
-  //     }
-  //   } catch (err) {
-  //     if (err.response.data.statusCode === 404) {
-  //       console.log(`data gaada--------`);
-  //       dispatch(actionCreator.fetchDailyQ()).then(() =>
-  //         setIsLoadingFinish(true)
-  //       );
-  //     }
-  //   }
-  // };
+  // console.log(date);
+  // console.log(userAnswers);
 
   const getAnswersFromDB = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:3001/users/allAnswer`, {
-        headers: {
-          access_token: localStorage.getItem("accessToken")
+      const { data } = await axios.get(
+        `http://localhost:3001/users/allAnswer`,
+        {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
         }
-      })
+      );
       // console.log(data);
-      const response = await axios.get(`http://localhost:3001/videos/all-videos`, {
-        headers: {
-          access_token: localStorage.getItem("accessToken")
+      const response = await axios.get(
+        `http://localhost:3001/videos/all-videos`,
+        {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
         }
-      })
+      );
 
-      const fiteredData = data.filter(el => el.Question.subject === subject)
+      const fiteredData = data
+        .filter((el) => el.Question.subject === subject)
+        .sort((a, b) => a.QuestionId < b.QuestionId);
       // console.log(fiteredData);
-      setUserAnswer(fiteredData)
-      console.log(fiteredData);
-      const kunjab = fiteredData[pageNum].Question.QuestionKeys.filter(el => el.correct === true)
-      const videoId = response.data.filter(el => el.id === fiteredData[0].Question.id)
-      console.log(videoId[0].videoLink);
-      setVideo(videoId[0].videoLink)
-      setKeyAnswer(kunjab)
+      setUserAnswer(fiteredData);
+      // console.log(fiteredData);
+
+      const dateArray = fiteredData.map((el) => {
+        const theDate = new Date(el.createdAt);
+        let getYear = theDate.getFullYear();
+        const getMonth = theDate.toLocaleString("id-ID", { month: "long" });
+        let getDay = theDate.getDate();
+        return `${getDay} ${getMonth} ${getYear}`;
+      });
+
+      setDate(dateArray);
+
+      const kunjab = fiteredData[pageNum].Question.QuestionKeys.filter(
+        (el) => el.correct === true
+      );
+      const videoId = response.data.filter(
+        (el) => el.id === fiteredData[0].Question.id
+      );
+      // console.log(videoId[0].videoLink);
+      setVideo(videoId[0].videoLink);
+      setKeyAnswer(kunjab);
       // console.log(kunjab, `kunjab`);
-      setIsLoadingFinish(true)
-    }
-    catch (err) {
+      setIsLoadingFinish(true);
+
+      // console.log(theDate);
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const changeSubject = (e) => {
-    e.preventDefault()
-    // console.log(e.target.value);
-    setSubject(e.target.value)
-  }
+    e.preventDefault();
+    setSubject(e.target.value);
+  };
 
   useEffect(() => {
     getAnswersFromDB();
   }, [subject, pageNum]);
 
-  // getYear = new Date().getFullYear(); //2022
-  // getMonth = new Intl.DateTimeFormat("id-ID", { month: "long" }).format(
-  //   new Date()
-  // );
-  // getDay = new Date().getDate();
   return (
     <>
       <Navbar />
@@ -147,48 +116,95 @@ const RaporSoalHarian = () => {
                     {userAnswers.map((q, idx) => {
                       return (
                         <button
-                          key={idx}
+                          key={q.id}
                           onClick={(e) => movePage(e, idx)}
-                          className={`btn-pagination ${pageNum === idx ? "active" : ""
-                            } ${answers[idx] !== "" ? "answered" : ""} `}
+                          className={`btn-pagination ${
+                            pageNum === idx ? "active" : ""
+                          } ${q.QuestionKey.correct ? "correct" : "wrong"} `}
                         >
                           {idx + 1}
                         </button>
                       );
                     })}
                   </div>
-                  <h3>{userAnswers[pageNum].createdAt.split("T")[0]}</h3>
+                  <h3>Soal Harian {date[pageNum]}</h3>
+                  {/* <h3>{getDate}</h3> */}
                 </div>
 
                 <div className="question-answers">
-                  {userAnswers[pageNum].Question.question.split("~").map((so, idx) => {
-                    return <Latex key={idx}>{so}</Latex>;
-                  })}
+                  {userAnswers[pageNum].Question.question
+                    .split("~")
+                    .map((so, idx) => {
+                      return <Latex key={idx}>{so}</Latex>;
+                    })}
                   {/* <Latex>{userAnswers[pageNum].Question.question}</Latex> */}
 
-                  <form className="form-container">
+                  <form className="form-container-rapor">
                     {userAnswers[pageNum].Question.QuestionKeys.map((el) => (
                       <label
                         key={el.id}
-                        className={answers.includes(el.id) ? "active" : null}
+                        className={`${
+                          userAnswers[pageNum].QuestionKey.correct &&
+                          userAnswers[pageNum].QuestionKey.answer === el.answer
+                            ? "correct"
+                            : ""
+                        } ${
+                          !userAnswers[pageNum].QuestionKey.correct &&
+                          keyAnswer[0].answer === el.answer
+                            ? "theCorrect"
+                            : ""
+                        } ${
+                          !userAnswers[pageNum].QuestionKey.correct &&
+                          userAnswers[pageNum].QuestionKey.answer === el.answer
+                            ? "wrong"
+                            : ""
+                        } `}
                       >
                         <input
+                          className={`input-pembahasan ${
+                            userAnswers[pageNum].QuestionKey.correct &&
+                            userAnswers[pageNum].QuestionKey.answer ===
+                              el.answer
+                              ? "correct"
+                              : ""
+                          } ${
+                            !userAnswers[pageNum].QuestionKey.correct &&
+                            keyAnswer[0].answer === el.answer
+                              ? "theCorrect"
+                              : ""
+                          } ${
+                            !userAnswers[pageNum].QuestionKey.correct &&
+                            userAnswers[pageNum].QuestionKey.answer ===
+                              el.answer
+                              ? "wrong"
+                              : ""
+                          } `}
                           type="radio"
                           name="radio"
                           checked={answers.includes(el.id)}
-                        // onChange={(e) => saveAnswer(e, el.id)}
+
+                          // onChange={(e) => saveAnswer(e, el.id)}
                         />
                         <Latex>{el.answer}</Latex>
                       </label>
                     ))}
                   </form>
                 </div>
-                <div>INI PEMBAHASAN</div>
-                <h3>Jabawan User: </h3>
+                <div className="rapor-video-pembahasan">Video Pembahasan</div>
+                {/* <h3>Jabawan User: </h3>
                 <Latex>{userAnswers[pageNum].QuestionKey.answer}</Latex>
                 <h3>Jabawan Benar: </h3>
-                <Latex>{keyAnswer[0].answer}</Latex>
-                <iframe width="560" height="315" src={video} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <Latex>{keyAnswer[0].answer}</Latex> */}
+                <iframe
+                  className="video"
+                  width="560"
+                  height="315"
+                  src={video}
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
               </div>
             ) : null}
           </>
