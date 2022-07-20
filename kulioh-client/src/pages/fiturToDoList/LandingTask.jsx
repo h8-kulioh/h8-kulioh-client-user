@@ -6,9 +6,11 @@ import Navbar from "../../components/ReusableComponents/Navbar";
 import SVG from "../../components/ReusableComponents/SVG";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Chart, Tooltip, Title, ArcElement, Legend } from "chart.js"
+import { Doughnut } from 'react-chartjs-2'
 export default function LandingTask() {
   const navigate = useNavigate();
-
+  Chart.register(Tooltip, Title, ArcElement, Legend)
   const handleNavigation = (url) => {
     navigate(url);
   };
@@ -49,6 +51,9 @@ export default function LandingTask() {
     }
   };
 
+
+
+
   useEffect(() => {
     getPercentage();
   }, []);
@@ -56,6 +61,7 @@ export default function LandingTask() {
   return isLoadingFinish ? (
     <>
       <Navbar />
+
       <div className="main-container">
         <div className="rapor-container">
           <h1 className="title">Progress Belajar</h1>
@@ -63,6 +69,23 @@ export default function LandingTask() {
             <div className="one-container">
               <SVG theData={dataObj.perAll} theClass={"svg-container"} />
               <h2 className="lihat-pembahasan">Semua Subtes</h2>
+              {/* <div style={{ width: '10%' }}> */}
+              <Doughnut
+                data={{
+                  datasets: [{
+                    label: `Percentage PK`,
+                    data: [(dataObj.perAll), (100 - (dataObj.perAll))],
+                    backgroundColor: [
+                      'red',
+                      'blue',
+                    ]
+                  }
+                  ],
+
+                }
+                }
+              />
+              {/* </div> */}
             </div>
             <div className="one-container-lain">
               <SVG theData={dataObj.perPPU} theClass={"svg-container-small"} />
