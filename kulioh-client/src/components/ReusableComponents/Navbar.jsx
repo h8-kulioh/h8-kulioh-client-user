@@ -27,18 +27,16 @@ const Navbar = () => {
           <ul className="main-nav-list">
             <li onClick={() => handleNavigation("/")}>
               <span
-                className={`main-nav-link ${
-                  pathName === "/" ? "active" : null
-                }`}
+                className={`main-nav-link ${pathName === "/" ? "active" : null
+                  }`}
               >
                 Soal Harian
               </span>
             </li>
             <li onClick={() => handleNavigation("/tryout")}>
               <span
-                className={`main-nav-link ${
-                  pathName === "/tryout" ? "active" : null
-                }`}
+                className={`main-nav-link ${pathName === "/tryout" ? "active" : null
+                  }`}
               >
                 {" "}
                 Tryout Mingguan
@@ -46,11 +44,9 @@ const Navbar = () => {
             </li>
             <li onClick={() => handleNavigation("/rapor")}>
               <span
-                className={`main-nav-link ${
-                  pathName === `/rapor` ? "active" : null
-                } ${pathName === `/rapor/soalharian` ? "active" : null} ${
-                  pathName === `/rapor/tryout` ? "active" : null
-                }`}
+                className={`main-nav-link ${pathName === `/rapor` ? "active" : null
+                  } ${pathName === `/rapor/soalharian` ? "active" : null} ${pathName === `/rapor/tryout` ? "active" : null
+                  }`}
               >
                 {" "}
                 Rapor Siswa
@@ -58,31 +54,26 @@ const Navbar = () => {
             </li>
             <li onClick={() => handleNavigation("/tasks")}>
               <span
-                className={`main-nav-link ${
-                  pathName === "/tasks" ? "active" : null
-                } ${pathName === "/tasks/ppu" ? "active" : null} ${
-                  pathName === "/tasks/pu" ? "active" : null
-                } ${pathName === "/tasks/pbm" ? "active" : null} ${
-                  pathName === "/tasks/pk" ? "active" : null
-                }`}
+                className={`main-nav-link ${pathName === "/tasks" ? "active" : null
+                  } ${pathName === "/tasks/ppu" ? "active" : null} ${pathName === "/tasks/pu" ? "active" : null
+                  } ${pathName === "/tasks/pbm" ? "active" : null} ${pathName === "/tasks/pk" ? "active" : null
+                  }`}
               >
                 Progress Belajar
               </span>
             </li>
             <li onClick={() => handleNavigation("/chat")}>
               <span
-                className={`main-nav-link ${
-                  pathName === "/chat" ? "active" : null
-                }`}
+                className={`main-nav-link ${pathName === "/chat" ? "active" : null
+                  }`}
               >
                 Diskusi
               </span>
             </li>
             <li className="dropdown">
               <span
-                className={`main-nav-link ${
-                  pathName === "/profile" ? "active" : null
-                }`}
+                className={`main-nav-link ${pathName === "/profile" ? "active" : null
+                  }`}
               >
                 Profile
               </span>

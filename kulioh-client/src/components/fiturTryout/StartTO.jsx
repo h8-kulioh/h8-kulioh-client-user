@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actionType from "../../store/actions/actionType";
 import "../../css/StartTO.css";
 import start from "../../assets/start.png";
+import axios from "axios";
+
 
 const StartTO = () => {
   const dispatch = useDispatch();
@@ -12,12 +14,39 @@ const StartTO = () => {
   );
   let getDay = new Date().getDate();
 
+  const [startTime, setStartTime] = useState(null)
+  const postStartTime = async (timeNow) => {
+    try {
+      const thisday = new Date();
+      let year = thisday.getFullYear();
+      let month = thisday.getMonth() + 1;
+      if (month < 10) {
+        month = `0` + month.toLocaleString();
+      }
+      let date = thisday.getDate();
+      const response = await axios.post(`http://localhost:3001/users/tryOut/${year}${month}${date}`, {
+        tryoutstart: timeNow
+      },
+        {
+          headers: {
+            access_token: localStorage.getItem("accessToken")
+          }
+        })
+      dispatch({
+        type: actionType.WEEKLY_Q_ISSTARTED,
+      });
+      // console.log(response, `response start TO`);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
   const handleClick = () => {
     let now = new Date().getTime();
-    localStorage.setItem("startTime", now);
-    dispatch({
-      type: actionType.WEEKLY_Q_ISSTARTED,
-    });
+    // localStorage.setItem("startTime", now);
+    postStartTime(now)
+
   };
 
   return (

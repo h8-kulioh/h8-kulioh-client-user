@@ -135,3 +135,55 @@ export const getUserData = () => {
     });
   };
 };
+
+export const paymentMidtrans = () => {
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await axios.post(`${url}/users/handlePayment`, {
+
+        }, {
+          headers: {
+            access_token: localStorage.getItem("accessToken")
+          }
+        })
+        window.snap.pay(response.data.token, {
+          onSuccess: async (result) => {
+            await axios.patch(`${url}/users/premimm`, {
+              role: `Premium`
+            },
+              {
+                headers: {
+                  access_token: localStorage.getItem("accessToken")
+                }
+              })
+            console.log(result);
+
+          },
+          onPending: async (result) => {
+            await axios.patch(`${url}/users/premimm`, {
+              role: `Premium`
+            },
+              {
+                headers: {
+                  access_token: localStorage.getItem("access_Token")
+                }
+              })
+            console.log(result);
+
+          },
+          onError: function (result) {
+            console.log(`on Error`);
+          },
+          onClose: function (result) {
+            console.log(`close`);
+          }
+        })
+        resolve()
+      }
+      catch (err) {
+        reject(err)
+      }
+    })
+  }
+}
