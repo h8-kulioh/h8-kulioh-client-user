@@ -16,7 +16,7 @@ const TryoutPage = () => {
   const isAlreadyStart = useSelector(
     (store) => store.weeklyQReducer.isAlreadyStart
   );
-  const startTime = localStorage.getItem("startTime");
+  const startTime = localStorage.getItem("startTime"); //mbil dri
   const [isTodayTO, setIsTodayTO] = useState(false);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
 
