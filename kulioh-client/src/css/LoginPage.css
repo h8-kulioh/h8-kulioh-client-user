@@ -1,3 +1,10 @@
+.logo-in-login {
+  width: 20rem;
+  margin-top: 1.5rem;
+  margin-left: -6.5rem;
+  margin-right: -6.5rem;
+}
+
 .login-container {
   height: 100vh;
   padding: 2rem;
@@ -20,17 +27,24 @@
           align-items: center;
   gap: 2rem;
 }
-.login-container h1 {
+.login-container > .login-container-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.login-container > h1 {
   font-size: 5rem;
   color: #2bcbef;
+  margin-bottom: -6rem;
+  margin-top: -8rem;
 }
-.login-container .form-container {
+.login-container > .form-container {
   padding: 3rem;
-  width: 30%;
+  width: 35%;
   border-radius: 1.2rem;
   background-color: rgba(23, 91, 100, 0.3725490196);
 }
-.login-container .form-container .form-component {
+.login-container > .form-container > .form-component {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -38,37 +52,53 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 1.2rem;
+  gap: 2.5rem;
 }
-.login-container .form-container .form-component input {
+.login-container > .form-container > .form-component > .form-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 100 rem;
+  width: 100%;
+}
+.login-container > .form-container > .form-component > .form-box > label {
+  font-size: 2.4rem;
+  color: #2bcbef;
+  width: 25%;
+}
+.login-container > .form-container > .form-component > .form-box > input {
   font-size: 1.6rem;
   padding: 1.6rem;
   border-radius: 1.2rem;
   border: none;
   border: 1px solid transparent;
+  width: 75%;
 }
-.login-container .form-container .form-component input:focus {
+.login-container > .form-container > .form-component > .form-box > input:focus {
   outline: none;
   border: 1px solid #2bcbef;
 }
-.login-container .form-container .text-after-submit {
+.login-container > .form-container .text-after-submit {
   color: #fff;
   font-size: 1.7rem;
-  margin-top: 1.5rem;
+  margin-top: 3rem;
   display: inline-block;
 }
-.login-container .form-container .text-after-submit .link-clear {
+.login-container > .form-container .text-after-submit .link-clear {
   text-decoration: none;
   color: aqua;
   display: inline;
   margin-left: 1rem;
   cursor: pointer;
 }
-.login-container .form-container .text-after-submit .link-clear:active, .login-container .form-container .text-after-submit .link-clear:visited {
+.login-container > .form-container .text-after-submit .link-clear:active, .login-container > .form-container .text-after-submit .link-clear:visited {
   text-decoration: none;
   color: aqua;
 }
-.login-container .form-container .btn {
+.login-container > .form-container .btn {
   background-color: #2bcbef;
   padding: 1.2rem;
   border: 2px solid transparent;
@@ -77,7 +107,14 @@
   cursor: pointer;
   text-align: center;
 }
-.login-container .form-container .btn:hover {
+.login-container > .form-container .btn:hover {
   border: 2px solid aqua;
   background-color: aqua;
+}
+
+.form-container.register {
+  width: 40%;
+}
+.form-container.register > h1 {
+  margin-top: -2rem;
 }/*# sourceMappingURL=LoginPage.css.map */

@@ -86,55 +86,76 @@ const RaporTryout = () => {
     <>
       <Navbar />
       <div className="main-container">
-        <div>
-          <>
-            {isLoadingFinish ? (
-              <div className="question-container">
-                <div className="filter-container">
-                  <select name="" id="">
-                    <option value="">TO 01</option>
-                    <option value="">TO 02</option>
-                    <option value="">TO 03</option>
-                  </select>
+        <>
+          {isLoadingFinish ? (
+            <div className="question-container">
+              <div className="filter-container">
+                <select name="" id="">
+                  <option value="">TO 01</option>
+                  <option value="">TO 02</option>
+                  <option value="">TO 03</option>
+                </select>
+              </div>
+              <div className="pagination-container">
+                <div className="num-container">
+                  {userAnswers.map((q, idx) => {
+                    return (
+                      <button
+                        key={idx}
+                        onClick={(e) => movePage(e, idx)}
+                        className={`btn-pagination ${
+                          pageNum === idx ? "active" : ""
+                        } ${
+                          q.QuestionKeyWeeklyTest.correct ? "correct" : "wrong"
+                        } `}
+                      >
+                        {idx + 1}
+                      </button>
+                    );
+                  })}
                 </div>
-                <div className="pagination-container">
-                  <div className="num-container">
-                    {userAnswers.map((q, idx) => {
-                      return (
-                        <button
-                          key={idx}
-                          onClick={(e) => movePage(e, idx)}
-                          className={`btn-pagination ${
-                            pageNum === idx ? "active" : ""
-                          } ${
-                            q.QuestionKeyWeeklyTest.correct
-                              ? "correct"
-                              : "wrong"
-                          } `}
-                        >
-                          {idx + 1}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {/* <h3>INI GATAU APA</h3> */}
-                  <h3>{userAnswers[pageNum].createdAt.split("T")[0]}</h3>
-                </div>
+                {/* <h3>INI GATAU APA</h3> */}
+                <h3>{userAnswers[pageNum].createdAt.split("T")[0]}</h3>
+              </div>
 
-                <div className="question-answers">
-                  {userAnswers[pageNum].QuestionWeeklyTest.question
-                    .split("~")
-                    .map((so, idx) => {
-                      return <Latex key={idx}>{so}</Latex>;
-                    })}
+              <div className="question-answers">
+                {userAnswers[pageNum].QuestionWeeklyTest.question
+                  .split("~")
+                  .map((so, idx) => {
+                    return <Latex key={idx}>{so}</Latex>;
+                  })}
 
-                  <form className="form-container-rapor">
-                    {userAnswers[
-                      pageNum
-                    ].QuestionWeeklyTest.QuestionKeyWeeklyTests.map((el) => (
-                      <label
-                        key={el.id}
-                        className={`${
+                <form className="form-container-rapor">
+                  {userAnswers[
+                    pageNum
+                  ].QuestionWeeklyTest.QuestionKeyWeeklyTests.map((el) => (
+                    <label
+                      key={el.id}
+                      className={`${
+                        userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
+                        userAnswers[pageNum].QuestionKeyWeeklyTest.answer ===
+                          el.answer
+                          ? "correct"
+                          : ""
+                      } ${
+                        !userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
+                        keyAnswer[0].answer === el.answer
+                          ? "theCorrect"
+                          : ""
+                      } ${
+                        !userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
+                        userAnswers[pageNum].QuestionKeyWeeklyTest.answer ===
+                          el.answer
+                          ? "wrong"
+                          : ""
+                      } `}
+                    >
+                      <input
+                        type="radio"
+                        name="radio"
+                        checked={answers.includes(el.id)}
+                        //   onChange={(e) => saveAnswer(e, el.id)}
+                        className={`input-pembahasan ${
                           userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
                           userAnswers[pageNum].QuestionKeyWeeklyTest.answer ===
                             el.answer
@@ -152,62 +173,33 @@ const RaporTryout = () => {
                             ? "wrong"
                             : ""
                         } `}
-                      >
-                        <input
-                          type="radio"
-                          name="radio"
-                          checked={answers.includes(el.id)}
-                          //   onChange={(e) => saveAnswer(e, el.id)}
-                          className={`input-pembahasan ${
-                            userAnswers[pageNum].QuestionKeyWeeklyTest
-                              .correct &&
-                            userAnswers[pageNum].QuestionKeyWeeklyTest
-                              .answer === el.answer
-                              ? "correct"
-                              : ""
-                          } ${
-                            !userAnswers[pageNum].QuestionKeyWeeklyTest
-                              .correct && keyAnswer[0].answer === el.answer
-                              ? "theCorrect"
-                              : ""
-                          } ${
-                            !userAnswers[pageNum].QuestionKeyWeeklyTest
-                              .correct &&
-                            userAnswers[pageNum].QuestionKeyWeeklyTest
-                              .answer === el.answer
-                              ? "wrong"
-                              : ""
-                          } `}
-                        />
-                        <Latex>{el.answer}</Latex>
-                      </label>
-                    ))}
-                  </form>
-                </div>
-                <div className="rapor-video-pembahasan">Video Pembahasan</div>
-                {role === "Premium" ? (
-                  <iframe
-                    className="video"
-                    width="560"
-                    height="315"
-                    src={video}
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                ) : (
-                  <div className="premium-button-container">
-                    <h2>Ingin Mengakses Video Pembahasan?</h2>
-                    <button onClick={() => paymentHandler()}>
-                      Berlangganan
-                    </button>
-                  </div>
-                )}
+                      />
+                      <Latex>{el.answer}</Latex>
+                    </label>
+                  ))}
+                </form>
               </div>
-            ) : null}
-          </>
-        </div>
+              <div className="rapor-video-pembahasan">Video Pembahasan</div>
+              {role === "Premium" ? (
+                <iframe
+                  className="video"
+                  width="560"
+                  height="315"
+                  src={video}
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              ) : (
+                <div className="premium-button-container">
+                  <h2>Ingin Mengakses Video Pembahasan?</h2>
+                  <button onClick={() => paymentHandler()}>Berlangganan</button>
+                </div>
+              )}
+            </div>
+          ) : null}
+        </>
       </div>
     </>
   );

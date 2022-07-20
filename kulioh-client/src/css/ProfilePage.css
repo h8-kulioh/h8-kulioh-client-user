@@ -14,12 +14,16 @@
       -ms-flex-align: center;
           align-items: center;
   gap: 2rem;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(rgba(9, 42, 48, 0.803)), to(rgba(5, 7, 38, 0.78))), url("../assets/landing1.jpg");
+  background-image: linear-gradient(to right bottom, rgba(9, 42, 48, 0.803), rgba(5, 7, 38, 0.78)), url("../assets/landing1.jpg");
+  background-position: bottom;
+  background-size: cover;
 }
 .profile-container .form-container {
   padding: 3rem;
   width: 30%;
   border-radius: 1.2rem;
-  background-color: #aacee9;
+  background-color: rgba(23, 91, 100, 0.3725490196);
 }
 .profile-container .form-container h1 {
   text-align: center;
@@ -34,6 +38,33 @@
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 1.2rem;
+}
+.profile-container .form-container .form-component > .form-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 100 rem;
+  width: 100%;
+}
+.profile-container .form-container .form-component > .form-box > label {
+  font-size: 2.2rem;
+  color: #2bcbef;
+  width: 25%;
+}
+.profile-container .form-container .form-component > .form-box > input {
+  font-size: 1.6rem;
+  padding: 1.6rem;
+  border-radius: 1.2rem;
+  border: none;
+  border: 1px solid transparent;
+  width: 75%;
+}
+.profile-container .form-container .form-component > .form-box > input:focus {
+  outline: none;
+  border: 1px solid #2bcbef;
 }
 .profile-container .form-container .form-component input {
   font-size: 1.6rem;
