@@ -6,6 +6,7 @@ import Latex from "react-latex";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import SVG from "../../components/ReusableComponents/SVG";
 import * as actionCreator from "../../store/actions/actionCreator";
 const url = "http://localhost:3001";
 

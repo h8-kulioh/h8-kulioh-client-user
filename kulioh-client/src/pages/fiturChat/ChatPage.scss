@@ -128,4 +128,15 @@
       }
     }
   }
+
+  .select-toggle {
+    > select {
+      background-color: v.$white;
+      padding: 1rem;
+      border: none;
+      border-radius: 0.7rem;
+      font-size: 1.6rem;
+      border-right: 16px solid transparent;
+    }
+  }
 }

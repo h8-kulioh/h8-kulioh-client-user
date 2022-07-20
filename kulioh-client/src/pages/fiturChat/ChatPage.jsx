@@ -13,10 +13,6 @@ const ChatPage = () => {
   const [arrayOfMessages, setArrayOfMessages] = useState([]);
   let [collectionName, setCollectionName] = useState(major1);
 
-  const toggleChatRoom = (collection) => {
-    setCollectionName(collection);
-  };
-
   const createMessage = async (e) => {
     try {
       e.preventDefault();
@@ -82,31 +78,27 @@ const ChatPage = () => {
     return newStr;
   };
 
-  // console.log(
-  //   nameChatRoom(
-  //     "UNIVERSITAS GADJAH MADA (UGM)-KARTOGRAFI DAN PENGINDERAAN JAUH"
-  //   )
-  // );
+  const toggleChatRoom = (collection) => {
+    setCollectionName(collection);
+  };
+
+  const selectRoom = (e) => {
+    // console.log(e.target.value);
+    setCollectionName(e.target.value);
+  };
 
   return (
     <>
       <Navbar />
 
       <div className="chat-container">
-        <div className="button-toggle">
-          <button
-            onClick={() => toggleChatRoom(major1)}
-            className={collectionName === major1 ? "active" : null}
-          >
-            Chat Room {nameChatRoom(major1)}
-          </button>
-          <button
-            onClick={() => toggleChatRoom(major2)}
-            className={collectionName === major2 ? "active" : null}
-          >
-            Chat Room {nameChatRoom(major2)}
-          </button>
+        <div className="select-toggle">
+          <select onChange={(e) => selectRoom(e)}>
+            <option value={major1}>Chat Room {nameChatRoom(major1)}</option>
+            <option value={major2}>Chat Room {nameChatRoom(major2)}</option>
+          </select>
         </div>
+
         <div id="chat-windows" className="chat-window">
           {arrayOfMessages ? (
             <div id="messages" className="messages">
