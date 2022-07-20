@@ -5,6 +5,7 @@ import * as actionCreator from "../../store/actions/actionCreator";
 import { showError, showSuccess } from "../../helpers/swal";
 import { useNavigate } from "react-router-dom";
 import "../../css/LoginPage.css";
+import logo from "../../assets/logo.png";
 
 const RegisterPage = () => {
   let navigate = useNavigate();
@@ -125,120 +126,146 @@ const RegisterPage = () => {
     <>
       {isLoadingFinish ? (
         <div className="login-container">
-          <h1>Vinter</h1>
-          <div className="form-container">
+          <h1>
+            <img className="logo-in-login" src={logo} alt="" srcset="" /> Vinter
+          </h1>
+          <div className="form-container register">
             <form onSubmit={submitHandler} className="form-component">
-              <input
-                type="email"
-                placeholder="EMAIL"
-                value={adminObj.email}
-                onChange={(e) =>
-                  setAdminObj({ ...adminObj, email: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                placeholder="NAME"
-                value={adminObj.name}
-                onChange={(e) =>
-                  setAdminObj({ ...adminObj, name: e.target.value })
-                }
-              />
+              <div className="form-box">
+                <label htmlFor="password">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="EMAIL"
+                  value={adminObj.email}
+                  onChange={(e) =>
+                    setAdminObj({ ...adminObj, email: e.target.value })
+                  }
+                />
+              </div>
+              <div className="form-box">
+                <label htmlFor="name">Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="NAME"
+                  value={adminObj.name}
+                  onChange={(e) =>
+                    setAdminObj({ ...adminObj, name: e.target.value })
+                  }
+                />
+              </div>
 
-              <input
-                type="password"
-                placeholder="PASSWORD"
-                value={adminObj.password}
-                onChange={(e) =>
-                  setAdminObj({ ...adminObj, password: e.target.value })
-                }
-              />
+              <div className="form-box">
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="PASSWORD"
+                  value={adminObj.password}
+                  onChange={(e) =>
+                    setAdminObj({ ...adminObj, password: e.target.value })
+                  }
+                />
+              </div>
 
-              <input
-                type="text"
-                id="universities"
-                list="ChooseUniversities"
-                placeholder="UNIVERSITAS PILIHAN 1"
-                autoComplete="off"
-                onChange={(e) => chooseUniv1(e)}
-                onClick={clear}
-                onFocus={clear}
-              />
-              <datalist id="ChooseUniversities">
-                {universities.map((el) => {
-                  return (
-                    <option data-value={el.id} key={el.id} value={el.name} />
-                  );
-                })}
-              </datalist>
+              <div className="form-box">
+                <label htmlFor="password">Pilihan 1</label>
+                <input
+                  type="text"
+                  id="universities"
+                  list="ChooseUniversities"
+                  placeholder="UNIVERSITAS PILIHAN 1"
+                  autoComplete="off"
+                  onChange={(e) => chooseUniv1(e)}
+                  onClick={clear}
+                  onFocus={clear}
+                />
+                <datalist id="ChooseUniversities">
+                  {universities.map((el) => {
+                    return (
+                      <option data-value={el.id} key={el.id} value={el.name} />
+                    );
+                  })}
+                </datalist>
+              </div>
 
               {isAlreadyChooseUniv1 ? (
                 <>
-                  <input
-                    type="text"
-                    id="majors"
-                    list="ChooseMajors"
-                    placeholder="JURUSAN PILIHAN 1"
-                    autoComplete="off"
-                    onChange={(e) => chooseMajor1(e)}
-                    onClick={clearMajor1}
-                    onFocus={clearMajor1}
-                  />
-                  <datalist id="ChooseMajors">
-                    {majors.map((el) => {
-                      return (
-                        <option
-                          data-value={el.id}
-                          key={el.id}
-                          value={el.name}
-                        />
-                      );
-                    })}
-                  </datalist>
+                  <div className="form-box">
+                    <label htmlFor="password"></label>
+                    <input
+                      type="text"
+                      id="majors"
+                      list="ChooseMajors"
+                      placeholder="JURUSAN PILIHAN 1"
+                      autoComplete="off"
+                      onChange={(e) => chooseMajor1(e)}
+                      onClick={clearMajor1}
+                      onFocus={clearMajor1}
+                    />
+                    <datalist id="ChooseMajors">
+                      {majors.map((el) => {
+                        return (
+                          <option
+                            data-value={el.id}
+                            key={el.id}
+                            value={el.name}
+                          />
+                        );
+                      })}
+                    </datalist>
+                  </div>
                 </>
               ) : null}
 
-              <input
-                type="text"
-                id="universities2"
-                list="ChooseUniversities2"
-                placeholder="UNIVERSITAS PILIHAN 2"
-                autoComplete="off"
-                onChange={(e) => chooseUniv2(e)}
-                onClick={clear2}
-                onFocus={clear2}
-              />
-              <datalist id="ChooseUniversities2">
-                {universities.map((el) => {
-                  return (
-                    <option data-value={el.id} key={el.id} value={el.name} />
-                  );
-                })}
-              </datalist>
+              <div className="form-box">
+                <label htmlFor="password">Pilihan 2</label>
+                <input
+                  type="text"
+                  id="universities2"
+                  list="ChooseUniversities2"
+                  placeholder="UNIVERSITAS PILIHAN 2"
+                  autoComplete="off"
+                  onChange={(e) => chooseUniv2(e)}
+                  onClick={clear2}
+                  onFocus={clear2}
+                />
+                <datalist id="ChooseUniversities2">
+                  {universities.map((el) => {
+                    return (
+                      <option data-value={el.id} key={el.id} value={el.name} />
+                    );
+                  })}
+                </datalist>
+              </div>
 
               {isAlreadyChooseUniv2 ? (
                 <>
-                  <input
-                    type="text"
-                    id="majors2"
-                    list="ChooseMajors2"
-                    placeholder="JURUSAN PILIHAN 2"
-                    autoComplete="off"
-                    onChange={(e) => chooseMajor2(e)}
-                    onClick={clearMajor2}
-                    onFocus={clearMajor2}
-                  />
-                  <datalist id="ChooseMajors2">
-                    {majors.map((el) => {
-                      return (
-                        <option
-                          data-value={el.id}
-                          key={el.id}
-                          value={el.name}
-                        />
-                      );
-                    })}
-                  </datalist>
+                  <div className="form-box">
+                    <label htmlFor="password"></label>
+                    <input
+                      type="text"
+                      id="majors2"
+                      list="ChooseMajors2"
+                      placeholder="JURUSAN PILIHAN 2"
+                      autoComplete="off"
+                      onChange={(e) => chooseMajor2(e)}
+                      onClick={clearMajor2}
+                      onFocus={clearMajor2}
+                    />
+                    <datalist id="ChooseMajors2">
+                      {majors.map((el) => {
+                        return (
+                          <option
+                            data-value={el.id}
+                            key={el.id}
+                            value={el.name}
+                          />
+                        );
+                      })}
+                    </datalist>
+                  </div>
                 </>
               ) : null}
 
