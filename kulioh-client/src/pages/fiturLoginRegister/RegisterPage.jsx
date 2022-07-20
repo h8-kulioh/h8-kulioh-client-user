@@ -38,11 +38,11 @@ const RegisterPage = () => {
     dispatch(actionCreator.register(adminObj))
       .then(() => {
         navigate("/login");
-        showSuccess(`Register Success! You Can Login Now`);
+        showSuccess(`Register Success!`);
         setAdminObj(initialStateObj);
       })
       .catch((err) => {
-        showError(err);
+        showError(err.response.data.message);
       });
   };
 

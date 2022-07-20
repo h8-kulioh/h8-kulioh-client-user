@@ -7,10 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actionType from "../../store/actions/actionType";
 import * as actionCreator from "../../store/actions/actionCreator";
 import QuestionTOTimer from "./QuestionTOTimer";
+import { useNavigate } from "react-router-dom";
+import { showError, showSuccess } from "../../helpers/swal";
+import loading from "../../assets/loading2.gif";
 const url = "http://localhost:3001";
 
 const QuestionTOContainer = () => {
   let dispatch = useDispatch();
+  let navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [pageNum, setPageNum] = useState(0);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
@@ -51,20 +55,22 @@ const QuestionTOContainer = () => {
   };
 
   const getSoal = async () => {
-    const thisday = new Date()
-    const year = thisday.getFullYear()
-    let month = thisday.getMonth() + 1
+    const thisday = new Date();
+    const year = thisday.getFullYear();
+    let month = thisday.getMonth() + 1;
     if (month < 10) {
-
-      month = `0` + month.toLocaleString()
+      month = `0` + month.toLocaleString();
     }
-    const date = thisday.getDate()
+    const date = thisday.getDate();
 
-    const response = await axios.get(`http://localhost:3001/questions-weekly/weekly/${year}${month}${date}`, {
-      headers: {
-        access_token: localStorage.getItem("accessToken")
+    const response = await axios.get(
+      `http://localhost:3001/questions-weekly/weekly/${year}${month}${date}`,
+      {
+        headers: {
+          access_token: localStorage.getItem("accessToken"),
+        },
       }
-    });
+    );
     // console.log(response.data);
     setQuestions(response.data);
     setIsLoadingFinish(true);
@@ -93,10 +99,12 @@ const QuestionTOContainer = () => {
         }
       );
       dispatch({ type: actionType.WEEKLY_Q_ISANSWERED });
+      navigate("/rapor/tryout");
+      showSuccess("Terima Kasih!");
       // localStorage.removeItem("startTime");
       // console.log(response);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
     // dispatch({ type: actionType.DAILY_Q_ISANSWERED });
   };
@@ -153,8 +161,9 @@ const QuestionTOContainer = () => {
                   <button
                     key={idx}
                     onClick={(e) => movePage(e, idx)}
-                    className={`btn-pagination ${pageNum === idx ? "active" : ""
-                      } ${answers[idx] !== "" ? "answered" : ""} `}
+                    className={`btn-pagination ${
+                      pageNum === idx ? "active" : ""
+                    } ${answers[idx] !== "" ? "answered" : ""} `}
                   >
                     {idx + 1}
                   </button>
@@ -170,7 +179,11 @@ const QuestionTOContainer = () => {
             </div>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div>
+          <img src={loading} alt="" />
+        </div>
+      )}
     </>
   );
 };

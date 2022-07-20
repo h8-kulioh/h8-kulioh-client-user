@@ -5,11 +5,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import * as actionType from "../../store/actions/actionType";
+import { showError, showSuccess } from "../../helpers/swal";
 import * as actionCreator from "../../store/actions/actionCreator";
+import { useNavigate } from "react-router-dom";
+import loading from "../../assets/loading2.gif";
 const url = "http://localhost:3001";
 
 const QuestionContainer = () => {
   let dispatch = useDispatch();
+  let navigate = useNavigate();
   // const [questions, setQuestions] = useState([]);
   const questions = useSelector((store) => store.dailyQReducer.questions);
   const [pageNum, setPageNum] = useState(0);
@@ -67,6 +71,8 @@ const QuestionContainer = () => {
       );
 
       dispatch({ type: actionType.DAILY_Q_ISANSWERED });
+      navigate("/rapor/soalharian");
+      showSuccess("Terima kasih!");
     } catch (err) {
       console.log(err, `err saat submit`);
     }
@@ -188,7 +194,11 @@ const QuestionContainer = () => {
             </div>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div>
+          <img src={loading} alt="" />
+        </div>
+      )}
     </>
   );
 };
