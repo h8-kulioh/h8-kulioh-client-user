@@ -66,7 +66,7 @@ export default function LandingTask() {
               <div className="nilai-container">
                 <div className="one-container">
                   <SVG theData={dataObj.perAll} theClass={"svg-container"} />
-                  <h2 className="lihat-pembahasan">Semua Subtes</h2>
+                  <h2 className="lihat-pembahasan todo">Semua Subtes</h2>
                 </div>
                 <div className="one-container-lain">
                   <SVG
@@ -75,7 +75,9 @@ export default function LandingTask() {
                   />
                   <h2
                     onClick={() => handleNavigation("/tasks/ppu")}
-                    className="subtes"
+                    className="subtes todo"
+                    data-tip
+                    data-for="ppu-tip"
                   >
                     PPU
                   </h2>
@@ -87,7 +89,7 @@ export default function LandingTask() {
                   />
                   <h2
                     onClick={() => handleNavigation("/tasks/pu")}
-                    className="subtes"
+                    className="subtes todo"
                   >
                     PU
                   </h2>
@@ -100,7 +102,7 @@ export default function LandingTask() {
 
                   <h2
                     onClick={() => handleNavigation("/tasks/pbm")}
-                    className="subtes"
+                    className="subtes todo"
                   >
                     PBM
                   </h2>
@@ -112,7 +114,7 @@ export default function LandingTask() {
                   />
                   <h2
                     onClick={() => handleNavigation("/tasks/pk")}
-                    className="subtes"
+                    className="subtes todo"
                   >
                     PK
                   </h2>

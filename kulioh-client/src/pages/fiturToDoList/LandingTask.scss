@@ -1,7 +1,7 @@
-.subtes {
+.subtes.todo {
   cursor: pointer;
 }
 
-.lihat-pembahasan {
-  cursor: none;
+.lihat-pembahasan.todo {
+  cursor: auto !important;
 }

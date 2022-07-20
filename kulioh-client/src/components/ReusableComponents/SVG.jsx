@@ -1,7 +1,8 @@
 import React from "react";
 import "../../css/SVG.css";
-import { Pie, Doughnut } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import ReactTooltip from "react-tooltip";
 
 const SVG = ({ theData, theClass }) => {
   ChartJS.register(ArcElement, Tooltip, Legend);
@@ -45,6 +46,7 @@ const SVG = ({ theData, theClass }) => {
     },
     animationSteps: 100,
     animationEasing: "easeInOutQuart",
+    events: [],
   };
 
   return (

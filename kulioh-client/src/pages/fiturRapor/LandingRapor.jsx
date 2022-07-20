@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SVG from "../../components/ReusableComponents/SVG";
 import loading from "../../assets/loading2.gif";
+import ReactTooltip from "react-tooltip";
 const LandingRapor = () => {
   let navigate = useNavigate();
 
@@ -155,28 +156,28 @@ const LandingRapor = () => {
                   theData={dataWeekObj.perPPU}
                   theClass={"svg-container-small"}
                 />
-                <h2 className="subtes">PPU</h2>
+                <h2 className="subtes rapor">PPU</h2>
               </div>
               <div className="one-container-lain">
                 <SVG
                   theData={dataWeekObj.perPU}
                   theClass={"svg-container-small"}
                 />
-                <h2 className="subtes">PU </h2>
+                <h2 className="subtes rapor">PU </h2>
               </div>
               <div className="one-container-lain">
                 <SVG
                   theData={dataWeekObj.perPBM}
                   theClass={"svg-container-small"}
                 />
-                <h2 className="subtes">PBM</h2>
+                <h2 className="subtes rapor">PBM</h2>
               </div>
               <div className="one-container-lain">
                 <SVG
                   theData={dataWeekObj.perPK}
                   theClass={"svg-container-small"}
                 />
-                <h2 className="subtes">PK</h2>
+                <h2 className="subtes rapor">PK</h2>
               </div>
             </div>
           </div>
