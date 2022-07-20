@@ -5,6 +5,7 @@ import "../../css/QuestionContainer.css";
 import Latex from "react-latex";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import SVG from "../../components/ReusableComponents/SVG";
 import { useDispatch, useSelector } from "react-redux";
 import * as actionCreator from "../../store/actions/actionCreator";
 const url = "http://localhost:3001";
@@ -20,7 +21,7 @@ const RaporTryout = () => {
   const [role, setRole] = useState("");
   const [video, setVideo] = useState("");
 
-  console.log(userAnswers);
+  // console.log(userAnswers);
   // console.log(keyAnswer);
 
   const movePage = (e, page) => {
@@ -38,22 +39,23 @@ const RaporTryout = () => {
         }
       );
       setUserAnswer(data);
-
+      console.log(data[pageNum], `data`);
       if (theRole === "Premium") {
         console.log("ini premium kan");
         const response = await axios.get(
-          `http://localhost:3001/videos/all-videos`,
+          `http://localhost:3001/videos/weekly`,
           {
             headers: {
               access_token: localStorage.getItem("accessToken"),
             },
           }
         );
+        console.log(response.data, `-----`);
         const videoId = response.data.filter(
-          (el) => el.id === data[0].Question.id
+          (el) => el.QuestionWeeklyTestId === data[pageNum].QuestionWeeklyTest.id
         );
-        // console.log(videoId[0].videoLink);
-        setVideo(videoId[0].videoLink);
+        console.log(videoId[0].videoLink);
+        setVideo(videoId[0].videoLink)
       }
 
       const kunjab = data[
@@ -69,8 +71,54 @@ const RaporTryout = () => {
     }
   };
 
-  const paymentHandler = () => {
-    console.log("INI MASUK KE MIDTRANS DONGGG");
+  const paymentHandler = async () => {
+    try {
+      const response = await axios.post(`${url}/users/handlePayment`, {
+
+      }, {
+        headers: {
+          access_token: localStorage.getItem("accessToken")
+        }
+      })
+      console.log(response.data.TokenPayment);
+      window.snap.pay(response.data.TokenPayment, {
+        onSuccess: async (result) => {
+          await axios.patch(`${url}/users/premium`, {
+            role: `Premium`
+          },
+            {
+              headers: {
+                access_token: localStorage.getItem("accessToken")
+              }
+            })
+          console.log(result);
+          setRole("Premium")
+        },
+        onPending: async (result) => {
+          await axios.patch(`${url}/users/premium`, {
+            role: `Premium`
+          },
+            {
+              headers: {
+                access_token: localStorage.getItem("access_Token")
+              }
+            })
+          console.log(result);
+          setRole("Premium")
+
+        },
+        onError: function (result) {
+          console.log(`on Error`);
+        },
+        onClose: function (result) {
+          console.log(`close`);
+        }
+      })
+
+    }
+    catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -79,7 +127,7 @@ const RaporTryout = () => {
       let theRole = data.role;
       getAnswersFromDB(theRole);
     });
-  }, [pageNum]);
+  }, [pageNum, role]);
 
   return (
     <>
@@ -103,13 +151,11 @@ const RaporTryout = () => {
                         <button
                           key={idx}
                           onClick={(e) => movePage(e, idx)}
-                          className={`btn-pagination ${
-                            pageNum === idx ? "active" : ""
-                          } ${
-                            q.QuestionKeyWeeklyTest.correct
+                          className={`btn-pagination ${pageNum === idx ? "active" : ""
+                            } ${q.QuestionKeyWeeklyTest.correct
                               ? "correct"
                               : "wrong"
-                          } `}
+                            } `}
                         >
                           {idx + 1}
                         </button>
@@ -133,50 +179,44 @@ const RaporTryout = () => {
                     ].QuestionWeeklyTest.QuestionKeyWeeklyTests.map((el) => (
                       <label
                         key={el.id}
-                        className={`${
-                          userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
+                        className={`${userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
                           userAnswers[pageNum].QuestionKeyWeeklyTest.answer ===
-                            el.answer
-                            ? "correct"
-                            : ""
-                        } ${
-                          !userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
-                          keyAnswer[0].answer === el.answer
+                          el.answer
+                          ? "correct"
+                          : ""
+                          } ${!userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
+                            keyAnswer[0].answer === el.answer
                             ? "theCorrect"
                             : ""
-                        } ${
-                          !userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
-                          userAnswers[pageNum].QuestionKeyWeeklyTest.answer ===
+                          } ${!userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
+                            userAnswers[pageNum].QuestionKeyWeeklyTest.answer ===
                             el.answer
                             ? "wrong"
                             : ""
-                        } `}
+                          } `}
                       >
                         <input
                           type="radio"
                           name="radio"
                           checked={answers.includes(el.id)}
                           //   onChange={(e) => saveAnswer(e, el.id)}
-                          className={`input-pembahasan ${
-                            userAnswers[pageNum].QuestionKeyWeeklyTest
-                              .correct &&
+                          className={`input-pembahasan ${userAnswers[pageNum].QuestionKeyWeeklyTest
+                            .correct &&
                             userAnswers[pageNum].QuestionKeyWeeklyTest
                               .answer === el.answer
-                              ? "correct"
-                              : ""
-                          } ${
-                            !userAnswers[pageNum].QuestionKeyWeeklyTest
+                            ? "correct"
+                            : ""
+                            } ${!userAnswers[pageNum].QuestionKeyWeeklyTest
                               .correct && keyAnswer[0].answer === el.answer
                               ? "theCorrect"
                               : ""
-                          } ${
-                            !userAnswers[pageNum].QuestionKeyWeeklyTest
+                            } ${!userAnswers[pageNum].QuestionKeyWeeklyTest
                               .correct &&
-                            userAnswers[pageNum].QuestionKeyWeeklyTest
-                              .answer === el.answer
+                              userAnswers[pageNum].QuestionKeyWeeklyTest
+                                .answer === el.answer
                               ? "wrong"
                               : ""
-                          } `}
+                            } `}
                         />
                         <Latex>{el.answer}</Latex>
                       </label>
@@ -190,6 +230,7 @@ const RaporTryout = () => {
                     width="560"
                     height="315"
                     src={video}
+                    // src="https://www.youtube.com/embed/tJkGHpPrDl8"
                     title="YouTube video player"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -207,7 +248,6 @@ const RaporTryout = () => {
             ) : null}
           </>
         </div>
-        ;
       </div>
     </>
   );

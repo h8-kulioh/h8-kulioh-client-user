@@ -1,6 +1,7 @@
 import React from "react";
 import "../../css/Navbar.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   let navigate = useNavigate();
@@ -18,7 +19,9 @@ const Navbar = () => {
   return (
     <div>
       <header className="header">
-        <div></div>
+        <div>
+          <img className="logo" src={logo} alt="" srcset="" />
+        </div>
 
         <nav className="main-nav">
           <ul className="main-nav-list">

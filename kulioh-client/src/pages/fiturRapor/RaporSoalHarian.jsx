@@ -6,6 +6,7 @@ import Latex from "react-latex";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import SVG from "../../components/ReusableComponents/SVG";
 import * as actionCreator from "../../store/actions/actionCreator";
 const url = "http://localhost:3001";
 
@@ -54,7 +55,7 @@ const RaporSoalHarian = () => {
       if (theRole === "Premium") {
         console.log("ini premium kan");
         const response = await axios.get(
-          `http://localhost:3001/videos/all-videos`,
+          `http://localhost:3001/videos/daily`,
           {
             headers: {
               access_token: localStorage.getItem("accessToken"),

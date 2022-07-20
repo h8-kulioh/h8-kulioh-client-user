@@ -1,5 +1,11 @@
 @use "../../variabels.scss" as v;
 
+.logo {
+  width: 20rem;
+  margin-top: 1.5rem;
+  margin-left: -6.5rem;
+}
+
 .header {
   display: flex;
   justify-content: space-between;

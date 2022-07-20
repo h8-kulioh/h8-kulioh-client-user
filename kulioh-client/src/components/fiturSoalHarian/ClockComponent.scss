@@ -1,5 +1,21 @@
 @use "../../variabels.scss" as v;
 
+.outer-timer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 65%;
+}
+
+.outer-timer-container.to {
+  width: 75%;
+}
+
+.image-waiting {
+  width: 30rem;
+}
+
 .timer-container {
   display: flex;
   flex-direction: column;

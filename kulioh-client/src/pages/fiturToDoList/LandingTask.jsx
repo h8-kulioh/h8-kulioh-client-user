@@ -3,6 +3,7 @@ import "../../css/HomePage.css";
 import "../../css/LandingRapor.css";
 import "../../css/LandingTask.css";
 import Navbar from "../../components/ReusableComponents/Navbar";
+import SVG from "../../components/ReusableComponents/SVG";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Chart, Tooltip, Title, ArcElement, Legend } from "chart.js"
@@ -66,7 +67,7 @@ export default function LandingTask() {
           <h1 className="title">Progress Belajar</h1>
           <div className="nilai-container">
             <div className="one-container">
-              <h1 className="main">{Math.floor(dataObj.perAll)}%</h1>
+              <SVG theData={dataObj.perAll} theClass={"svg-container"} />
               <h2 className="lihat-pembahasan">Semua Subtes</h2>
               {/* <div style={{ width: '10%' }}> */}
               <Doughnut
@@ -87,7 +88,7 @@ export default function LandingTask() {
               {/* </div> */}
             </div>
             <div className="one-container-lain">
-              <h1>{Math.floor(dataObj.perPPU)}%</h1>
+              <SVG theData={dataObj.perPPU} theClass={"svg-container-small"} />
               <h2
                 onClick={() => handleNavigation("/tasks/ppu")}
                 className="subtes"
@@ -96,7 +97,7 @@ export default function LandingTask() {
               </h2>
             </div>
             <div className="one-container-lain">
-              <h1>{Math.floor(dataObj.perPU)}%</h1>
+              <SVG theData={dataObj.perPU} theClass={"svg-container-small"} />
               <h2
                 onClick={() => handleNavigation("/tasks/pu")}
                 className="subtes"
@@ -105,7 +106,8 @@ export default function LandingTask() {
               </h2>
             </div>
             <div className="one-container-lain">
-              <h1>{Math.floor(dataObj.perPK)}%</h1>
+              <SVG theData={dataObj.perPBM} theClass={"svg-container-small"} />
+
               <h2
                 onClick={() => handleNavigation("/tasks/pbm")}
                 className="subtes"
@@ -114,7 +116,7 @@ export default function LandingTask() {
               </h2>
             </div>
             <div className="one-container-lain">
-              <h1>{Math.floor(dataObj.perPK)}%</h1>
+              <SVG theData={dataObj.perPK} theClass={"svg-container-small"} />
               <h2
                 onClick={() => handleNavigation("/tasks/pk")}
                 className="subtes"

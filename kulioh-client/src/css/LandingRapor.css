@@ -7,6 +7,7 @@
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 2.5rem;
+  width: 90%;
 }
 .rapor-container .title {
   -webkit-text-decoration: underline 0.5rem;
@@ -39,6 +40,10 @@
           align-items: center;
   gap: 1.6rem;
 }
+.rapor-container .nilai-container .one-container > svg,
+.rapor-container .nilai-container .one-container-lain > svg {
+  width: 10rem;
+}
 .rapor-container .nilai-container .one-container h1,
 .rapor-container .nilai-container .one-container-lain h1 {
   padding: 2rem;
@@ -59,12 +64,12 @@
 }
 .rapor-container .nilai-container .lihat-pembahasan {
   padding: 1rem;
-  background-color: #e9f4fd;
+  background-color: #aacee9;
   border-radius: 1.2rem;
   cursor: pointer;
 }
 .rapor-container .nilai-container .subtes {
   padding: 1rem;
-  background-color: #aacee9;
+  background-color: #e9f4fd;
   border-radius: 0.6rem;
 }/*# sourceMappingURL=LandingRapor.css.map */

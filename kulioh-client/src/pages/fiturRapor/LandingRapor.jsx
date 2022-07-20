@@ -4,6 +4,7 @@ import "../../css/HomePage.css";
 import "../../css/LandingRapor.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import SVG from "../../components/ReusableComponents/SVG";
 const LandingRapor = () => {
   let navigate = useNavigate();
 
@@ -95,7 +96,7 @@ const LandingRapor = () => {
           <h1 className="title">Rapor Soal Harian</h1>
           <div className="nilai-container">
             <div className="one-container">
-              <h1 className="main">{dataObj.perAll}%</h1>
+              <SVG theData={dataObj.perAll} theClass={"svg-container"} />
               <h2
                 className="lihat-pembahasan"
                 onClick={() => handleNavigation("/rapor/soalharian")}
@@ -104,19 +105,19 @@ const LandingRapor = () => {
               </h2>
             </div>
             <div className="one-container-lain">
-              <h1>{dataObj.perPPU}%</h1>
+              <SVG theData={dataObj.perPPU} theClass={"svg-container-small"} />
               <h2 className="subtes">PPU</h2>
             </div>
             <div className="one-container-lain">
-              <h1>{dataObj.perPU}%</h1>
+              <SVG theData={dataObj.perPU} theClass={"svg-container-small"} />
               <h2 className="subtes">PU</h2>
             </div>
             <div className="one-container-lain">
-              <h1>{dataObj.perPBM}%</h1>
+              <SVG theData={dataObj.perPBM} theClass={"svg-container-small"} />
               <h2 className="subtes">PBM</h2>
             </div>
             <div className="one-container-lain">
-              <h1>{dataObj.perPK}%</h1>
+              <SVG theData={dataObj.perPK} theClass={"svg-container-small"} />
               <h2 className="subtes">PK</h2>
             </div>
           </div>
@@ -127,7 +128,7 @@ const LandingRapor = () => {
           <h1 className="title">Rapor Tryout Mingguan</h1>
           <div className="nilai-container">
             <div className="one-container">
-              <h1 className="main">{dataWeekObj.perAll}%</h1>
+              <SVG theData={dataWeekObj.perAll} theClass={"svg-container"} />
               <h2
                 className="lihat-pembahasan"
                 onClick={() => handleNavigation("/rapor/tryout")}
@@ -136,19 +137,31 @@ const LandingRapor = () => {
               </h2>
             </div>
             <div className="one-container-lain">
-              <h1>{dataWeekObj.perPPU}%</h1>
+              <SVG
+                theData={dataWeekObj.perPPU}
+                theClass={"svg-container-small"}
+              />
               <h2 className="subtes">PPU</h2>
             </div>
             <div className="one-container-lain">
-              <h1>{dataWeekObj.perPU}%</h1>
-              <h2 className="subtes">PU</h2>
+              <SVG
+                theData={dataWeekObj.perPU}
+                theClass={"svg-container-small"}
+              />
+              <h2 className="subtes">PU </h2>
             </div>
             <div className="one-container-lain">
-              <h1>{dataWeekObj.perPBM}%</h1>
+              <SVG
+                theData={dataWeekObj.perPBM}
+                theClass={"svg-container-small"}
+              />
               <h2 className="subtes">PBM</h2>
             </div>
             <div className="one-container-lain">
-              <h1>{dataWeekObj.perPK}%</h1>
+              <SVG
+                theData={dataWeekObj.perPK}
+                theClass={"svg-container-small"}
+              />
               <h2 className="subtes">PK</h2>
             </div>
           </div>

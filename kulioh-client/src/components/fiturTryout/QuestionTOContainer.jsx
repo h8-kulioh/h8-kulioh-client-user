@@ -51,14 +51,20 @@ const QuestionTOContainer = () => {
   };
 
   const getSoal = async () => {
-    const response = await axios.get(
-      "http://localhost:3001/questions-weekly/weekly/20220719",
-      {
-        headers: {
-          access_token: localStorage.getItem("accessToken"),
-        },
+    const thisday = new Date()
+    const year = thisday.getFullYear()
+    let month = thisday.getMonth() + 1
+    if (month < 10) {
+
+      month = `0` + month.toLocaleString()
+    }
+    const date = thisday.getDate()
+
+    const response = await axios.get(`http://localhost:3001/questions-weekly/weekly/${year}${month}${date}`, {
+      headers: {
+        access_token: localStorage.getItem("accessToken")
       }
-    );
+    });
     // console.log(response.data);
     setQuestions(response.data);
     setIsLoadingFinish(true);
@@ -147,9 +153,8 @@ const QuestionTOContainer = () => {
                   <button
                     key={idx}
                     onClick={(e) => movePage(e, idx)}
-                    className={`btn-pagination ${
-                      pageNum === idx ? "active" : ""
-                    } ${answers[idx] !== "" ? "answered" : ""} `}
+                    className={`btn-pagination ${pageNum === idx ? "active" : ""
+                      } ${answers[idx] !== "" ? "answered" : ""} `}
                   >
                     {idx + 1}
                   </button>
