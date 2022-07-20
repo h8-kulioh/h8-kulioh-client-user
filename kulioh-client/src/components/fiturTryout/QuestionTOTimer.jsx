@@ -28,7 +28,7 @@ export default function QuestionTOTimer({ handleSubmit }) {
 
     finish.setDate(today.getDate());
     finish.setMinutes(today.getMinutes() + 30);
-    // finish.setSeconds(today.getSeconds() + 10);
+    finish.setSeconds(today.getSeconds());
     console.log(finish, `INI SELESAI`);
 
     setAfter(finish);
