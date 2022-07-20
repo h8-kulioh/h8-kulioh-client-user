@@ -12,8 +12,10 @@ const HomePage = () => {
   return (
     <>
       <Navbar />
-      <div className="main-container">
-        {isAnswered ? <QuestionDailyCountdown /> : <QuestionContainer />}
+      <div className="outer-main">
+        <div className="main-container">
+          {isAnswered ? <QuestionDailyCountdown /> : <QuestionContainer />}
+        </div>
       </div>
     </>
   );

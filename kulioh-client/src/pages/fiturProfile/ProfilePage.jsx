@@ -81,7 +81,6 @@ const ProfilePage = () => {
           },
         ],
       };
-      // console.log(format);
 
       await axios.put(`http://localhost:3001/users/profile`, format, {
         headers: {
@@ -221,7 +220,7 @@ const ProfilePage = () => {
                 <label htmlFor="password">Name</label>
                 <input
                   type="text"
-                  placeholder={adminObj.name}
+                  value={adminObj.name}
                   onChange={(e) =>
                     setAdminObj({ ...adminObj, name: e.target.value })
                   }
@@ -229,7 +228,7 @@ const ProfilePage = () => {
               </div>
 
               <div className="form-box">
-                <label htmlFor="password">Name</label>
+                <label htmlFor="password">Universitas Pilihan 1</label>
                 <input
                   type="text"
                   id="universities"
@@ -238,7 +237,7 @@ const ProfilePage = () => {
                   onChange={(e) => chooseUniv1(e)}
                   onClick={clear}
                   onFocus={clear}
-                  placeholder={`${adminObj.univ1Name} - ${adminObj.major1Name}`}
+                  value={`${adminObj.univ1Name}`}
                 />
                 <datalist id="ChooseUniversities">
                   {universities.map((el) => {
@@ -249,77 +248,69 @@ const ProfilePage = () => {
                 </datalist>
               </div>
 
-              {isAlreadyChooseUniv1 ? (
-                <>
-                  {" "}
-                  <input
-                    type="text"
-                    id="majors"
-                    list="ChooseMajors"
-                    autoComplete="off"
-                    onChange={(e) => chooseMajor1(e)}
-                    onClick={clearMajor1}
-                    onFocus={clearMajor1}
-                    placeholder={adminObj.major1Name}
-                  />
-                  <datalist id="ChooseMajors">
-                    {majors.map((el) => {
-                      return (
-                        <option
-                          data-value={el.id}
-                          key={el.id}
-                          value={el.name}
-                        />
-                      );
-                    })}
-                  </datalist>
-                </>
-              ) : null}
+              <div className="form-box">
+                <label htmlFor="password">Jurusan Pilihan 1</label>{" "}
+                <input
+                  type="text"
+                  id="majors"
+                  list="ChooseMajors"
+                  autoComplete="off"
+                  onChange={(e) => chooseMajor1(e)}
+                  onClick={clearMajor1}
+                  onFocus={clearMajor1}
+                  value={adminObj.major1Name}
+                />
+                <datalist id="ChooseMajors">
+                  {majors.map((el) => {
+                    return (
+                      <option data-value={el.id} key={el.id} value={el.name} />
+                    );
+                  })}
+                </datalist>
+              </div>
 
-              <input
-                type="text"
-                id="universities2"
-                list="ChooseUniversities2"
-                autoComplete="off"
-                onChange={(e) => chooseUniv2(e)}
-                onClick={clear2}
-                onFocus={clear2}
-                placeholder={`${adminObj.univ2Name} - ${adminObj.major2Name}`}
-              />
-              <datalist id="ChooseUniversities2">
-                {universities.map((el) => {
-                  return (
-                    <option data-value={el.id} key={el.id} value={el.name} />
-                  );
-                })}
-              </datalist>
+              <div className="form-box">
+                <label htmlFor="password">Universitas Pilihan 2</label>
+                <input
+                  type="text"
+                  id="universities2"
+                  list="ChooseUniversities2"
+                  autoComplete="off"
+                  onChange={(e) => chooseUniv2(e)}
+                  onClick={clear2}
+                  onFocus={clear2}
+                  value={`${adminObj.univ2Name}`}
+                />
+                <datalist id="ChooseUniversities2">
+                  {universities.map((el) => {
+                    return (
+                      <option data-value={el.id} key={el.id} value={el.name} />
+                    );
+                  })}
+                </datalist>
+              </div>
 
-              {isAlreadyChooseUniv2 ? (
-                <>
-                  {" "}
-                  <input
-                    type="text"
-                    id="majors2"
-                    list="ChooseMajors2"
-                    autoComplete="off"
-                    onChange={(e) => chooseMajor2(e)}
-                    onClick={clearMajor2}
-                    onFocus={clearMajor2}
-                    placeholder={adminObj.major2Name}
-                  />
-                  <datalist id="ChooseMajors2">
-                    {majors.map((el) => {
-                      return (
-                        <option
-                          data-value={el.id}
-                          key={el.id}
-                          value={el.name}
-                        />
-                      );
-                    })}
-                  </datalist>
-                </>
-              ) : null}
+              <div className="form-box">
+                <label htmlFor="password">Jurusan Pilihan 2</label>
+
+                <input
+                  type="text"
+                  id="majors2"
+                  list="ChooseMajors2"
+                  autoComplete="off"
+                  onChange={(e) => chooseMajor2(e)}
+                  onClick={clearMajor2}
+                  onFocus={clearMajor2}
+                  value={adminObj.major2Name}
+                />
+                <datalist id="ChooseMajors2">
+                  {majors.map((el) => {
+                    return (
+                      <option data-value={el.id} key={el.id} value={el.name} />
+                    );
+                  })}
+                </datalist>
+              </div>
 
               <button className="btn" type="submit">
                 Edit Profil

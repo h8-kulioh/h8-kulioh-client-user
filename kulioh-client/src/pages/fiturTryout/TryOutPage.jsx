@@ -16,7 +16,8 @@ const TryoutPage = () => {
   const isAlreadyStart = useSelector(
     (store) => store.weeklyQReducer.isAlreadyStart
   );
-  const startTime = localStorage.getItem("startTime");
+  const [startTime, setStartTime] = useState(null);
+  // const startTime = localStorage.getItem("startTime"); //mbil dri
   const [isTodayTO, setIsTodayTO] = useState(false);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
 
@@ -26,6 +27,34 @@ const TryoutPage = () => {
     const nowDay = now.getDay();
     if (nowDay === ToIsOnDay) {
       setIsTodayTO(true);
+    }
+  };
+
+  const getStartTime = async () => {
+    try {
+      const thisday = new Date();
+      let year = thisday.getFullYear();
+      let month = thisday.getMonth() + 1;
+      if (month < 10) {
+        month = `0` + month.toLocaleString();
+      }
+      let date = thisday.getDate();
+      // const params = year.toLocaleString() + month + date.toLocaleString()
+      const response = await axios.get(
+        `${url}/users/tryOut/${year}${month}${date}`,
+        {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
+        }
+      );
+      console.log(response, `getStartTime`);
+      setStartTime(response.tryoutstart);
+    } catch (err) {
+      if (err.response.data.statusCode == 404) {
+        setStartTime(null);
+      }
+      // console.log(err);
     }
   };
 
@@ -84,6 +113,7 @@ const TryoutPage = () => {
   useEffect(() => {
     isTodayTOFunc();
     getAnswersFromDB();
+    getStartTime();
   }, [isAlreadyStart]);
 
   return (
@@ -91,7 +121,9 @@ const TryoutPage = () => {
       <Navbar />
       {isLoadingFinish ? (
         <>
-          <div className="main-container">{renderElement}</div>
+          <div className="outer-main">
+            <div className="main-container">{renderElement}</div>
+          </div>
         </>
       ) : null}
     </>

@@ -46,27 +46,25 @@
     > .form-component {
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
+      gap: 1.3rem;
 
       > .form-box {
         display: flex;
-        align-items: center;
-        gap: 100 rem;
+        flex-direction: column;
+        gap: 0.5rem;
         width: 100%;
 
         > label {
-          font-size: 2.4rem;
+          font-size: 1.7rem;
           color: v.$primary-blue;
-          width: 25%;
         }
 
         > input {
-          font-size: 1.6rem;
+          font-size: 1.5rem;
           padding: 1.6rem;
           border-radius: 1.2rem;
           border: none;
           border: 1px solid transparent;
-          width: 75%;
 
           &:focus {
             outline: none;
@@ -79,7 +77,7 @@
     .text-after-submit {
       color: #fff;
       font-size: 1.7rem;
-      margin-top: 3rem;
+      margin-top: 2rem;
       display: inline-block;
 
       .link-clear {
@@ -105,6 +103,7 @@
       font-size: 1.5rem;
       cursor: pointer;
       text-align: center;
+      margin-top: 1rem;
     }
 
     .btn:hover {

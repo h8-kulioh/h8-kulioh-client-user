@@ -6,9 +6,11 @@ import Navbar from "../../components/ReusableComponents/Navbar";
 import SVG from "../../components/ReusableComponents/SVG";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Chart, Tooltip, Title, ArcElement, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 export default function LandingTask() {
   const navigate = useNavigate();
-
+  Chart.register(Tooltip, Title, ArcElement, Legend);
   const handleNavigation = (url) => {
     navigate(url);
   };
@@ -56,50 +58,58 @@ export default function LandingTask() {
   return isLoadingFinish ? (
     <>
       <Navbar />
-      <div className="main-container">
-        <div className="rapor-container">
-          <h1 className="title">Progress Belajar</h1>
-          <div className="nilai-container">
-            <div className="one-container">
-              <SVG theData={dataObj.perAll} theClass={"svg-container"} />
-              <h2 className="lihat-pembahasan">Semua Subtes</h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG theData={dataObj.perPPU} theClass={"svg-container-small"} />
-              <h2
-                onClick={() => handleNavigation("/tasks/ppu")}
-                className="subtes"
-              >
-                PPU
-              </h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG theData={dataObj.perPU} theClass={"svg-container-small"} />
-              <h2
-                onClick={() => handleNavigation("/tasks/pu")}
-                className="subtes"
-              >
-                PU
-              </h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG theData={dataObj.perPBM} theClass={"svg-container-small"} />
+      <div className="outer-main">
+        <div className="main-container">
+          <div className="rapor-container">
+            <h1 className="title">Progress Belajar</h1>
+            <div className="nilai-container">
+              <div className="one-container">
+                <SVG theData={dataObj.perAll} theClass={"svg-container"} />
+                <h2 className="lihat-pembahasan">Semua Subtes</h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG
+                  theData={dataObj.perPPU}
+                  theClass={"svg-container-small"}
+                />
+                <h2
+                  onClick={() => handleNavigation("/tasks/ppu")}
+                  className="subtes"
+                >
+                  PPU
+                </h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG theData={dataObj.perPU} theClass={"svg-container-small"} />
+                <h2
+                  onClick={() => handleNavigation("/tasks/pu")}
+                  className="subtes"
+                >
+                  PU
+                </h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG
+                  theData={dataObj.perPBM}
+                  theClass={"svg-container-small"}
+                />
 
-              <h2
-                onClick={() => handleNavigation("/tasks/pbm")}
-                className="subtes"
-              >
-                PBM
-              </h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG theData={dataObj.perPK} theClass={"svg-container-small"} />
-              <h2
-                onClick={() => handleNavigation("/tasks/pk")}
-                className="subtes"
-              >
-                PK
-              </h2>
+                <h2
+                  onClick={() => handleNavigation("/tasks/pbm")}
+                  className="subtes"
+                >
+                  PBM
+                </h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG theData={dataObj.perPK} theClass={"svg-container-small"} />
+                <h2
+                  onClick={() => handleNavigation("/tasks/pk")}
+                  className="subtes"
+                >
+                  PK
+                </h2>
+              </div>
             </div>
           </div>
         </div>

@@ -21,7 +21,7 @@ const RaporTryout = () => {
   const [role, setRole] = useState("");
   const [video, setVideo] = useState("");
 
-  console.log(userAnswers);
+  // console.log(userAnswers);
   // console.log(keyAnswer);
 
   const movePage = (e, page) => {
@@ -39,21 +39,23 @@ const RaporTryout = () => {
         }
       );
       setUserAnswer(data);
-
+      console.log(data[pageNum], `data`);
       if (theRole === "Premium") {
         console.log("ini premium kan");
         const response = await axios.get(
-          `http://localhost:3001/videos/all-videos`,
+          `http://localhost:3001/videos/weekly`,
           {
             headers: {
               access_token: localStorage.getItem("accessToken"),
             },
           }
         );
+        console.log(response.data, `-----`);
         const videoId = response.data.filter(
-          (el) => el.id === data[0].Question.id
+          (el) =>
+            el.QuestionWeeklyTestId === data[pageNum].QuestionWeeklyTest.id
         );
-        // console.log(videoId[0].videoLink);
+        console.log(videoId[0]);
         setVideo(videoId[0].videoLink);
       }
 
@@ -70,8 +72,59 @@ const RaporTryout = () => {
     }
   };
 
-  const paymentHandler = () => {
-    console.log("INI MASUK KE MIDTRANS DONGGG");
+  const paymentHandler = async () => {
+    try {
+      const response = await axios.post(
+        `${url}/users/handlePayment`,
+        {},
+        {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
+        }
+      );
+      console.log(response.data.TokenPayment);
+      window.snap.pay(response.data.TokenPayment, {
+        onSuccess: async (result) => {
+          await axios.patch(
+            `${url}/users/premium`,
+            {
+              role: `Premium`,
+            },
+            {
+              headers: {
+                access_token: localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          console.log(result);
+          setRole("Premium");
+        },
+        onPending: async (result) => {
+          await axios.patch(
+            `${url}/users/premium`,
+            {
+              role: `Premium`,
+            },
+            {
+              headers: {
+                access_token: localStorage.getItem("access_Token"),
+              },
+            }
+          );
+          console.log(result);
+          setRole("Premium");
+        },
+        onError: function (result) {
+          console.log(`on Error`);
+        },
+        onClose: function (result) {
+          console.log(`close`);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -80,7 +133,7 @@ const RaporTryout = () => {
       let theRole = data.role;
       getAnswersFromDB(theRole);
     });
-  }, [pageNum]);
+  }, [pageNum, role]);
 
   return (
     <>
@@ -186,6 +239,7 @@ const RaporTryout = () => {
                   width="560"
                   height="315"
                   src={video}
+                  // src="https://www.youtube.com/embed/tJkGHpPrDl8"
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

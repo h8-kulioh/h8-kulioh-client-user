@@ -54,14 +54,11 @@ const RaporSoalHarian = () => {
       console.log(theRole);
       if (theRole === "Premium") {
         console.log("ini premium kan");
-        const response = await axios.get(
-          `http://localhost:3001/videos/all-videos`,
-          {
-            headers: {
-              access_token: localStorage.getItem("accessToken"),
-            },
-          }
-        );
+        const response = await axios.get(`http://localhost:3001/videos/daily`, {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
+        });
         const videoId = response.data.filter(
           (el) => el.id === fiteredData[0].Question.id
         );
@@ -93,8 +90,60 @@ const RaporSoalHarian = () => {
     }
   };
 
-  const paymentHandler = () => {
-    console.log("INI MASUK KE MIDTRANS DONGGG");
+  const paymentHandler = async () => {
+    // console.log("INI MASUK KE MIDTRANS DONGGG");
+    try {
+      const response = await axios.post(
+        `${url}/users/handlePayment`,
+        {},
+        {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
+        }
+      );
+      console.log(response.data.TokenPayment);
+      window.snap.pay(response.data.TokenPayment, {
+        onSuccess: async (result) => {
+          await axios.patch(
+            `${url}/users/premium`,
+            {
+              role: `Premium`,
+            },
+            {
+              headers: {
+                access_token: localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          console.log(result);
+          setRole("Premium");
+        },
+        onPending: async (result) => {
+          await axios.patch(
+            `${url}/users/premium`,
+            {
+              role: `Premium`,
+            },
+            {
+              headers: {
+                access_token: localStorage.getItem("access_Token"),
+              },
+            }
+          );
+          console.log(result);
+          setRole("Premium");
+        },
+        onError: function (result) {
+          console.log(`on Error`);
+        },
+        onClose: function (result) {
+          console.log(`close`);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const changeSubject = (e) => {
@@ -108,57 +157,74 @@ const RaporSoalHarian = () => {
       let theRole = data.role;
       getAnswersFromDB(theRole);
     });
-  }, [subject, pageNum]);
+  }, [subject, pageNum, role]);
 
   return (
     <>
       <Navbar />
       <div className="main-container">
-        <div>
-          <>
-            {isLoadingFinish ? (
-              <div className="question-container">
-                <div className="filter-container">
-                  <select onChange={(e) => changeSubject(e)} name="" id="">
-                    <option value="PK">PK</option>
-                    <option value="PBM">PBM</option>
-                    <option value="PU">PU</option>
-                    <option value="PPU">PPU</option>
-                  </select>
+        <>
+          {isLoadingFinish ? (
+            <div className="question-container">
+              <div className="filter-container">
+                <select onChange={(e) => changeSubject(e)} name="" id="">
+                  <option value="PK">PK</option>
+                  <option value="PBM">PBM</option>
+                  <option value="PU">PU</option>
+                  <option value="PPU">PPU</option>
+                </select>
+              </div>
+              <div className="pagination-container">
+                <div className="num-container">
+                  {userAnswers.map((q, idx) => {
+                    return (
+                      <button
+                        key={q.id}
+                        onClick={(e) => movePage(e, idx)}
+                        className={`btn-pagination ${
+                          pageNum === idx ? "active" : ""
+                        } ${q.QuestionKey.correct ? "correct" : "wrong"} `}
+                      >
+                        {idx + 1}
+                      </button>
+                    );
+                  })}
                 </div>
-                <div className="pagination-container">
-                  <div className="num-container">
-                    {userAnswers.map((q, idx) => {
-                      return (
-                        <button
-                          key={q.id}
-                          onClick={(e) => movePage(e, idx)}
-                          className={`btn-pagination ${
-                            pageNum === idx ? "active" : ""
-                          } ${q.QuestionKey.correct ? "correct" : "wrong"} `}
-                        >
-                          {idx + 1}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <h3>Soal Harian {date[pageNum]}</h3>
-                  {/* <h3>{getDate}</h3> */}
-                </div>
+                <h3>Soal Harian {date[pageNum]}</h3>
+                {/* <h3>{getDate}</h3> */}
+              </div>
 
-                <div className="question-answers">
-                  {userAnswers[pageNum].Question.question
-                    .split("~")
-                    .map((so, idx) => {
-                      return <Latex key={idx}>{so}</Latex>;
-                    })}
-                  {/* <Latex>{userAnswers[pageNum].Question.question}</Latex> */}
+              <div className="question-answers">
+                {userAnswers[pageNum].Question.question
+                  .split("~")
+                  .map((so, idx) => {
+                    return <Latex key={idx}>{so}</Latex>;
+                  })}
+                {/* <Latex>{userAnswers[pageNum].Question.question}</Latex> */}
 
-                  <form className="form-container-rapor">
-                    {userAnswers[pageNum].Question.QuestionKeys.map((el) => (
-                      <label
-                        key={el.id}
-                        className={`${
+                <form className="form-container-rapor">
+                  {userAnswers[pageNum].Question.QuestionKeys.map((el) => (
+                    <label
+                      key={el.id}
+                      className={`${
+                        userAnswers[pageNum].QuestionKey.correct &&
+                        userAnswers[pageNum].QuestionKey.answer === el.answer
+                          ? "correct"
+                          : ""
+                      } ${
+                        !userAnswers[pageNum].QuestionKey.correct &&
+                        keyAnswer[0].answer === el.answer
+                          ? "theCorrect"
+                          : ""
+                      } ${
+                        !userAnswers[pageNum].QuestionKey.correct &&
+                        userAnswers[pageNum].QuestionKey.answer === el.answer
+                          ? "wrong"
+                          : ""
+                      } `}
+                    >
+                      <input
+                        className={`input-pembahasan ${
                           userAnswers[pageNum].QuestionKey.correct &&
                           userAnswers[pageNum].QuestionKey.answer === el.answer
                             ? "correct"
@@ -174,61 +240,38 @@ const RaporSoalHarian = () => {
                             ? "wrong"
                             : ""
                         } `}
-                      >
-                        <input
-                          className={`input-pembahasan ${
-                            userAnswers[pageNum].QuestionKey.correct &&
-                            userAnswers[pageNum].QuestionKey.answer ===
-                              el.answer
-                              ? "correct"
-                              : ""
-                          } ${
-                            !userAnswers[pageNum].QuestionKey.correct &&
-                            keyAnswer[0].answer === el.answer
-                              ? "theCorrect"
-                              : ""
-                          } ${
-                            !userAnswers[pageNum].QuestionKey.correct &&
-                            userAnswers[pageNum].QuestionKey.answer ===
-                              el.answer
-                              ? "wrong"
-                              : ""
-                          } `}
-                          type="radio"
-                          name="radio"
-                          checked={answers.includes(el.id)}
+                        type="radio"
+                        name="radio"
+                        checked={answers.includes(el.id)}
 
-                          // onChange={(e) => saveAnswer(e, el.id)}
-                        />
-                        <Latex>{el.answer}</Latex>
-                      </label>
-                    ))}
-                  </form>
-                </div>
-                <div className="rapor-video-pembahasan">Video Pembahasan</div>
-                {role === "Premium" ? (
-                  <iframe
-                    className="video"
-                    width="560"
-                    height="315"
-                    src={video}
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                ) : (
-                  <div className="premium-button-container">
-                    <h2>Ingin Mengakses Video Pembahasan?</h2>
-                    <button onClick={() => paymentHandler()}>
-                      Berlangganan
-                    </button>
-                  </div>
-                )}
+                        // onChange={(e) => saveAnswer(e, el.id)}
+                      />
+                      <Latex>{el.answer}</Latex>
+                    </label>
+                  ))}
+                </form>
               </div>
-            ) : null}
-          </>
-        </div>
+              <div className="rapor-video-pembahasan">Video Pembahasan</div>
+              {role === "Premium" ? (
+                <iframe
+                  className="video"
+                  width="560"
+                  height="315"
+                  src={video}
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              ) : (
+                <div className="premium-button-container">
+                  <h2>Ingin Mengakses Video Pembahasan?</h2>
+                  <button onClick={() => paymentHandler()}>Berlangganan</button>
+                </div>
+              )}
+            </div>
+          ) : null}
+        </>
       </div>
     </>
   );

@@ -1,5 +1,15 @@
 @use "../../variabels.scss" as v;
 
+.outer-main {
+  min-height: 85vh;
+  width: 100%;
+  display: flex;
+  // background-size: cover;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
@@ -9,4 +19,6 @@
   box-shadow: 0 3px 4px rgb(0 0 0 / 0.2);
   border: 1px solid v.$navbar-blue;
   border-radius: 1.2rem;
+
+  width: 80%;
 }
