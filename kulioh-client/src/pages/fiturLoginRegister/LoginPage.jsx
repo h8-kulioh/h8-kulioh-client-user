@@ -22,14 +22,13 @@ const LoginPage = () => {
     e.preventDefault();
     dispatch(actionCreator.login(adminObj))
       .then((data) => {
-        // const { username, accessToken } = data;
-        // localStorage.setItem("accessToken", accessToken);
         navigate("/");
         showSuccess(`Login Success!`);
         setAdminObj(initialStateObj);
       })
       .catch((err) => {
-        showError(err);
+        showError(err.response.data.message);
+        // showError(err);
       });
   };
 

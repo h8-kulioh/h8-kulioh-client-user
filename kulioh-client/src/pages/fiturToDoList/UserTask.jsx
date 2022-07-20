@@ -6,6 +6,7 @@ import axios from "axios";
 import CardComponent from "../../components/fiturToDoList/CardComponent";
 import Navbar from "../../components/ReusableComponents/Navbar";
 import "../../css/UserTask.css";
+import loading from "../../assets/loading2.gif";
 
 export default function UserTask() {
   const [bab, setBab] = useState([]);
@@ -76,29 +77,31 @@ export default function UserTask() {
     }
   };
 
-  if (loading) {
-    return <h1>Please wait</h1>;
-  }
-
   return (
     <>
       <Navbar />
       <div className="main-container">
-        <div className="outer-todo-list">
-          <h2 className="pelajaran">{longName(subject)}</h2>
-          <div className="card-component-container">
-            {bab.map((x, idx) => {
-              return (
-                <CardComponent
-                  key={x.id}
-                  idx={idx}
-                  babName={x.name}
-                  listSub={tasks}
-                />
-              );
-            })}
+        {!loading ? (
+          <div className="outer-todo-list">
+            <h2 className="pelajaran">{longName(subject)}</h2>
+            <div className="card-component-container">
+              {bab.map((x, idx) => {
+                return (
+                  <CardComponent
+                    key={x.id}
+                    idx={idx}
+                    babName={x.name}
+                    listSub={tasks}
+                  />
+                );
+              })}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <img src={loading} alt="" />
+          </div>
+        )}
       </div>
     </>
   );

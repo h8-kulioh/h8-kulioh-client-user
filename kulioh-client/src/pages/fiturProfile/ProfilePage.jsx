@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actionCreator from "../../store/actions/actionCreator";
 import { showError, showSuccess } from "../../helpers/swal";
 import { useNavigate } from "react-router-dom";
+import loading from "../../assets/loading2.gif";
 import "../../css/ProfilePage.css";
 import axios from "axios";
 import logo from "../../assets/logo.png";
@@ -95,8 +96,11 @@ const ProfilePage = () => {
 
       localStorage.setItem("major1", localMajor1);
       localStorage.setItem("major2", localMajor2);
+
+      showSuccess("Sukses Edit Profil");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      showError(err.reponse.data.message);
     }
   };
 
@@ -212,8 +216,8 @@ const ProfilePage = () => {
   return (
     <>
       <Navbar />
-      {isLoadingFinish ? (
-        <div className="profile-container">
+      <div className="profile-container">
+        {isLoadingFinish ? (
           <div className="form-container">
             <form onSubmit={submitHandler} className="form-component">
               <div className="form-box">
@@ -317,8 +321,12 @@ const ProfilePage = () => {
               </button>
             </form>
           </div>
-        </div>
-      ) : null}
+        ) : (
+          <div>
+            <img src={loading} alt="" />
+          </div>
+        )}
+      </div>
     </>
   );
 };

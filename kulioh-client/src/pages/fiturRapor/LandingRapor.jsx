@@ -5,6 +5,7 @@ import "../../css/LandingRapor.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SVG from "../../components/ReusableComponents/SVG";
+import loading from "../../assets/loading2.gif";
 const LandingRapor = () => {
   let navigate = useNavigate();
 
@@ -88,88 +89,104 @@ const LandingRapor = () => {
 
   console.log(dataWeekObj);
 
-  return isLoadingFinish ? (
+  return (
     <>
       <Navbar />
       <div className="main-container">
-        <div className="rapor-container">
-          <h1 className="title">Rapor Soal Harian</h1>
-          <div className="nilai-container">
-            <div className="one-container">
-              <SVG theData={dataObj.perAll} theClass={"svg-container"} />
-              <h2
-                className="lihat-pembahasan"
-                onClick={() => handleNavigation("/rapor/soalharian")}
-              >
-                Lihat Pembahasan
-              </h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG theData={dataObj.perPPU} theClass={"svg-container-small"} />
-              <h2 className="subtes">PPU</h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG theData={dataObj.perPU} theClass={"svg-container-small"} />
-              <h2 className="subtes">PU</h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG theData={dataObj.perPBM} theClass={"svg-container-small"} />
-              <h2 className="subtes">PBM</h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG theData={dataObj.perPK} theClass={"svg-container-small"} />
-              <h2 className="subtes">PK</h2>
+        {isLoadingFinish ? (
+          <div className="rapor-container">
+            <h1 className="title">Rapor Soal Harian</h1>
+            <div className="nilai-container">
+              <div className="one-container">
+                <SVG theData={dataObj.perAll} theClass={"svg-container"} />
+                <h2
+                  className="lihat-pembahasan"
+                  onClick={() => handleNavigation("/rapor/soalharian")}
+                >
+                  Lihat Pembahasan
+                </h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG
+                  theData={dataObj.perPPU}
+                  theClass={"svg-container-small"}
+                />
+                <h2 className="subtes">PPU</h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG theData={dataObj.perPU} theClass={"svg-container-small"} />
+                <h2 className="subtes">PU</h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG
+                  theData={dataObj.perPBM}
+                  theClass={"svg-container-small"}
+                />
+                <h2 className="subtes">PBM</h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG theData={dataObj.perPK} theClass={"svg-container-small"} />
+                <h2 className="subtes">PK</h2>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <img src={loading} alt="" />
+          </div>
+        )}
       </div>
       <div className="main-container">
-        <div className="rapor-container">
-          <h1 className="title">Rapor Tryout Mingguan</h1>
-          <div className="nilai-container">
-            <div className="one-container">
-              <SVG theData={dataWeekObj.perAll} theClass={"svg-container"} />
-              <h2
-                className="lihat-pembahasan"
-                onClick={() => handleNavigation("/rapor/tryout")}
-              >
-                Lihat Pembahasan
-              </h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG
-                theData={dataWeekObj.perPPU}
-                theClass={"svg-container-small"}
-              />
-              <h2 className="subtes">PPU</h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG
-                theData={dataWeekObj.perPU}
-                theClass={"svg-container-small"}
-              />
-              <h2 className="subtes">PU </h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG
-                theData={dataWeekObj.perPBM}
-                theClass={"svg-container-small"}
-              />
-              <h2 className="subtes">PBM</h2>
-            </div>
-            <div className="one-container-lain">
-              <SVG
-                theData={dataWeekObj.perPK}
-                theClass={"svg-container-small"}
-              />
-              <h2 className="subtes">PK</h2>
+        {isLoadingFinish ? (
+          <div className="rapor-container">
+            <h1 className="title">Rapor Tryout Mingguan</h1>
+            <div className="nilai-container">
+              <div className="one-container">
+                <SVG theData={dataWeekObj.perAll} theClass={"svg-container"} />
+                <h2
+                  className="lihat-pembahasan"
+                  onClick={() => handleNavigation("/rapor/tryout")}
+                >
+                  Lihat Pembahasan
+                </h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG
+                  theData={dataWeekObj.perPPU}
+                  theClass={"svg-container-small"}
+                />
+                <h2 className="subtes">PPU</h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG
+                  theData={dataWeekObj.perPU}
+                  theClass={"svg-container-small"}
+                />
+                <h2 className="subtes">PU </h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG
+                  theData={dataWeekObj.perPBM}
+                  theClass={"svg-container-small"}
+                />
+                <h2 className="subtes">PBM</h2>
+              </div>
+              <div className="one-container-lain">
+                <SVG
+                  theData={dataWeekObj.perPK}
+                  theClass={"svg-container-small"}
+                />
+                <h2 className="subtes">PK</h2>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <img src={loading} alt="" />
+          </div>
+        )}
       </div>
     </>
-  ) : (
-    <p>loading</p>
   );
 };
 

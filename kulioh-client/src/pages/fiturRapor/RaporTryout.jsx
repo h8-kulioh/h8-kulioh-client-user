@@ -8,6 +8,7 @@ import axios from "axios";
 import SVG from "../../components/ReusableComponents/SVG";
 import { useDispatch, useSelector } from "react-redux";
 import * as actionCreator from "../../store/actions/actionCreator";
+import loading from "../../assets/loading2.gif";
 const url = "http://localhost:3001";
 const RaporTryout = () => {
   let dispatch = useDispatch();
@@ -252,7 +253,11 @@ const RaporTryout = () => {
                 </div>
               )}
             </div>
-          ) : null}
+          ) : (
+            <div>
+              <img src={loading} alt="" />
+            </div>
+          )}
         </>
       </div>
     </>

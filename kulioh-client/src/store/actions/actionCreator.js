@@ -26,9 +26,6 @@ export const fetchDailyQ = () => {
   };
 };
 
-
-
-
 export const login = (adminObj) => {
   return () => {
     return new Promise(async (resolve, reject) => {
@@ -140,50 +137,55 @@ export const paymentMidtrans = () => {
   return (dispatch) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await axios.post(`${url}/users/handlePayment`, {
-
-        }, {
-          headers: {
-            access_token: localStorage.getItem("accessToken")
+        const response = await axios.post(
+          `${url}/users/handlePayment`,
+          {},
+          {
+            headers: {
+              access_token: localStorage.getItem("accessToken"),
+            },
           }
-        })
+        );
         window.snap.pay(response.data.token, {
           onSuccess: async (result) => {
-            await axios.patch(`${url}/users/premimm`, {
-              role: `Premium`
-            },
+            await axios.patch(
+              `${url}/users/premimm`,
+              {
+                role: `Premium`,
+              },
               {
                 headers: {
-                  access_token: localStorage.getItem("accessToken")
-                }
-              })
+                  access_token: localStorage.getItem("accessToken"),
+                },
+              }
+            );
             console.log(result);
-
           },
           onPending: async (result) => {
-            await axios.patch(`${url}/users/premimm`, {
-              role: `Premium`
-            },
+            await axios.patch(
+              `${url}/users/premimm`,
+              {
+                role: `Premium`,
+              },
               {
                 headers: {
-                  access_token: localStorage.getItem("access_Token")
-                }
-              })
+                  access_token: localStorage.getItem("access_Token"),
+                },
+              }
+            );
             console.log(result);
-
           },
           onError: function (result) {
             console.log(`on Error`);
           },
           onClose: function (result) {
             console.log(`close`);
-          }
-        })
-        resolve()
+          },
+        });
+        resolve();
+      } catch (err) {
+        reject(err);
       }
-      catch (err) {
-        reject(err)
-      }
-    })
-  }
-}
+    });
+  };
+};
