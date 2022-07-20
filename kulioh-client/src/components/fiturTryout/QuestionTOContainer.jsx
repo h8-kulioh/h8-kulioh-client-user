@@ -86,7 +86,9 @@ const QuestionTOContainer = () => {
           },
         }
       );
-      console.log(response);
+      dispatch({ type: actionType.WEEKLY_Q_ISANSWERED });
+      localStorage.removeItem("startTime");
+      // console.log(response);
     } catch (err) {
       console.log(err);
     }

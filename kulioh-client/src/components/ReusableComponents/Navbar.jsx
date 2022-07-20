@@ -46,7 +46,7 @@ const Navbar = () => {
                 className={`main-nav-link ${
                   pathName === `/rapor` ? "active" : null
                 } ${pathName === `/rapor/soalharian` ? "active" : null} ${
-                  pathName === `/rapor/soaltryout` ? "active" : null
+                  pathName === `/rapor/tryout` ? "active" : null
                 }`}
               >
                 {" "}

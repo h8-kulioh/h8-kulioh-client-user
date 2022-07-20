@@ -94,8 +94,8 @@
   color: #2bcbef;
   font-size: 1.2rem;
   font-weight: 600;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
 }
 .chat-container form {
   display: -webkit-box;

@@ -54,7 +54,7 @@ const LandingRapor = () => {
           },
         }
       );
-      // console.log(data);
+      console.log(response);
       setDataObj({
         jumlahBenar: data.jumlahBenar,
         jumlahSoal: data.jumlahSoal,

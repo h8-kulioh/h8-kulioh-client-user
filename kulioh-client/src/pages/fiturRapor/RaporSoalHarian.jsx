@@ -6,7 +6,6 @@ import "../../css/QuestionContainer.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import * as actionType from "../../store/actions/actionType";
 import * as actionCreator from "../../store/actions/actionCreator";
 const url = "http://localhost:3001";
 
@@ -22,6 +21,7 @@ const RaporSoalHarian = () => {
   const [keyAnswer, setKeyAnswer] = useState();
   const [video, setVideo] = useState("");
   const [date, setDate] = useState([]);
+  const [role, setRole] = useState("");
 
   const movePage = (e, page) => {
     e.preventDefault();
@@ -41,15 +41,23 @@ const RaporSoalHarian = () => {
           },
         }
       );
+
       // console.log(data);
-      const response = await axios.get(
-        `http://localhost:3001/videos/all-videos`,
-        {
-          headers: {
-            access_token: localStorage.getItem("accessToken"),
-          },
-        }
-      );
+      if (role === "Premium") {
+        const response = await axios.get(
+          `http://localhost:3001/videos/all-videos`,
+          {
+            headers: {
+              access_token: localStorage.getItem("accessToken"),
+            },
+          }
+        );
+        const videoId = response.data.filter(
+          (el) => el.id === fiteredData[0].Question.id
+        );
+        // console.log(videoId[0].videoLink);
+        setVideo(videoId[0].videoLink);
+      }
 
       const fiteredData = data
         .filter((el) => el.Question.subject === subject)
@@ -71,11 +79,7 @@ const RaporSoalHarian = () => {
       const kunjab = fiteredData[pageNum].Question.QuestionKeys.filter(
         (el) => el.correct === true
       );
-      const videoId = response.data.filter(
-        (el) => el.id === fiteredData[0].Question.id
-      );
-      // console.log(videoId[0].videoLink);
-      setVideo(videoId[0].videoLink);
+
       setKeyAnswer(kunjab);
       // console.log(kunjab, `kunjab`);
       setIsLoadingFinish(true);
@@ -86,13 +90,20 @@ const RaporSoalHarian = () => {
     }
   };
 
+  const paymentHandler = () => {
+    console.log("INI MASUK KE MIDTRANS DONGGG");
+  };
+
   const changeSubject = (e) => {
     e.preventDefault();
     setSubject(e.target.value);
   };
 
   useEffect(() => {
-    getAnswersFromDB();
+    dispatch(actionCreator.getUserData()).then((data) => {
+      setRole(data.role);
+      getAnswersFromDB();
+    });
   }, [subject, pageNum]);
 
   return (
@@ -195,16 +206,25 @@ const RaporSoalHarian = () => {
                 <Latex>{userAnswers[pageNum].QuestionKey.answer}</Latex>
                 <h3>Jabawan Benar: </h3>
                 <Latex>{keyAnswer[0].answer}</Latex> */}
-                <iframe
-                  className="video"
-                  width="560"
-                  height="315"
-                  src={video}
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
+                {role === "Premium" ? (
+                  <iframe
+                    className="video"
+                    width="560"
+                    height="315"
+                    src={video}
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                ) : (
+                  <div className="premium-button-container">
+                    <h2>Ingin Mengakses Video Pembahasan?</h2>
+                    <button onClick={() => paymentHandler()}>
+                      Berlangganan
+                    </button>
+                  </div>
+                )}
               </div>
             ) : null}
           </>

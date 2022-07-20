@@ -232,4 +232,27 @@
   -webkit-text-decoration: underline 0.2rem;
           text-decoration: underline 0.2rem;
   text-underline-offset: 1rem;
+}
+.question-container .premium-button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1.3rem;
+}
+.question-container .premium-button-container > button {
+  padding: 1rem;
+  outline: none;
+  border-radius: 1.2rem;
+  border: none;
+  background-color: #aacee9;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  cursor: pointer;
+}
+.question-container .premium-button-container > button:hover {
+  background-color: #2bcbef;
 }/*# sourceMappingURL=QuestionContainer.css.map */

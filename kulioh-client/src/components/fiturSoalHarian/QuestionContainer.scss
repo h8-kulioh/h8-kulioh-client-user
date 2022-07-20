@@ -273,4 +273,24 @@
     text-decoration: underline 0.2rem;
     text-underline-offset: 1rem;
   }
+
+  .premium-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+
+    > button {
+      padding: 1rem;
+      outline: none;
+      border-radius: 1.2rem;
+      border: none;
+      background-color: v.$navbar-blue;
+      align-self: flex-start;
+      cursor: pointer;
+
+      &:hover {
+        background-color: v.$primary-blue;
+      }
+    }
+  }
 }

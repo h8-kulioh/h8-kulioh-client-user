@@ -6,8 +6,6 @@ import "../../css/QuestionContainer.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import * as actionType from "../../store/actions/actionType";
-import * as actionCreator from "../../store/actions/actionCreator";
 const url = "http://localhost:3001";
 const RaporTryout = () => {
   let dispatch = useDispatch();
@@ -15,8 +13,9 @@ const RaporTryout = () => {
   const [pageNum, setPageNum] = useState(0);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
   const [answers, setAnswers] = useState(["", "", "", ""]);
-  const [userAnswers, setUserAnswer] = useState([])
-  const [keyAnswer, setKeyAnswer] = useState()
+  const [userAnswers, setUserAnswer] = useState([]);
+  const [keyAnswer, setKeyAnswer] = useState();
+  const [date, setDate] = useState([]);
   let getYear;
   let getMonth;
   let getDay;
@@ -27,27 +26,33 @@ const RaporTryout = () => {
   };
   const getAnswersFromDB = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:3001/users/tryOutAllAnswer`, {
-        headers: {
-          access_token: localStorage.getItem("accessToken")
+      const { data } = await axios.get(
+        `http://localhost:3001/users/tryOutAllAnswer`,
+        {
+          headers: {
+            access_token: localStorage.getItem("accessToken"),
+          },
         }
-      })
+      );
       // console.log(data);
       // const fiteredData = data.filter(el => el.Question.subject === subject)
       console.log(data);
-      setUserAnswer(data)
-      const kunjab = data[pageNum].QuestionWeeklyTest.QuestionKeyWeeklyTests.filter(el => el.correct === true)
-      setKeyAnswer(kunjab)
+      setUserAnswer(data);
+      const kunjab = data[
+        pageNum
+      ].QuestionWeeklyTest.QuestionKeyWeeklyTests.filter(
+        (el) => el.correct === true
+      );
+      setKeyAnswer(kunjab);
       console.log(kunjab, `kunjab`);
-      setIsLoadingFinish(true)
-    }
-    catch (err) {
+      setIsLoadingFinish(true);
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
-    getAnswersFromDB()
+    getAnswersFromDB();
   }, [pageNum]);
 
   getYear = new Date().getFullYear(); //2022
@@ -78,8 +83,9 @@ const RaporTryout = () => {
                         <button
                           key={idx}
                           onClick={(e) => movePage(e, idx)}
-                          className={`btn-pagination ${pageNum === idx ? "active" : ""
-                            } ${answers[idx] !== "" ? "answered" : ""} `}
+                          className={`btn-pagination ${
+                            pageNum === idx ? "active" : ""
+                          } ${answers[idx] !== "" ? "answered" : ""} `}
                         >
                           {idx + 1}
                         </button>
@@ -91,12 +97,16 @@ const RaporTryout = () => {
                 </div>
 
                 <div className="question-answers">
-                  {userAnswers[pageNum].QuestionWeeklyTest.question.split("~").map((so, idx) => {
-                    return <Latex key={idx}>{so}</Latex>;
-                  })}
+                  {userAnswers[pageNum].QuestionWeeklyTest.question
+                    .split("~")
+                    .map((so, idx) => {
+                      return <Latex key={idx}>{so}</Latex>;
+                    })}
 
                   <form className="form-container">
-                    {userAnswers[pageNum].QuestionWeeklyTest.QuestionKeyWeeklyTests.map((el) => (
+                    {userAnswers[
+                      pageNum
+                    ].QuestionWeeklyTest.QuestionKeyWeeklyTests.map((el) => (
                       <label
                         key={el.id}
                         className={answers.includes(el.id) ? "active" : null}
@@ -105,7 +115,7 @@ const RaporTryout = () => {
                           type="radio"
                           name="radio"
                           checked={answers.includes(el.id)}
-                        //   onChange={(e) => saveAnswer(e, el.id)}
+                          //   onChange={(e) => saveAnswer(e, el.id)}
                         />
                         <Latex>{el.answer}</Latex>
                       </label>
@@ -114,7 +124,9 @@ const RaporTryout = () => {
                 </div>
                 <div>INI PEMBAHASAN</div>
                 <h3>Jabawan User: </h3>
-                <Latex>{userAnswers[pageNum].QuestionKeyWeeklyTest.answer}</Latex>
+                <Latex>
+                  {userAnswers[pageNum].QuestionKeyWeeklyTest.answer}
+                </Latex>
                 <h3>Jabawan Benar: </h3>
                 <Latex>{keyAnswer[0].answer}</Latex>
               </div>

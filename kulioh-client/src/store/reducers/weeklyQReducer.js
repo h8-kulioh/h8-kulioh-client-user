@@ -22,7 +22,11 @@ function dailyQReducer(state = initialState, action) {
         ...state,
         isAlreadyStart: true,
       };
-
+    case actionType.WEEKLY_Q_ISANSWERED:
+      return {
+        ...state,
+        isAnswered: true,
+      };
     default:
       return state;
   }

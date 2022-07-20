@@ -20,7 +20,7 @@ const TryoutPage = () => {
   const [isTodayTO, setIsTodayTO] = useState(false);
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
 
-  let ToIsOnDay = 6;
+  let ToIsOnDay = 3;
   const isTodayTOFunc = () => {
     const now = new Date();
     const nowDay = now.getDay();
@@ -31,33 +31,24 @@ const TryoutPage = () => {
 
   const getAnswersFromDB = async () => {
     try {
-      let getYear = new Date().getFullYear(); //2022
-      let getMonth = new Date().getMonth() + 1;
-      let getDay = new Date().getDate();
-
-      let todayFormat = "";
-      todayFormat = todayFormat + getYear;
-      if (getMonth.toLocaleString.length < 2) {
-        todayFormat += `0${getMonth}`;
-      } else {
-        todayFormat += getMonth;
+      const thisday = new Date();
+      const year = thisday.getFullYear();
+      let month = thisday.getMonth() + 1;
+      if (month < 10) {
+        month = `0` + month.toLocaleString();
       }
-      if (getDay.length < 2) {
-        todayFormat += `0${getDay}`;
-      } else {
-        todayFormat += getDay;
-      }
+      const date = thisday.getDate();
 
       const response = await axios.get(
-        `${url}/questions/answers/weekly/${todayFormat}`,
+        `http://localhost:3001/questions-weekly/user-answer`,
         {
           headers: {
             access_token: localStorage.getItem("accessToken"),
           },
         }
-      ); // YYYYMMDD
+      );
 
-      console.log(response.data);
+      // console.log(response.data);
       // console.log(response.data.statusCode, `--------`);
       if (!response || response.data.length === 0) {
         //if disini ga kepake, karena dia lgsg throw error
