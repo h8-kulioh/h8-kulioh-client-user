@@ -1,8 +1,8 @@
 import React from "react";
 import Navbar from "../../components/ReusableComponents/Navbar";
 import "../../css/HomePage.css";
-import Latex from "react-latex";
 import "../../css/QuestionContainer.css";
+import Latex from "react-latex";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +29,7 @@ const RaporSoalHarian = () => {
   };
 
   // console.log(date);
-  // console.log(userAnswers);
+  console.log(userAnswers);
 
   const getAnswersFromDB = async (theRole) => {
     try {
@@ -245,10 +245,6 @@ const RaporSoalHarian = () => {
                   </form>
                 </div>
                 <div className="rapor-video-pembahasan">Video Pembahasan</div>
-                {/* <h3>Jabawan User: </h3>
-                <Latex>{userAnswers[pageNum].QuestionKey.answer}</Latex>
-                <h3>Jabawan Benar: </h3>
-                <Latex>{keyAnswer[0].answer}</Latex> */}
                 {role === "Premium" ? (
                   <iframe
                     className="video"
