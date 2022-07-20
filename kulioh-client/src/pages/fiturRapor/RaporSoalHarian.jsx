@@ -31,7 +31,7 @@ const RaporSoalHarian = () => {
   // console.log(date);
   // console.log(userAnswers);
 
-  const getAnswersFromDB = async () => {
+  const getAnswersFromDB = async (theRole) => {
     try {
       const { data } = await axios.get(
         `http://localhost:3001/users/allAnswer`,
@@ -42,8 +42,17 @@ const RaporSoalHarian = () => {
         }
       );
 
+      const fiteredData = data
+        .filter((el) => el.Question.subject === subject)
+        .sort((a, b) => a.QuestionId < b.QuestionId);
+      // console.log(fiteredData);
+      setUserAnswer(fiteredData);
+      // console.log(fiteredData);
+
       // console.log(data);
-      if (role === "Premium") {
+      console.log(theRole);
+      if (theRole === "Premium") {
+        console.log("ini premium kan");
         const response = await axios.get(
           `http://localhost:3001/videos/all-videos`,
           {
@@ -58,13 +67,6 @@ const RaporSoalHarian = () => {
         // console.log(videoId[0].videoLink);
         setVideo(videoId[0].videoLink);
       }
-
-      const fiteredData = data
-        .filter((el) => el.Question.subject === subject)
-        .sort((a, b) => a.QuestionId < b.QuestionId);
-      // console.log(fiteredData);
-      setUserAnswer(fiteredData);
-      // console.log(fiteredData);
 
       const dateArray = fiteredData.map((el) => {
         const theDate = new Date(el.createdAt);
@@ -90,8 +92,55 @@ const RaporSoalHarian = () => {
     }
   };
 
-  const paymentHandler = () => {
-    console.log("INI MASUK KE MIDTRANS DONGGG");
+  const paymentHandler = async () => {
+    // console.log("INI MASUK KE MIDTRANS DONGGG");
+    try {
+      const response = await axios.post(`${url}/users/handlePayment`, {
+
+      }, {
+        headers: {
+          access_token: localStorage.getItem("accessToken")
+        }
+      })
+      console.log(response.data.TokenPayment);
+      window.snap.pay(response.data.TokenPayment, {
+        onSuccess: async (result) => {
+          await axios.patch(`${url}/users/premium`, {
+            role: `Premium`
+          },
+            {
+              headers: {
+                access_token: localStorage.getItem("accessToken")
+              }
+            })
+          console.log(result);
+          setRole("Premium")
+        },
+        onPending: async (result) => {
+          await axios.patch(`${url}/users/premium`, {
+            role: `Premium`
+          },
+            {
+              headers: {
+                access_token: localStorage.getItem("access_Token")
+              }
+            })
+          console.log(result);
+          setRole("Premium")
+
+        },
+        onError: function (result) {
+          console.log(`on Error`);
+        },
+        onClose: function (result) {
+          console.log(`close`);
+        }
+      })
+
+    }
+    catch (err) {
+      console.log(err);
+    }
   };
 
   const changeSubject = (e) => {
@@ -102,9 +151,10 @@ const RaporSoalHarian = () => {
   useEffect(() => {
     dispatch(actionCreator.getUserData()).then((data) => {
       setRole(data.role);
-      getAnswersFromDB();
+      let theRole = data.role;
+      getAnswersFromDB(theRole);
     });
-  }, [subject, pageNum]);
+  }, [subject, pageNum, role]);
 
   return (
     <>
@@ -129,9 +179,8 @@ const RaporSoalHarian = () => {
                         <button
                           key={q.id}
                           onClick={(e) => movePage(e, idx)}
-                          className={`btn-pagination ${
-                            pageNum === idx ? "active" : ""
-                          } ${q.QuestionKey.correct ? "correct" : "wrong"} `}
+                          className={`btn-pagination ${pageNum === idx ? "active" : ""
+                            } ${q.QuestionKey.correct ? "correct" : "wrong"} `}
                         >
                           {idx + 1}
                         </button>
@@ -154,47 +203,41 @@ const RaporSoalHarian = () => {
                     {userAnswers[pageNum].Question.QuestionKeys.map((el) => (
                       <label
                         key={el.id}
-                        className={`${
-                          userAnswers[pageNum].QuestionKey.correct &&
+                        className={`${userAnswers[pageNum].QuestionKey.correct &&
                           userAnswers[pageNum].QuestionKey.answer === el.answer
-                            ? "correct"
-                            : ""
-                        } ${
-                          !userAnswers[pageNum].QuestionKey.correct &&
-                          keyAnswer[0].answer === el.answer
+                          ? "correct"
+                          : ""
+                          } ${!userAnswers[pageNum].QuestionKey.correct &&
+                            keyAnswer[0].answer === el.answer
                             ? "theCorrect"
                             : ""
-                        } ${
-                          !userAnswers[pageNum].QuestionKey.correct &&
-                          userAnswers[pageNum].QuestionKey.answer === el.answer
+                          } ${!userAnswers[pageNum].QuestionKey.correct &&
+                            userAnswers[pageNum].QuestionKey.answer === el.answer
                             ? "wrong"
                             : ""
-                        } `}
+                          } `}
                       >
                         <input
-                          className={`input-pembahasan ${
-                            userAnswers[pageNum].QuestionKey.correct &&
+                          className={`input-pembahasan ${userAnswers[pageNum].QuestionKey.correct &&
                             userAnswers[pageNum].QuestionKey.answer ===
-                              el.answer
-                              ? "correct"
-                              : ""
-                          } ${
-                            !userAnswers[pageNum].QuestionKey.correct &&
-                            keyAnswer[0].answer === el.answer
+                            el.answer
+                            ? "correct"
+                            : ""
+                            } ${!userAnswers[pageNum].QuestionKey.correct &&
+                              keyAnswer[0].answer === el.answer
                               ? "theCorrect"
                               : ""
-                          } ${
-                            !userAnswers[pageNum].QuestionKey.correct &&
-                            userAnswers[pageNum].QuestionKey.answer ===
+                            } ${!userAnswers[pageNum].QuestionKey.correct &&
+                              userAnswers[pageNum].QuestionKey.answer ===
                               el.answer
                               ? "wrong"
                               : ""
-                          } `}
+                            } `}
                           type="radio"
                           name="radio"
                           checked={answers.includes(el.id)}
 
-                          // onChange={(e) => saveAnswer(e, el.id)}
+                        // onChange={(e) => saveAnswer(e, el.id)}
                         />
                         <Latex>{el.answer}</Latex>
                       </label>
