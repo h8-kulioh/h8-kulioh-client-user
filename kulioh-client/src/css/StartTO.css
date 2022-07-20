@@ -1,0 +1,26 @@
+.start-to-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1.5rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.start-to-container h2 {
+  font-size: 3rem;
+}
+.start-to-container button {
+  padding: 1.2rem 2.8rem;
+  border: none;
+  border-radius: 1.2rem;
+  font-size: 1.5rem;
+  background-color: #aacee9;
+}
+.start-to-container button:hover {
+  background-color: #2bcbef;
+}/*# sourceMappingURL=StartTO.css.map */

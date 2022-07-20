@@ -1,0 +1,49 @@
+@use "../../variabels.scss" as v;
+
+.accordion {
+  margin: 0 auto;
+  overflow: hidden;
+  border: none;
+  outline: none;
+  font-size: 2rem;
+
+  .accordion-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background-color: v.$soft-blue;
+
+    overflow: hidden;
+    border: none;
+    outline: none;
+    margin-bottom: -1rem;
+  }
+
+  .accordion-title:hover,
+  .accordion-title.active {
+    background-color: #3ab4cc;
+    // background-color: v.$primary-blue;
+    background-color: v.$navbar-blue;
+  }
+
+  .accordion-title,
+  .accordion-content {
+    padding: 2rem;
+  }
+
+  .icon-accordion {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  body {
+    font-size: 18px;
+  }
+
+  .accordion {
+    width: 90%;
+  }
+}

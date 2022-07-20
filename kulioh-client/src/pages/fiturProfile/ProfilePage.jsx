@@ -80,15 +80,21 @@ const ProfilePage = () => {
           },
         ],
       };
-      console.log(format);
+      // console.log(format);
+
       await axios.put(`http://localhost:3001/users/profile`, format, {
         headers: {
           access_token: localStorage.getItem("accessToken"),
         },
       });
-      console.log("here");
       dispatch(actionCreator.getUserData());
       console.log(`berhasil edit user`);
+
+      let localMajor1 = adminObj.univ1Name + "-" + adminObj.major1Name;
+      let localMajor2 = adminObj.univ2Name + "-" + adminObj.major2Name;
+
+      localStorage.setItem("major1", localMajor1);
+      localStorage.setItem("major2", localMajor2);
     } catch (err) {
       console.log(err);
     }

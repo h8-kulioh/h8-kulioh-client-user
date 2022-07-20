@@ -1,0 +1,16 @@
+@use "../../variabels.scss" as v;
+
+.main-container {
+  .pelajaran {
+    text-decoration: underline 0.5rem;
+    text-underline-offset: 1rem;
+    margin-bottom: 5rem;
+    font-size: 2.6rem;
+  }
+
+  .card-component-container {
+    // display: flex;
+    // flex-direction: column;
+    // gap: 0;
+  }
+}
