@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Container, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 import CardComponent from "../../components/fiturToDoList/CardComponent";
-// import "./UserTask.css";
+import Navbar from "../../components/ReusableComponents/Navbar";
+import "../../css/UserTask.css";
 
 export default function UserTask() {
   const [bab, setBab] = useState([]);
@@ -58,28 +58,23 @@ export default function UserTask() {
     }
   };
 
-  const openSwal = (e) => {
-    e.preventDefault();
-    return Swal.fire({
-      html:
-        `<svg width="200" height="200">
-            <g transform="rotate(-90 100 100)">
-              <circle r="70" cx="100" cy="100" fill="transparent" stroke="lightgrey" stroke-width="2rem" stroke-dasharray="439.8" stroke-dashoffset="0"></circle>
-              <circle r="70" cx="100" cy="100" fill="transparent" stroke="blue" stroke-width="2rem" stroke-dasharray="439.8" stroke-dashoffset="66"> 
-              </circle>
-            </g>
-            <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle"><p className="ini-bootstrap">85%</p></text>
-          </svg> <br/>` +
-        `<p className="ini-bootstrap">lengkapi pembelajaran untuk bekal SBMPTN <br/></p>` +
-        `<a className="ini-bootstrap" href="">Lihat statistik lengkap</a>`,
-    });
-  };
-
   useEffect(() => {
     getBab();
     getTasks();
     // console.log("here");
   }, [isChange]);
+
+  const longName = (name) => {
+    if (name === `PK`) {
+      return `Pengetahuan Kuantitatif`;
+    } else if (name === `PBM`) {
+      return `Pemahaman Bacaan dan Menulis`;
+    } else if (name === `PPU`) {
+      return `Pengetahuan dan Pemahaman Umum`;
+    } else if (name === `PU`) {
+      return `Penalaran Umum`;
+    }
+  };
 
   if (loading) {
     return <h1>Please wait</h1>;
@@ -87,12 +82,10 @@ export default function UserTask() {
 
   return (
     <>
-      <Container className="mt-5 ini-bootstrap">
-        <p>Mata Pelajaran: {subject}</p>
-        <Button onClick={(e) => openSwal(e)} variant="outline-primary">
-          Statistik
-        </Button>
-        <div className="mt-5">
+      <Navbar />
+      <div className="main-container">
+        <h2 className="pelajaran">{longName(subject)}</h2>
+        <div className="card-component-container">
           {bab.map((x, num) => {
             return (
               <CardComponent
@@ -104,7 +97,7 @@ export default function UserTask() {
             );
           })}
         </div>
-      </Container>
+      </div>
     </>
   );
 }

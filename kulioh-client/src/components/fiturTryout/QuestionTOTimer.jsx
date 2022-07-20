@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
-import "../../css/QuestionTOCountdown.css";
+import "../../css/QuestionTOTimer.css";
 
-export default function QuestionTOCountdown({ handleSubmit }) {
+export default function QuestionTOTimer({ handleSubmit }) {
   const [timerHours, setTimerHours] = useState();
   const [timerMinutes, setTimerMinutes] = useState();
   const [timerSeconds, setTimerSeconds] = useState();
   const [after, setAfter] = useState();
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
   const [clicked, setClicked] = useState(false);
-
-  console.log(isLoadingFinish);
 
   let interval;
   useEffect(() => {
@@ -18,24 +16,32 @@ export default function QuestionTOCountdown({ handleSubmit }) {
 
   const startTimer = () => {
     let finish;
+
     finish = new Date();
-    const today = new Date();
+    let today = new Date();
+
+    const startTime = localStorage.getItem("startTime");
+    if (startTime) {
+      today = new Date(Number(startTime));
+      console.log(today, "INI MULAI");
+    }
+
     finish.setDate(today.getDate());
     finish.setMinutes(today.getMinutes() + 30);
     // finish.setSeconds(today.getSeconds() + 10);
-    console.log(finish, `ini expektasi finish`);
+    console.log(finish, `INI SELESAI`);
 
     setAfter(finish);
 
     const countDownDate = new Date(finish).getTime();
     interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countDownDate - now;
-      const hours = Math.floor(
-        (distance % (24 * 60 * 60 * 1000)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((distance % (60 * 60 * 1000)) / (1000 * 60));
-      const seconds = Math.floor((distance % (60 * 1000)) / 1000);
+      let now = new Date().getTime();
+      let distance = Math.abs(countDownDate - now);
+      let seconds = Math.floor(distance / 1000);
+      let minutes = Math.floor(seconds / 60);
+      let hours = Math.floor(minutes / 60);
+      seconds = seconds % 60;
+      minutes = minutes % 60;
 
       if (distance < 0) {
         clearInterval(interval);
@@ -54,7 +60,6 @@ export default function QuestionTOCountdown({ handleSubmit }) {
       {isLoadingFinish ? (
         <p className="timer">
           {"Waktu tersisa: "}{" "}
-          {/* {timerHours < 10 ? "0" + String(timerHours) : timerHours} :{" "} */}
           {timerMinutes < 10 ? "0" + String(timerMinutes) : timerMinutes}{" "}
           {" : "}
           {timerSeconds < 10 ? "0" + String(timerSeconds) : timerSeconds}{" "}

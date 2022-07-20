@@ -1,0 +1,48 @@
+@charset "UTF-8";
+.list-card-component {
+  margin-bottom: 1rem;
+}
+
+.form-container-todo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.8rem;
+  font-size: 2rem;
+}
+.form-container-todo .input-todo {
+  -webkit-appearance: none;
+  background-color: #fafafa;
+  background-color: #e9f4fd;
+  border: 1px solid #cacece;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+  padding: 1.2rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+  position: relative;
+}
+.form-container-todo .input-todo:active, .form-container-todo .input-todo:checked:active {
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+.form-container-todo .input-todo:checked {
+  background-color: #e9f4fd;
+  border: 1px solid #adb8c0;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+  color: #99a1a7;
+}
+.form-container-todo .input-todo:checked:after {
+  content: "✔";
+  font-weight: 900;
+  color: red;
+  font-size: 14px;
+  margin: 0 auto;
+  position: absolute;
+  left: 3px;
+  display: block;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}/*# sourceMappingURL=ListCard.css.map */

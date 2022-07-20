@@ -46,7 +46,7 @@ const Navbar = () => {
                 className={`main-nav-link ${
                   pathName === `/rapor` ? "active" : null
                 } ${pathName === `/rapor/soalharian` ? "active" : null} ${
-                  pathName === `/rapor/soaltryout` ? "active" : null
+                  pathName === `/rapor/tryout` ? "active" : null
                 }`}
               >
                 {" "}
@@ -57,6 +57,10 @@ const Navbar = () => {
               <span
                 className={`main-nav-link ${
                   pathName === "/tasks" ? "active" : null
+                } ${pathName === "/tasks/ppu" ? "active" : null} ${
+                  pathName === "/tasks/pu" ? "active" : null
+                } ${pathName === "/tasks/pbm" ? "active" : null} ${
+                  pathName === "/tasks/pk" ? "active" : null
                 }`}
               >
                 Progress Belajar
