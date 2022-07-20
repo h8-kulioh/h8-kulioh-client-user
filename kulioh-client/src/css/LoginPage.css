@@ -52,30 +52,29 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 2.5rem;
+  gap: 1.3rem;
 }
 .login-container > .form-container > .form-component > .form-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 100 rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.5rem;
   width: 100%;
 }
 .login-container > .form-container > .form-component > .form-box > label {
-  font-size: 2.4rem;
+  font-size: 1.7rem;
   color: #2bcbef;
-  width: 25%;
 }
 .login-container > .form-container > .form-component > .form-box > input {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   padding: 1.6rem;
   border-radius: 1.2rem;
   border: none;
   border: 1px solid transparent;
-  width: 75%;
 }
 .login-container > .form-container > .form-component > .form-box > input:focus {
   outline: none;
@@ -84,7 +83,7 @@
 .login-container > .form-container .text-after-submit {
   color: #fff;
   font-size: 1.7rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
   display: inline-block;
 }
 .login-container > .form-container .text-after-submit .link-clear {
@@ -106,6 +105,7 @@
   font-size: 1.5rem;
   cursor: pointer;
   text-align: center;
+  margin-top: 1rem;
 }
 .login-container > .form-container .btn:hover {
   border: 2px solid aqua;

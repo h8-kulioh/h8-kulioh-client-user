@@ -1,3 +1,18 @@
+.outer-main {
+  min-height: 85vh;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .main-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -15,4 +30,5 @@
           box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
   border: 1px solid #aacee9;
   border-radius: 1.2rem;
+  width: 80%;
 }/*# sourceMappingURL=HomePage.css.map */
