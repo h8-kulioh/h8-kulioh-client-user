@@ -5,6 +5,7 @@ import "../../css/QuestionContainer.css";
 import Latex from "react-latex";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import SVG from "../../components/ReusableComponents/SVG";
 import { useDispatch, useSelector } from "react-redux";
 import * as actionCreator from "../../store/actions/actionCreator";
 const url = "http://localhost:3001";
@@ -207,7 +208,6 @@ const RaporTryout = () => {
             ) : null}
           </>
         </div>
-        ;
       </div>
     </>
   );

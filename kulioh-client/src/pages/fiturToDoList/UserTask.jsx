@@ -84,18 +84,20 @@ export default function UserTask() {
     <>
       <Navbar />
       <div className="main-container">
-        <h2 className="pelajaran">{longName(subject)}</h2>
-        <div className="card-component-container">
-          {bab.map((x, num) => {
-            return (
-              <CardComponent
-                key={x.id}
-                number={num + 1}
-                babName={x.name}
-                listSub={tasks}
-              />
-            );
-          })}
+        <div className="outer-todo-list">
+          <h2 className="pelajaran">{longName(subject)}</h2>
+          <div className="card-component-container">
+            {bab.map((x, idx) => {
+              return (
+                <CardComponent
+                  key={x.id}
+                  idx={idx}
+                  babName={x.name}
+                  listSub={tasks}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </>

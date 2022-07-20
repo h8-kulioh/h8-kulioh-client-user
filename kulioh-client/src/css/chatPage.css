@@ -147,4 +147,12 @@
 }
 .chat-container .button-toggle button:hover, .chat-container .button-toggle button.active {
   background-color: #2bcbef;
+}
+.chat-container .select-toggle > select {
+  background-color: #fff;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.7rem;
+  font-size: 1.6rem;
+  border-right: 16px solid transparent;
 }/*# sourceMappingURL=ChatPage.css.map */

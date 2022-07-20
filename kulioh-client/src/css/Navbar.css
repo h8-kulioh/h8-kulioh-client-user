@@ -1,3 +1,9 @@
+.logo {
+  width: 20rem;
+  margin-top: 1.5rem;
+  margin-left: -6.5rem;
+}
+
 .header {
   display: -webkit-box;
   display: -ms-flexbox;
