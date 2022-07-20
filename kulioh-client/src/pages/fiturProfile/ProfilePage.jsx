@@ -7,6 +7,7 @@ import { showError, showSuccess } from "../../helpers/swal";
 import { useNavigate } from "react-router-dom";
 import "../../css/ProfilePage.css";
 import axios from "axios";
+import logo from "../../assets/logo.png";
 
 const ProfilePage = () => {
   let navigate = useNavigate();
@@ -215,33 +216,38 @@ const ProfilePage = () => {
       {isLoadingFinish ? (
         <div className="profile-container">
           <div className="form-container">
-            <h1>Edit Profil</h1>
             <form onSubmit={submitHandler} className="form-component">
-              <input
-                type="text"
-                placeholder={adminObj.name}
-                onChange={(e) =>
-                  setAdminObj({ ...adminObj, name: e.target.value })
-                }
-              />
+              <div className="form-box">
+                <label htmlFor="password">Name</label>
+                <input
+                  type="text"
+                  placeholder={adminObj.name}
+                  onChange={(e) =>
+                    setAdminObj({ ...adminObj, name: e.target.value })
+                  }
+                />
+              </div>
 
-              <input
-                type="text"
-                id="universities"
-                list="ChooseUniversities"
-                autoComplete="off"
-                onChange={(e) => chooseUniv1(e)}
-                onClick={clear}
-                onFocus={clear}
-                placeholder={`${adminObj.univ1Name} - ${adminObj.major1Name}`}
-              />
-              <datalist id="ChooseUniversities">
-                {universities.map((el) => {
-                  return (
-                    <option data-value={el.id} key={el.id} value={el.name} />
-                  );
-                })}
-              </datalist>
+              <div className="form-box">
+                <label htmlFor="password">Name</label>
+                <input
+                  type="text"
+                  id="universities"
+                  list="ChooseUniversities"
+                  autoComplete="off"
+                  onChange={(e) => chooseUniv1(e)}
+                  onClick={clear}
+                  onFocus={clear}
+                  placeholder={`${adminObj.univ1Name} - ${adminObj.major1Name}`}
+                />
+                <datalist id="ChooseUniversities">
+                  {universities.map((el) => {
+                    return (
+                      <option data-value={el.id} key={el.id} value={el.name} />
+                    );
+                  })}
+                </datalist>
+              </div>
 
               {isAlreadyChooseUniv1 ? (
                 <>
@@ -316,7 +322,7 @@ const ProfilePage = () => {
               ) : null}
 
               <button className="btn" type="submit">
-                Edit
+                Edit Profil
               </button>
             </form>
           </div>
