@@ -1,11 +1,12 @@
 import React from "react";
 import Navbar from "../../components/ReusableComponents/Navbar";
 import "../../css/HomePage.css";
-import Latex from "react-latex";
 import "../../css/QuestionContainer.css";
+import Latex from "react-latex";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import * as actionCreator from "../../store/actions/actionCreator";
 const url = "http://localhost:3001";
 const RaporTryout = () => {
   let dispatch = useDispatch();
@@ -16,15 +17,17 @@ const RaporTryout = () => {
   const [userAnswers, setUserAnswer] = useState([]);
   const [keyAnswer, setKeyAnswer] = useState();
   const [date, setDate] = useState([]);
-  let getYear;
-  let getMonth;
-  let getDay;
+  const [role, setRole] = useState("");
+  const [video, setVideo] = useState("");
+
+  console.log(userAnswers);
+  // console.log(keyAnswer);
 
   const movePage = (e, page) => {
     e.preventDefault();
     setPageNum(page);
   };
-  const getAnswersFromDB = async () => {
+  const getAnswersFromDB = async (theRole) => {
     try {
       const { data } = await axios.get(
         `http://localhost:3001/users/tryOutAllAnswer`,
@@ -34,32 +37,49 @@ const RaporTryout = () => {
           },
         }
       );
-      // console.log(data);
-      // const fiteredData = data.filter(el => el.Question.subject === subject)
-      console.log(data);
       setUserAnswer(data);
+
+      if (theRole === "Premium") {
+        console.log("ini premium kan");
+        const response = await axios.get(
+          `http://localhost:3001/videos/all-videos`,
+          {
+            headers: {
+              access_token: localStorage.getItem("accessToken"),
+            },
+          }
+        );
+        const videoId = response.data.filter(
+          (el) => el.id === data[0].Question.id
+        );
+        // console.log(videoId[0].videoLink);
+        setVideo(videoId[0].videoLink);
+      }
+
       const kunjab = data[
         pageNum
       ].QuestionWeeklyTest.QuestionKeyWeeklyTests.filter(
         (el) => el.correct === true
       );
       setKeyAnswer(kunjab);
-      console.log(kunjab, `kunjab`);
+      // console.log(kunjab, `kunjab`);
       setIsLoadingFinish(true);
     } catch (err) {
       console.log(err);
     }
   };
 
-  useEffect(() => {
-    getAnswersFromDB();
-  }, [pageNum]);
+  const paymentHandler = () => {
+    console.log("INI MASUK KE MIDTRANS DONGGG");
+  };
 
-  getYear = new Date().getFullYear(); //2022
-  getMonth = new Intl.DateTimeFormat("id-ID", { month: "long" }).format(
-    new Date()
-  );
-  getDay = new Date().getDate();
+  useEffect(() => {
+    dispatch(actionCreator.getUserData()).then((data) => {
+      setRole(data.role);
+      let theRole = data.role;
+      getAnswersFromDB(theRole);
+    });
+  }, [pageNum]);
 
   return (
     <>
@@ -85,7 +105,11 @@ const RaporTryout = () => {
                           onClick={(e) => movePage(e, idx)}
                           className={`btn-pagination ${
                             pageNum === idx ? "active" : ""
-                          } ${answers[idx] !== "" ? "answered" : ""} `}
+                          } ${
+                            q.QuestionKeyWeeklyTest.correct
+                              ? "correct"
+                              : "wrong"
+                          } `}
                         >
                           {idx + 1}
                         </button>
@@ -103,32 +127,82 @@ const RaporTryout = () => {
                       return <Latex key={idx}>{so}</Latex>;
                     })}
 
-                  <form className="form-container">
+                  <form className="form-container-rapor">
                     {userAnswers[
                       pageNum
                     ].QuestionWeeklyTest.QuestionKeyWeeklyTests.map((el) => (
                       <label
                         key={el.id}
-                        className={answers.includes(el.id) ? "active" : null}
+                        className={`${
+                          userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
+                          userAnswers[pageNum].QuestionKeyWeeklyTest.answer ===
+                            el.answer
+                            ? "correct"
+                            : ""
+                        } ${
+                          !userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
+                          keyAnswer[0].answer === el.answer
+                            ? "theCorrect"
+                            : ""
+                        } ${
+                          !userAnswers[pageNum].QuestionKeyWeeklyTest.correct &&
+                          userAnswers[pageNum].QuestionKeyWeeklyTest.answer ===
+                            el.answer
+                            ? "wrong"
+                            : ""
+                        } `}
                       >
                         <input
                           type="radio"
                           name="radio"
                           checked={answers.includes(el.id)}
                           //   onChange={(e) => saveAnswer(e, el.id)}
+                          className={`input-pembahasan ${
+                            userAnswers[pageNum].QuestionKeyWeeklyTest
+                              .correct &&
+                            userAnswers[pageNum].QuestionKeyWeeklyTest
+                              .answer === el.answer
+                              ? "correct"
+                              : ""
+                          } ${
+                            !userAnswers[pageNum].QuestionKeyWeeklyTest
+                              .correct && keyAnswer[0].answer === el.answer
+                              ? "theCorrect"
+                              : ""
+                          } ${
+                            !userAnswers[pageNum].QuestionKeyWeeklyTest
+                              .correct &&
+                            userAnswers[pageNum].QuestionKeyWeeklyTest
+                              .answer === el.answer
+                              ? "wrong"
+                              : ""
+                          } `}
                         />
                         <Latex>{el.answer}</Latex>
                       </label>
                     ))}
                   </form>
                 </div>
-                <div>INI PEMBAHASAN</div>
-                <h3>Jabawan User: </h3>
-                <Latex>
-                  {userAnswers[pageNum].QuestionKeyWeeklyTest.answer}
-                </Latex>
-                <h3>Jabawan Benar: </h3>
-                <Latex>{keyAnswer[0].answer}</Latex>
+                <div className="rapor-video-pembahasan">Video Pembahasan</div>
+                {role === "Premium" ? (
+                  <iframe
+                    className="video"
+                    width="560"
+                    height="315"
+                    src={video}
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                ) : (
+                  <div className="premium-button-container">
+                    <h2>Ingin Mengakses Video Pembahasan?</h2>
+                    <button onClick={() => paymentHandler()}>
+                      Berlangganan
+                    </button>
+                  </div>
+                )}
               </div>
             ) : null}
           </>
