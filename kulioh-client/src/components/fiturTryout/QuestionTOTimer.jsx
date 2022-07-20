@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../css/QuestionTOTimer.css";
-
+import axios from "axios";
 export default function QuestionTOTimer({ handleSubmit }) {
   const [timerHours, setTimerHours] = useState();
   const [timerMinutes, setTimerMinutes] = useState();
@@ -8,21 +8,52 @@ export default function QuestionTOTimer({ handleSubmit }) {
   const [after, setAfter] = useState();
   const [isLoadingFinish, setIsLoadingFinish] = useState(false);
   const [clicked, setClicked] = useState(false);
-
+  // const [startTime, setStartTime] = useState(null)
   let interval;
   useEffect(() => {
-    startTimer();
-  }, [interval]);
+    getStartTime().then((data) => {
+      startTimer(data);
 
-  const startTimer = () => {
+    })
+  }, [interval]);
+  const url = "http://localhost:3001";
+
+  const getStartTime = async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const thisday = new Date();
+        let year = thisday.getFullYear();
+        let month = thisday.getMonth() + 1;
+        if (month < 10) {
+          month = `0` + month.toLocaleString();
+        }
+        let date = thisday.getDate();
+        // const params = year.toLocaleString() + month + date.toLocaleString()
+        const response = await axios.get(`${url}/users/tryOut/${year}${month}${date}`, {
+          headers: {
+            access_token: localStorage.getItem("accessToken")
+          }
+        })
+        console.log(response.data.tryoutstart, `tryoutstart dari db`);
+        // setStartTime(response.data.tryoutstart)
+        resolve(response.data.tryoutstart)
+      }
+      catch (err) {
+        reject(err);
+      }
+    })
+  }
+
+  const startTimer = (time) => {
     let finish;
 
     finish = new Date();
     let today = new Date();
 
-    const startTime = localStorage.getItem("startTime");
-    if (startTime) {
-      today = new Date(Number(startTime));
+    // const startTime = localStorage.getItem("startTime");
+    console.log(time, `ini startTime`);
+    if (time) {
+      today = new Date(Number(time));
       console.log(today, "INI MULAI");
     }
 
